@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { Logo } from '@/components/ui/Logo';
 import { Container } from '@/components/ui/Container';
 import { NAV_LINKS, SITE } from '@/lib/site';
+import { getSiteSettings } from '@/lib/queries';
 
 const exploreLinks = NAV_LINKS.filter((l) =>
   ['/programs', '/schedule', '/about', '/coaches'].includes(l.href),
@@ -10,11 +11,28 @@ const moreLinks = NAV_LINKS.filter((l) =>
   ['/testimonials', '/gallery', '/faq', '/contact'].includes(l.href),
 );
 
-export function Footer() {
-  const year = 2026;
+const defaultAddress = `${SITE.address.street}, ${SITE.address.city}, ${SITE.address.region} ${SITE.address.postal}`;
+
+export async function Footer() {
+  // Editable via the Site Settings dashboard module; fall back to SITE config.
+  const settings = await getSiteSettings();
+
+  const email = settings?.email || SITE.email;
+  const phone = settings?.phone || SITE.phone;
+  const phoneHref = phone ? `tel:${phone.replace(/[^0-9+]/g, '')}` : SITE.phoneHref;
+  const address = settings?.address || defaultAddress;
+  const tagline = settings?.footerText || 'No ego. No politics. Just soccer.';
+
+  const social = (
+    [
+      ['Instagram', settings?.instagram || SITE.social.instagram],
+      ['Facebook', settings?.facebook || SITE.social.facebook],
+      ['TikTok', settings?.tiktok || SITE.social.tiktok],
+    ] as const
+  ).filter(([, url]) => Boolean(url)) as [string, string][];
+
   return (
     <footer className="relative overflow-hidden bg-navy text-white/80">
-      {/* Soft brand glow */}
       <div
         aria-hidden
         className="pointer-events-none absolute -top-24 right-[-10%] h-80 w-80 rounded-full bg-brand/30 blur-[120px]"
@@ -24,11 +42,11 @@ export function Footer() {
           <div>
             <Logo dark />
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-white/65">
-              Private & small-group soccer and goalkeeper training across Halifax & Nova Scotia.
-              No ego. No politics. Just soccer.
+              Private &amp; small-group soccer and goalkeeper training across Halifax &amp; Nova
+              Scotia. {tagline}
             </p>
             <div className="mt-6 flex gap-3">
-              {Object.entries(SITE.social).map(([name, url]) => (
+              {social.map(([name, url]) => (
                 <a
                   key={name}
                   href={url}
@@ -51,28 +69,28 @@ export function Footer() {
               Get in touch
             </h2>
             <ul className="mt-5 space-y-3 text-sm">
-              <li>
-                <a href={`mailto:${SITE.email}`} className="transition-colors hover:text-gold">
-                  {SITE.email}
-                </a>
-              </li>
-              <li>
-                <a href={SITE.phoneHref} className="transition-colors hover:text-gold">
-                  {SITE.phone}
-                </a>
-              </li>
-              <li className="text-white/65">
-                {SITE.address.street}
-                <br />
-                {SITE.address.city}, {SITE.address.region} {SITE.address.postal}
-              </li>
+              {email ? (
+                <li>
+                  <a href={`mailto:${email}`} className="transition-colors hover:text-gold">
+                    {email}
+                  </a>
+                </li>
+              ) : null}
+              {phone ? (
+                <li>
+                  <a href={phoneHref} className="transition-colors hover:text-gold">
+                    {phone}
+                  </a>
+                </li>
+              ) : null}
+              {address ? <li className="text-white/65">{address}</li> : null}
             </ul>
           </div>
         </div>
 
         <div className="mt-14 flex flex-col gap-3 border-t border-white/10 pt-7 text-xs text-white/50 sm:flex-row sm:items-center sm:justify-between">
           <p>
-            © {year} {SITE.legalName}. All rights reserved.
+            © {2026} {SITE.legalName}. All rights reserved.
           </p>
           <p>{SITE.registry}</p>
         </div>

@@ -21,6 +21,28 @@ export function FormError({ message }: { message?: string }) {
   );
 }
 
+export function FormSuccess({ message }: { message?: string }) {
+  if (!message) return null;
+  return (
+    <p role="status" className="rounded-xl bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-700">
+      {message}
+    </p>
+  );
+}
+
+export function SaveButton({ label = 'Save changes' }: { label?: string }) {
+  const { pending } = useFormStatus();
+  return (
+    <button
+      type="submit"
+      disabled={pending}
+      className="inline-flex h-11 items-center justify-center rounded-full bg-gold px-6 font-heading font-semibold text-navy transition-all duration-300 ease-out-quint hover:bg-gold-soft disabled:opacity-60"
+    >
+      {pending ? 'Saving…' : label}
+    </button>
+  );
+}
+
 export function ActiveCheckbox({ defaultChecked }: { defaultChecked: boolean }) {
   return (
     <label className="flex items-center gap-3">

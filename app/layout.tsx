@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { fontVariables } from '@/lib/fonts';
 import { SiteChrome } from '@/components/layout/SiteChrome';
+import { Footer } from '@/components/layout/Footer';
 import { SITE } from '@/lib/site';
 import './globals.css';
 
@@ -47,7 +48,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={fontVariables}>
       <body>
         <script dangerouslySetInnerHTML={{ __html: revealReadyScript }} />
-        <SiteChrome>{children}</SiteChrome>
+        <SiteChrome footer={<Footer />}>{children}</SiteChrome>
       </body>
     </html>
   );

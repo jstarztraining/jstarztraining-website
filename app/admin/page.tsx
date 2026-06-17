@@ -11,8 +11,8 @@ const MODULES = [
   { key: 'coaches', title: 'Coaches & Staff', desc: 'Names, roles, bios, photos, ordering.', href: '/admin/coaches' },
   { key: 'testimonials', title: 'Testimonials', desc: 'Quotes from players & parents.', href: '/admin/testimonials' },
   { key: 'faq', title: 'FAQ', desc: 'Questions & answers.', href: '/admin/faq' },
-  { key: 'settings', title: 'Site Settings', desc: 'Contact info, hours, map, social links, footer.', href: null },
-  { key: 'hero', title: 'Hero & Banner', desc: 'Homepage hero copy/CTA and the promo banner.', href: null },
+  { key: 'settings', title: 'Site Settings', desc: 'Contact info, hours, map, social links, footer.', href: '/admin/settings' },
+  { key: 'hero', title: 'Hero & Banner', desc: 'Homepage hero copy/CTA and the promo banner.', href: '/admin/hero' },
 ] as const;
 
 export default async function AdminHome() {

@@ -2,4 +2,5 @@
 export type FormState = {
   fieldErrors?: Record<string, string>;
   error?: string;
+  success?: string;
 };
