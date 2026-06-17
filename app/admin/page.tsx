@@ -8,9 +8,9 @@ const MODULES = [
   { key: 'content', title: 'Site Content', desc: 'Per-page text & images across the 9 pages, plus the gallery.', href: null },
   { key: 'programs', title: 'Programs', desc: 'Add, edit, reorder, and toggle programs. Set price text & Shopify links.', href: '/admin/programs' },
   { key: 'schedule', title: 'Schedule', desc: 'Sessions for the calendar & list board. Informational only.', href: null },
-  { key: 'coaches', title: 'Coaches & Staff', desc: 'Names, roles, bios, photos, ordering.', href: null },
-  { key: 'testimonials', title: 'Testimonials', desc: 'Quotes from players & parents.', href: null },
-  { key: 'faq', title: 'FAQ', desc: 'Questions & answers.', href: null },
+  { key: 'coaches', title: 'Coaches & Staff', desc: 'Names, roles, bios, photos, ordering.', href: '/admin/coaches' },
+  { key: 'testimonials', title: 'Testimonials', desc: 'Quotes from players & parents.', href: '/admin/testimonials' },
+  { key: 'faq', title: 'FAQ', desc: 'Questions & answers.', href: '/admin/faq' },
   { key: 'settings', title: 'Site Settings', desc: 'Contact info, hours, map, social links, footer.', href: null },
   { key: 'hero', title: 'Hero & Banner', desc: 'Homepage hero copy/CTA and the promo banner.', href: null },
 ] as const;
