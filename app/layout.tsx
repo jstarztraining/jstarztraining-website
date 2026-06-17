@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { fontVariables } from '@/lib/fonts';
-import { Navbar } from '@/components/layout/Navbar';
-import { Footer } from '@/components/layout/Footer';
+import { SiteChrome } from '@/components/layout/SiteChrome';
 import { SITE } from '@/lib/site';
 import './globals.css';
 
@@ -48,15 +47,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={fontVariables}>
       <body>
         <script dangerouslySetInnerHTML={{ __html: revealReadyScript }} />
-        <a
-          href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-toast focus:rounded-full focus:bg-gold focus:px-5 focus:py-2 focus:font-heading focus:font-semibold focus:text-navy"
-        >
-          Skip to content
-        </a>
-        <Navbar />
-        <main id="main">{children}</main>
-        <Footer />
+        <SiteChrome>{children}</SiteChrome>
       </body>
     </html>
   );
