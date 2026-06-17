@@ -1,0 +1,159 @@
+// JStarz Training — data model (§7 of the build brief, LOCKED).
+// 11 tables + 2 enums. createdAt/updatedAt on every table. Singletons keyed by a
+// fixed string id ("singleton").
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  // Pooled connection for app runtime (Supabase transaction pooler on Vercel);
+  // can equal the direct URL during local dev.
+  url       = env("DATABASE_URL")
+  // Direct connection for migrations (Prisma requires a non-pooled URL here).
+  directUrl = env("DIRECT_URL")
+}
+
+enum Role {
+  Admin
+  Editor
+}
+
+enum ContentType {
+  text
+  image
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String?
+  passwordHash String
+  role         Role     @default(Editor)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Page {
+  id        String         @id @default(cuid())
+  slug      String         @unique
+  title     String
+  blocks    ContentBlock[]
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+}
+
+model ContentBlock {
+  id        String      @id @default(cuid())
+  page      Page        @relation(fields: [pageId], references: [id], onDelete: Cascade)
+  pageId    String
+  key       String
+  type      ContentType @default(text)
+  value     String      @db.Text
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+
+  @@unique([pageId, key])
+}
+
+model MediaAsset {
+  id        String   @id @default(cuid())
+  url       String
+  alt       String   @default("")
+  type      String   @default("gallery")
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Program {
+  id           String    @id @default(cuid())
+  title        String
+  description  String    @db.Text
+  priceDisplay String
+  imageUrl     String?
+  shopifyUrl   String
+  isActive     Boolean   @default(true)
+  sortOrder    Int       @default(0)
+  sessions     Session[]
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model Session {
+  id        String    @id @default(cuid())
+  title     String
+  program   Program?  @relation(fields: [programId], references: [id], onDelete: SetNull)
+  programId String?
+  startsAt  DateTime
+  endsAt    DateTime?
+  allDay    Boolean   @default(false)
+  location  String?
+  notes     String?   @db.Text
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Coach {
+  id        String   @id @default(cuid())
+  name      String
+  role      String
+  bio       String   @db.Text
+  imageUrl  String?
+  isActive  Boolean  @default(true)
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Testimonial {
+  id        String   @id @default(cuid())
+  name      String
+  quote     String   @db.Text
+  isActive  Boolean  @default(true)
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model FaqItem {
+  id        String   @id @default(cuid())
+  question  String
+  answer    String   @db.Text
+  isActive  Boolean  @default(true)
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Singleton (§6F) — one row, id = "singleton".
+model SiteSettings {
+  id         String   @id @default("singleton")
+  email      String   @default("")
+  phone      String   @default("")
+  address    String   @default("")
+  mapEmbed   String?  @db.Text
+  hours      String?  @db.Text
+  instagram  String?
+  facebook   String?
+  tiktok     String?
+  footerText String?  @db.Text
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+// Singleton (§6G) — hero + promo banner, id = "singleton".
+model HomeHero {
+  id            String   @id @default("singleton")
+  headline      String   @default("")
+  subhead       String   @default("")
+  ctaLabel      String   @default("")
+  ctaUrl        String   @default("")
+  imageUrl      String?
+  bannerMessage String?
+  bannerUrl     String?
+  bannerEnabled Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
