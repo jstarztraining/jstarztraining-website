@@ -1,0 +1,135 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* next/font injects the real (hashed) family names onto these variables.
+       These literal fallbacks only apply before the font CSS loads. */
+    --font-display: 'Archivo', system-ui, sans-serif;
+    --font-body: 'Hanken Grotesk', system-ui, sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-white font-sans text-ink antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Headings lean on the display/heading stacks; set per-component. */
+  h1, h2, h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background-color: theme('colors.gold.DEFAULT');
+    color: theme('colors.navy');
+  }
+
+  /* Visible, on-brand focus ring for keyboard users. */
+  :focus-visible {
+    outline: 2px solid theme('colors.gold.DEFAULT');
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+@layer components {
+  /* ----- Scroll-reveal motion -------------------------------------------------
+     Content is visible by default (SSR / no-JS / headless renderers all show it).
+     A tiny pre-paint inline script in the layout adds `.reveal-ready` to <html>
+     ONLY when JS runs and reduced-motion is not requested — so revealing never
+     hides content that the observer might fail to un-hide. The observer reports
+     initial intersection on its first callback, so above-the-fold items reveal
+     immediately. -------------------------------------------------------------- */
+  .reveal-ready [data-reveal] {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+      opacity 0.7s theme('transitionTimingFunction.out-quint'),
+      transform 0.7s theme('transitionTimingFunction.out-quint');
+    transition-delay: var(--reveal-delay, 0ms);
+    will-change: opacity, transform;
+  }
+
+  .reveal-ready [data-reveal='left'] {
+    transform: translateX(-32px);
+  }
+  .reveal-ready [data-reveal='right'] {
+    transform: translateX(32px);
+  }
+  .reveal-ready [data-reveal='scale'] {
+    transform: scale(0.94);
+  }
+
+  .reveal-ready [data-reveal].is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@layer utilities {
+  .container-px {
+    @apply mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-12;
+  }
+
+  /* Animated gold underline swipe under the hero accent word. */
+  .accent-underline {
+    position: relative;
+    white-space: nowrap;
+  }
+  .accent-underline::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0.06em;
+    height: 0.1em;
+    width: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, theme('colors.gold.deep'), theme('colors.gold.DEFAULT'), theme('colors.gold.soft'));
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: theme('animation.underline-swipe');
+  }
+
+  /* Edge fade for marquees. */
+  .mask-x-fade {
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+}
+
+/* ----- Reduced-motion: collapse all motion to instant/static ----------------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .accent-underline::after {
+    animation: none;
+    transform: scaleX(1);
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
