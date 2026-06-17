@@ -1,17 +1,18 @@
+import Link from 'next/link';
 import { auth } from '@/auth';
 import { prisma } from '@/lib/prisma';
 
 export const dynamic = 'force-dynamic'; // admin always reflects current DB state
 
 const MODULES = [
-  { key: 'content', title: 'Site Content', desc: 'Per-page text & images across the 9 pages, plus the gallery.' },
-  { key: 'programs', title: 'Programs', desc: 'Add, edit, reorder, and toggle programs. Set price text & Shopify links.' },
-  { key: 'schedule', title: 'Schedule', desc: 'Sessions for the calendar & list board. Informational only.' },
-  { key: 'coaches', title: 'Coaches & Staff', desc: 'Names, roles, bios, photos, ordering.' },
-  { key: 'testimonials', title: 'Testimonials', desc: 'Quotes from players & parents.' },
-  { key: 'faq', title: 'FAQ', desc: 'Questions & answers.' },
-  { key: 'settings', title: 'Site Settings', desc: 'Contact info, hours, map, social links, footer.' },
-  { key: 'hero', title: 'Hero & Banner', desc: 'Homepage hero copy/CTA and the promo banner.' },
+  { key: 'content', title: 'Site Content', desc: 'Per-page text & images across the 9 pages, plus the gallery.', href: null },
+  { key: 'programs', title: 'Programs', desc: 'Add, edit, reorder, and toggle programs. Set price text & Shopify links.', href: '/admin/programs' },
+  { key: 'schedule', title: 'Schedule', desc: 'Sessions for the calendar & list board. Informational only.', href: null },
+  { key: 'coaches', title: 'Coaches & Staff', desc: 'Names, roles, bios, photos, ordering.', href: null },
+  { key: 'testimonials', title: 'Testimonials', desc: 'Quotes from players & parents.', href: null },
+  { key: 'faq', title: 'FAQ', desc: 'Questions & answers.', href: null },
+  { key: 'settings', title: 'Site Settings', desc: 'Contact info, hours, map, social links, footer.', href: null },
+  { key: 'hero', title: 'Hero & Banner', desc: 'Homepage hero copy/CTA and the promo banner.', href: null },
 ] as const;
 
 export default async function AdminHome() {
@@ -62,20 +63,41 @@ export default async function AdminHome() {
         Modules
       </h2>
       <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {MODULES.map((m) => (
-          <div
-            key={m.key}
-            className="flex flex-col rounded-2xl border border-navy/10 bg-white p-6 shadow-card"
-          >
-            <div className="flex items-center justify-between">
-              <h3 className="font-heading text-lg font-bold text-navy">{m.title}</h3>
-              <span className="rounded-full bg-mist px-2.5 py-1 text-[0.65rem] font-bold uppercase tracking-wide text-ink/50">
-                Soon
-              </span>
+        {MODULES.map((m) => {
+          const inner = (
+            <>
+              <div className="flex items-center justify-between">
+                <h3 className="font-heading text-lg font-bold text-navy">{m.title}</h3>
+                {m.href ? (
+                  <span className="rounded-full bg-brand/10 px-2.5 py-1 text-[0.65rem] font-bold uppercase tracking-wide text-brand">
+                    Open →
+                  </span>
+                ) : (
+                  <span className="rounded-full bg-mist px-2.5 py-1 text-[0.65rem] font-bold uppercase tracking-wide text-ink/50">
+                    Soon
+                  </span>
+                )}
+              </div>
+              <p className="mt-2 text-sm leading-relaxed text-ink/65">{m.desc}</p>
+            </>
+          );
+          return m.href ? (
+            <Link
+              key={m.key}
+              href={m.href}
+              className="flex flex-col rounded-2xl border border-navy/10 bg-white p-6 shadow-card transition-all duration-300 hover:-translate-y-0.5 hover:border-brand/40 hover:shadow-card-hover"
+            >
+              {inner}
+            </Link>
+          ) : (
+            <div
+              key={m.key}
+              className="flex flex-col rounded-2xl border border-navy/10 bg-white p-6 shadow-card"
+            >
+              {inner}
             </div>
-            <p className="mt-2 text-sm leading-relaxed text-ink/65">{m.desc}</p>
-          </div>
-        ))}
+          );
+        })}
 
         {isAdmin ? (
           <div className="flex flex-col rounded-2xl border border-gold/40 bg-white p-6 shadow-card">
