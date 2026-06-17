@@ -1,3 +1,4 @@
+import type { HomeHero } from '@prisma/client';
 import { Container } from '@/components/ui/Container';
 import { Button } from '@/components/ui/Button';
 import { SoccerBall } from '@/components/ui/SoccerBall';
@@ -5,9 +6,36 @@ import { CountUp } from '@/components/motion/CountUp';
 import { HERO_STATS } from '@/lib/content';
 import { SITE } from '@/lib/site';
 
-export function Hero() {
+const FALLBACK = {
+  headline: 'Elevate Your Game.',
+  subhead:
+    'One-on-one and small-group training (4–6 max) for players and goalkeepers of every age and background. More touches. Real coaching. A community that feels like family.',
+  ctaLabel: 'Book a Session',
+  ctaUrl: SITE.shopifyStoreUrl,
+};
+
+// Split a headline so the final word renders as the gold accent (with underline).
+function splitAccent(headline: string) {
+  const trimmed = headline.trim();
+  const idx = trimmed.lastIndexOf(' ');
+  if (idx === -1) return { lead: '', accent: trimmed };
+  return { lead: trimmed.slice(0, idx), accent: trimmed.slice(idx + 1) };
+}
+
+export function Hero({ hero }: { hero: HomeHero | null }) {
+  const headline = hero?.headline?.trim() || FALLBACK.headline;
+  const subhead = hero?.subhead?.trim() || FALLBACK.subhead;
+  const ctaLabel = hero?.ctaLabel?.trim() || FALLBACK.ctaLabel;
+  const ctaUrl = hero?.ctaUrl?.trim() || FALLBACK.ctaUrl;
+  const { lead, accent } = splitAccent(headline);
+
   return (
     <section className="relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-navy text-white">
+      {/* Optional promo banner */}
+      {hero?.bannerEnabled && hero.bannerMessage ? (
+        <BannerLink message={hero.bannerMessage} url={hero.bannerUrl} />
+      ) : null}
+
       {/* Base radial gradient: deep blue crown → navy floor */}
       <div
         aria-hidden
@@ -57,18 +85,15 @@ export function Hero() {
           </p>
 
           <h1 className="mt-6 font-display text-[clamp(2.75rem,8.5vw,5.5rem)] font-black leading-[0.95] tracking-tightest text-white">
-            Elevate Your{' '}
-            <span className="accent-underline text-gold">Game.</span>
+            {lead ? <>{lead} </> : null}
+            <span className="accent-underline text-gold">{accent}</span>
           </h1>
 
-          <p className="mt-7 max-w-xl text-lg leading-relaxed text-white/75 sm:text-xl">
-            One-on-one and small-group training (4–6 max) for players and goalkeepers of every
-            age and background. More touches. Real coaching. A community that feels like family.
-          </p>
+          <p className="mt-7 max-w-xl text-lg leading-relaxed text-white/75 sm:text-xl">{subhead}</p>
 
           <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <Button href={SITE.shopifyStoreUrl} size="lg">
-              Book a Session
+            <Button href={ctaUrl} size="lg">
+              {ctaLabel}
               <span aria-hidden className="transition-transform duration-300 ease-out-quint group-hover/btn:translate-x-1">
                 →
               </span>
@@ -106,5 +131,25 @@ export function Hero() {
         </span>
       </div>
     </section>
+  );
+}
+
+function BannerLink({ message, url }: { message: string; url: string | null }) {
+  const content = (
+    <span className="container-px flex items-center justify-center gap-2 py-2.5 text-center text-sm font-medium text-navy">
+      {message}
+      {url ? <span aria-hidden className="font-bold">→</span> : null}
+    </span>
+  );
+  return (
+    <div className="relative z-10 bg-gold">
+      {url ? (
+        <a href={url} target="_blank" rel="noopener noreferrer" className="block hover:bg-gold-soft">
+          {content}
+        </a>
+      ) : (
+        content
+      )}
+    </div>
   );
 }

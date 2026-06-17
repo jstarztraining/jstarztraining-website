@@ -6,6 +6,12 @@ import { FeaturesSection } from '@/components/home/FeaturesSection';
 import { CoachSection } from '@/components/home/CoachSection';
 import { TestimonialsSection } from '@/components/home/TestimonialsSection';
 import { FinalCta } from '@/components/home/FinalCta';
+import {
+  getActivePrograms,
+  getActiveTestimonials,
+  getActiveCoaches,
+  getHomeHero,
+} from '@/lib/queries';
 import { SITE } from '@/lib/site';
 
 // Time-based ISR — public pages re-render ~60s after the dashboard writes (§3).
@@ -32,20 +38,27 @@ const localBusinessJsonLd = {
   sport: 'Soccer',
 };
 
-export default function HomePage() {
+export default async function HomePage() {
+  const [hero, programs, testimonials, coaches] = await Promise.all([
+    getHomeHero(),
+    getActivePrograms(),
+    getActiveTestimonials(),
+    getActiveCoaches(),
+  ]);
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
       />
-      <Hero />
+      <Hero hero={hero} />
       <VenueMarquee />
       <StorySection />
-      <ProgramsPreview />
+      <ProgramsPreview programs={programs} />
       <FeaturesSection />
-      <CoachSection />
-      <TestimonialsSection />
+      <CoachSection coach={coaches[0] ?? null} />
+      <TestimonialsSection testimonials={testimonials} />
       <FinalCta />
     </>
   );

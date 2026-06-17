@@ -1,10 +1,12 @@
 import Image from 'next/image';
+import type { Coach } from '@prisma/client';
 import { Container } from '@/components/ui/Container';
 import { Button } from '@/components/ui/Button';
 import { Reveal } from '@/components/motion/Reveal';
-import { HEAD_COACH } from '@/lib/content';
 
-export function CoachSection() {
+export function CoachSection({ coach }: { coach: Coach | null }) {
+  if (!coach) return null;
+
   return (
     <section className="relative overflow-hidden bg-navy py-24 text-white lg:py-32">
       <div
@@ -13,14 +15,16 @@ export function CoachSection() {
       />
       <Container className="relative grid items-center gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
         <Reveal direction="left" className="relative mx-auto w-full max-w-sm lg:max-w-none">
-          <div className="relative aspect-[4/5] overflow-hidden rounded-[1.75rem] shadow-card-hover">
-            <Image
-              src={HEAD_COACH.imageUrl}
-              alt={HEAD_COACH.imageAlt}
-              fill
-              sizes="(max-width: 1024px) 90vw, 40vw"
-              className="object-cover"
-            />
+          <div className="relative aspect-[4/5] overflow-hidden rounded-[1.75rem] bg-brand-deep shadow-card-hover">
+            {coach.imageUrl ? (
+              <Image
+                src={coach.imageUrl}
+                alt={`${coach.name} — ${coach.role}`}
+                fill
+                sizes="(max-width: 1024px) 90vw, 40vw"
+                className="object-cover"
+              />
+            ) : null}
           </div>
           <div
             aria-hidden
@@ -31,17 +35,17 @@ export function CoachSection() {
         <div>
           <Reveal>
             <p className="font-heading text-sm font-bold uppercase tracking-[0.18em] text-gold-soft">
-              {HEAD_COACH.role}
+              {coach.role}
             </p>
             <h2 className="mt-4 font-display text-[clamp(2rem,4.5vw,3.25rem)] font-black leading-[1.02] tracking-tightest">
-              Meet {HEAD_COACH.name}.
+              Meet {coach.name.split(' ')[0]}.
             </h2>
           </Reveal>
           <Reveal delay={90}>
-            <p className="mt-6 max-w-prose text-lg leading-relaxed text-white/75">{HEAD_COACH.bio}</p>
+            <p className="mt-6 max-w-prose text-lg leading-relaxed text-white/75">{coach.bio}</p>
           </Reveal>
           <Reveal delay={150}>
-            <blockquote className="mt-7 border-l-0 pl-0">
+            <blockquote className="mt-7">
               <p className="font-display text-xl font-extrabold leading-snug tracking-tight text-gold-soft">
                 “Train with purpose. Build confidence. Enjoy the game.”
               </p>
