@@ -5,6 +5,7 @@ import Link from 'next/link';
 import type { Program } from '@prisma/client';
 import { reorderPrograms, toggleProgramActive, deleteProgram } from '@/lib/actions/programs';
 import { cn } from '@/lib/utils';
+import { VisibilityToggle } from '@/components/admin/VisibilityToggle';
 
 export function ProgramsList({ programs }: { programs: Program[] }) {
   const [items, setItems] = useState(programs);
@@ -123,35 +124,8 @@ export function ProgramsList({ programs }: { programs: Program[] }) {
             <p className="text-sm text-ink/55">{program.priceDisplay}</p>
           </div>
 
-          {/* Active toggle — labelled, with a clearer track on the white card */}
-          <div className="flex shrink-0 items-center gap-2.5">
-            <span
-              className={cn(
-                'hidden text-xs font-semibold uppercase tracking-wide sm:inline',
-                program.isActive ? 'text-brand' : 'text-ink/40',
-              )}
-            >
-              {program.isActive ? 'Visible' : 'Hidden'}
-            </span>
-            <button
-              type="button"
-              role="switch"
-              aria-checked={program.isActive}
-              aria-label={program.isActive ? 'Visible on site — click to hide' : 'Hidden — click to show'}
-              onClick={() => onToggle(program)}
-              className={cn(
-                'relative h-6 w-11 rounded-full ring-1 ring-inset transition-colors',
-                program.isActive ? 'bg-brand ring-brand' : 'bg-navy/10 ring-navy/20',
-              )}
-            >
-              <span
-                className={cn(
-                  'absolute top-0.5 h-5 w-5 rounded-full bg-white shadow ring-1 ring-navy/10 transition-transform',
-                  program.isActive ? 'translate-x-[22px]' : 'translate-x-0.5',
-                )}
-              />
-            </button>
-          </div>
+          {/* Active toggle */}
+          <VisibilityToggle active={program.isActive} onToggle={() => onToggle(program)} />
 
           {/* Divider keeps the switch from crowding the actions */}
           <span aria-hidden className="hidden h-7 w-px shrink-0 bg-navy/10 sm:block" />

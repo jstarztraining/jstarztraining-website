@@ -3,6 +3,7 @@
 import { useState, useTransition } from 'react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
+import { VisibilityToggle } from '@/components/admin/VisibilityToggle';
 
 export interface AdminRow {
   id: string;
@@ -140,34 +141,7 @@ export function SortableAdminList({ rows, editHrefBase, newHref, entityLabel, ac
             {row.secondary ? <p className="truncate text-sm text-ink/55">{row.secondary}</p> : null}
           </div>
 
-          <div className="flex shrink-0 items-center gap-2.5">
-            <span
-              className={cn(
-                'hidden text-xs font-semibold uppercase tracking-wide sm:inline',
-                row.isActive ? 'text-brand' : 'text-ink/40',
-              )}
-            >
-              {row.isActive ? 'Visible' : 'Hidden'}
-            </span>
-            <button
-              type="button"
-              role="switch"
-              aria-checked={row.isActive}
-              aria-label={row.isActive ? 'Visible on site — click to hide' : 'Hidden — click to show'}
-              onClick={() => onToggle(row)}
-              className={cn(
-                'relative h-6 w-11 rounded-full ring-1 ring-inset transition-colors',
-                row.isActive ? 'bg-brand ring-brand' : 'bg-navy/10 ring-navy/20',
-              )}
-            >
-              <span
-                className={cn(
-                  'absolute top-0.5 h-5 w-5 rounded-full bg-white shadow ring-1 ring-navy/10 transition-transform',
-                  row.isActive ? 'translate-x-[22px]' : 'translate-x-0.5',
-                )}
-              />
-            </button>
-          </div>
+          <VisibilityToggle active={row.isActive} onToggle={() => onToggle(row)} />
 
           <span aria-hidden className="hidden h-7 w-px shrink-0 bg-navy/10 sm:block" />
 
