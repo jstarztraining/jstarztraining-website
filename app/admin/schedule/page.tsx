@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { prisma } from '@/lib/prisma';
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader';
 import { SessionsList, type SessionRow } from '@/components/admin/sessions/SessionsList';
+import { sortSessionsWeekly, SCHEDULE_TZ } from '@/lib/schedule';
 
 export const dynamic = 'force-dynamic';
 
@@ -9,11 +10,12 @@ const fmt = new Intl.DateTimeFormat('en-CA', {
   weekday: 'short',
   hour: 'numeric',
   minute: '2-digit',
-  timeZone: 'America/Halifax',
+  timeZone: SCHEDULE_TZ,
 });
 
 export default async function AdminSchedulePage() {
-  const sessions = await prisma.session.findMany({ orderBy: { startsAt: 'asc' } });
+  const all = await prisma.session.findMany();
+  const sessions = sortSessionsWeekly(all);
   const rows: SessionRow[] = sessions.map((s) => ({
     id: s.id,
     title: s.title,

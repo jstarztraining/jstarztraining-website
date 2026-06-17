@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/Button';
 import { PageHero } from '@/components/site/PageHero';
 import { Reveal } from '@/components/motion/Reveal';
 import { getSessions } from '@/lib/queries';
+import { groupByWeekday, SCHEDULE_TZ } from '@/lib/schedule';
 import { VENUES } from '@/lib/content';
 import { SITE } from '@/lib/site';
 
@@ -16,9 +17,11 @@ export const metadata: Metadata = {
     'Weekly JStarz training schedule across BMO Soccer Centre, NDO Fitness, Sandy Lake Academy, and outdoor venues in Halifax, NS. Informational — book through our store.',
 };
 
-const TZ = 'America/Halifax';
-const dayFmt = new Intl.DateTimeFormat('en-CA', { weekday: 'long', timeZone: TZ });
-const timeFmt = new Intl.DateTimeFormat('en-CA', { hour: 'numeric', minute: '2-digit', timeZone: TZ });
+const timeFmt = new Intl.DateTimeFormat('en-CA', {
+  hour: 'numeric',
+  minute: '2-digit',
+  timeZone: SCHEDULE_TZ,
+});
 
 function timeRange(s: Session) {
   if (s.allDay) return 'All day';
@@ -29,14 +32,8 @@ function timeRange(s: Session) {
 export default async function SchedulePage() {
   const sessions = await getSessions();
 
-  // Group by weekday (sessions arrive ordered by startsAt).
-  const groups: { day: string; items: Session[] }[] = [];
-  for (const s of sessions) {
-    const day = dayFmt.format(s.startsAt);
-    const last = groups[groups.length - 1];
-    if (last && last.day === day) last.items.push(s);
-    else groups.push({ day, items: [s] });
-  }
+  // Weekly board: group by weekday + time-of-day, regardless of calendar week.
+  const groups = groupByWeekday(sessions);
 
   return (
     <>
