@@ -5,7 +5,8 @@ import { prisma } from '@/lib/prisma';
 export const dynamic = 'force-dynamic'; // admin always reflects current DB state
 
 const MODULES = [
-  { key: 'content', title: 'Site Content', desc: 'Per-page text & images across the 9 pages, plus the gallery.', href: null },
+  { key: 'gallery', title: 'Gallery', desc: 'Upload, reorder, and delete photos for the public gallery.', href: '/admin/gallery' },
+  { key: 'content', title: 'Site Content', desc: 'Per-page text & images across the 9 pages.', href: null },
   { key: 'programs', title: 'Programs', desc: 'Add, edit, reorder, and toggle programs. Set price text & Shopify links.', href: '/admin/programs' },
   { key: 'schedule', title: 'Schedule', desc: 'Sessions for the calendar & list board. Informational only.', href: '/admin/schedule' },
   { key: 'coaches', title: 'Coaches & Staff', desc: 'Names, roles, bios, photos, ordering.', href: '/admin/coaches' },
