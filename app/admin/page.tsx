@@ -7,7 +7,7 @@ export const dynamic = 'force-dynamic'; // admin always reflects current DB stat
 const MODULES = [
   { key: 'content', title: 'Site Content', desc: 'Per-page text & images across the 9 pages, plus the gallery.', href: null },
   { key: 'programs', title: 'Programs', desc: 'Add, edit, reorder, and toggle programs. Set price text & Shopify links.', href: '/admin/programs' },
-  { key: 'schedule', title: 'Schedule', desc: 'Sessions for the calendar & list board. Informational only.', href: null },
+  { key: 'schedule', title: 'Schedule', desc: 'Sessions for the calendar & list board. Informational only.', href: '/admin/schedule' },
   { key: 'coaches', title: 'Coaches & Staff', desc: 'Names, roles, bios, photos, ordering.', href: '/admin/coaches' },
   { key: 'testimonials', title: 'Testimonials', desc: 'Quotes from players & parents.', href: '/admin/testimonials' },
   { key: 'faq', title: 'FAQ', desc: 'Questions & answers.', href: '/admin/faq' },
