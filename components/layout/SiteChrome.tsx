@@ -2,14 +2,22 @@
 
 import { usePathname } from 'next/navigation';
 import type { ReactNode } from 'react';
-import { Navbar } from './Navbar';
+import { Navbar, type NavBanner } from './Navbar';
 
 /**
  * Renders the public navbar + footer around page content, but omits them on the
  * admin dashboard and login. The footer is passed in (it's an async server
  * component that reads Site Settings), so this client component just gates it.
  */
-export function SiteChrome({ children, footer }: { children: ReactNode; footer: ReactNode }) {
+export function SiteChrome({
+  children,
+  footer,
+  banner,
+}: {
+  children: ReactNode;
+  footer: ReactNode;
+  banner?: NavBanner;
+}) {
   const pathname = usePathname();
   const bare = pathname.startsWith('/admin') || pathname.startsWith('/login');
 
@@ -23,7 +31,7 @@ export function SiteChrome({ children, footer }: { children: ReactNode; footer: 
           Skip to content
         </a>
       )}
-      {!bare && <Navbar />}
+      {!bare && <Navbar banner={banner} />}
       <main id="main">{children}</main>
       {!bare && footer}
     </>

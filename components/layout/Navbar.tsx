@@ -8,7 +8,9 @@ import { Button } from '@/components/ui/Button';
 import { NAV_LINKS, SITE } from '@/lib/site';
 import { cn } from '@/lib/utils';
 
-export function Navbar() {
+export type NavBanner = { enabled: boolean; message: string | null; url: string | null };
+
+export function Navbar({ banner }: { banner?: NavBanner }) {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -16,6 +18,9 @@ export function Navbar() {
   // Pages with a dark full-bleed hero let the bar sit transparent at the top.
   const overHero = pathname === '/';
   const transparent = overHero && !scrolled && !menuOpen;
+
+  // Promo banner: homepage only (it's the homepage hero banner, §6G).
+  const showBanner = Boolean(overHero && banner?.enabled && banner.message && !menuOpen);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -38,14 +43,21 @@ export function Navbar() {
   }, [pathname]);
 
   return (
-    <header
-      className={cn(
-        'fixed inset-x-0 top-0 z-nav transition-[background-color,box-shadow,backdrop-filter] duration-500 ease-out-quint',
-        transparent
-          ? 'bg-transparent'
-          : 'bg-navy/85 shadow-[0_8px_30px_-12px_rgba(6,24,63,0.7)] backdrop-blur-xl',
-      )}
-    >
+    <header className="fixed inset-x-0 top-0 z-nav">
+      {/* Promo banner row — opaque gold, sits above the nav row */}
+      {showBanner ? (
+        <BannerRow message={banner!.message!} url={banner!.url} />
+      ) : null}
+
+      {/* Nav row — transparent over the hero, navy blur on scroll */}
+      <div
+        className={cn(
+          'transition-[background-color,box-shadow,backdrop-filter] duration-500 ease-out-quint',
+          transparent
+            ? 'bg-transparent'
+            : 'bg-navy/85 shadow-[0_8px_30px_-12px_rgba(6,24,63,0.7)] backdrop-blur-xl',
+        )}
+      >
       <nav
         aria-label="Primary"
         className={cn(
@@ -118,6 +130,7 @@ export function Navbar() {
           </button>
         </div>
       </nav>
+      </div>
 
       {/* Mobile full-screen menu */}
       <div
@@ -158,5 +171,21 @@ export function Navbar() {
         </nav>
       </div>
     </header>
+  );
+}
+
+function BannerRow({ message, url }: { message: string; url: string | null }) {
+  const content = (
+    <div className="container-px flex items-center justify-center gap-2 py-2 text-center text-sm font-semibold text-navy">
+      <span>{message}</span>
+      {url ? <span aria-hidden>→</span> : null}
+    </div>
+  );
+  return url ? (
+    <a href={url} target="_blank" rel="noopener noreferrer" className="block bg-gold transition-colors hover:bg-gold-soft">
+      {content}
+    </a>
+  ) : (
+    <div className="bg-gold">{content}</div>
   );
 }

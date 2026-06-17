@@ -5,6 +5,7 @@ import { SoccerBall } from '@/components/ui/SoccerBall';
 import { CountUp } from '@/components/motion/CountUp';
 import { HERO_STATS } from '@/lib/content';
 import { SITE } from '@/lib/site';
+import { cn } from '@/lib/utils';
 
 const FALLBACK = {
   headline: 'Elevate Your Game.',
@@ -31,10 +32,8 @@ export function Hero({ hero }: { hero: HomeHero | null }) {
 
   return (
     <section className="relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-navy text-white">
-      {/* Optional promo banner */}
-      {hero?.bannerEnabled && hero.bannerMessage ? (
-        <BannerLink message={hero.bannerMessage} url={hero.bannerUrl} />
-      ) : null}
+      {/* The promo banner lives in the fixed header stack (Navbar), above the
+          nav row — see components/layout/Navbar.tsx. */}
 
       {/* Base radial gradient: deep blue crown → navy floor */}
       <div
@@ -76,7 +75,13 @@ export function Hero({ hero }: { hero: HomeHero | null }) {
         <SoccerBall className="drop-shadow-[0_30px_60px_rgba(5,15,41,0.6)]" />
       </div>
 
-      <Container className="relative flex flex-1 flex-col justify-center pt-32 pb-16 lg:pt-36">
+      <Container
+        className={cn(
+          'relative flex flex-1 flex-col justify-center pb-16',
+          // Extra top padding when the promo banner adds a row to the fixed header.
+          hero?.bannerEnabled && hero.bannerMessage ? 'pt-40 lg:pt-44' : 'pt-32 lg:pt-36',
+        )}
+      >
         <div className="max-w-3xl">
           {/* Single deliberate brand kicker (not repeated per section) */}
           <p className="flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.2em] text-gold-soft">
@@ -131,25 +136,5 @@ export function Hero({ hero }: { hero: HomeHero | null }) {
         </span>
       </div>
     </section>
-  );
-}
-
-function BannerLink({ message, url }: { message: string; url: string | null }) {
-  const content = (
-    <span className="container-px flex items-center justify-center gap-2 py-2.5 text-center text-sm font-medium text-navy">
-      {message}
-      {url ? <span aria-hidden className="font-bold">→</span> : null}
-    </span>
-  );
-  return (
-    <div className="relative z-10 bg-gold">
-      {url ? (
-        <a href={url} target="_blank" rel="noopener noreferrer" className="block hover:bg-gold-soft">
-          {content}
-        </a>
-      ) : (
-        content
-      )}
-    </div>
   );
 }

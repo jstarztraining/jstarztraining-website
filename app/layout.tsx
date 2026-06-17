@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { fontVariables } from '@/lib/fonts';
 import { SiteChrome } from '@/components/layout/SiteChrome';
 import { Footer } from '@/components/layout/Footer';
+import { getHomeHero } from '@/lib/queries';
 import { SITE } from '@/lib/site';
 import './globals.css';
 
@@ -43,12 +44,21 @@ export const metadata: Metadata = {
 // content is never hidden on no-JS, headless, or reduced-motion renders.
 const revealReadyScript = `(function(){try{if(!window.matchMedia||!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('reveal-ready');}}catch(e){}})();`;
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const hero = await getHomeHero();
+  const banner = {
+    enabled: hero?.bannerEnabled ?? false,
+    message: hero?.bannerMessage ?? null,
+    url: hero?.bannerUrl ?? null,
+  };
+
   return (
     <html lang="en" className={fontVariables}>
       <body>
         <script dangerouslySetInnerHTML={{ __html: revealReadyScript }} />
-        <SiteChrome footer={<Footer />}>{children}</SiteChrome>
+        <SiteChrome footer={<Footer />} banner={banner}>
+          {children}
+        </SiteChrome>
       </body>
     </html>
   );
