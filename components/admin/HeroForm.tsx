@@ -13,6 +13,7 @@ import {
   FormSuccess,
   SaveButton,
 } from '@/components/admin/form-ui';
+import { ImageUploader } from '@/components/admin/ImageUploader';
 
 export function HeroForm({ hero }: { hero: HomeHero | null }) {
   const [state, formAction] = useFormState<FormState, FormData>(saveHomeHero, {});
@@ -62,10 +63,12 @@ export function HeroForm({ hero }: { hero: HomeHero | null }) {
         </div>
 
         <div>
-          <label htmlFor="imageUrl" className={labelCls}>
-            Hero image URL <span className="font-normal text-ink/50">(optional)</span>
-          </label>
-          <input id="imageUrl" name="imageUrl" defaultValue={hero?.imageUrl ?? ''} className={inputCls} placeholder="https://…" />
+          <span className={labelCls}>
+            Hero image <span className="font-normal text-ink/50">(optional)</span>
+          </span>
+          <div className="mt-2">
+            <ImageUploader name="imageUrl" defaultValue={hero?.imageUrl ?? ''} folder="hero" />
+          </div>
           <FieldError message={state.fieldErrors?.imageUrl} />
         </div>
       </fieldset>

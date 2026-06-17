@@ -1,10 +1,10 @@
 'use client';
 
-import { useState } from 'react';
 import { useFormState, useFormStatus } from 'react-dom';
 import Link from 'next/link';
 import type { Program } from '@prisma/client';
 import { saveProgram, type ProgramFormState } from '@/lib/actions/programs';
+import { ImageUploader } from '@/components/admin/ImageUploader';
 
 const inputCls =
   'mt-2 w-full rounded-xl border border-navy/15 bg-white px-4 py-2.5 text-navy outline-none transition-colors focus:border-brand focus:ring-2 focus:ring-brand/25';
@@ -27,7 +27,6 @@ function SubmitButton({ editing }: { editing: boolean }) {
 export function ProgramForm({ program }: { program?: Program }) {
   const editing = Boolean(program);
   const [state, formAction] = useFormState<ProgramFormState, FormData>(saveProgram, {});
-  const [imageUrl, setImageUrl] = useState(program?.imageUrl ?? '');
 
   return (
     <form action={formAction} className="max-w-2xl space-y-6">
@@ -106,29 +105,13 @@ export function ProgramForm({ program }: { program?: Program }) {
       </div>
 
       <div>
-        <label htmlFor="imageUrl" className={labelCls}>
-          Image URL <span className="font-normal text-ink/50">(optional)</span>
-        </label>
-        <input
-          id="imageUrl"
-          name="imageUrl"
-          value={imageUrl}
-          onChange={(e) => setImageUrl(e.target.value)}
-          className={inputCls}
-          placeholder="https://…"
-        />
-        <p className="mt-1.5 text-xs text-ink/50">
-          Paste an image link for now — direct photo upload is coming to the dashboard soon.
-        </p>
+        <span className={labelCls}>
+          Image <span className="font-normal text-ink/50">(optional)</span>
+        </span>
+        <div className="mt-2">
+          <ImageUploader name="imageUrl" defaultValue={program?.imageUrl ?? ''} folder="programs" />
+        </div>
         {state.fieldErrors?.imageUrl ? <p className={errCls}>{state.fieldErrors.imageUrl}</p> : null}
-        {imageUrl && /^https?:\/\//i.test(imageUrl) ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={imageUrl}
-            alt="Program image preview"
-            className="mt-3 h-40 w-full max-w-sm rounded-xl object-cover ring-1 ring-navy/10"
-          />
-        ) : null}
       </div>
 
       <label className="flex items-center gap-3">

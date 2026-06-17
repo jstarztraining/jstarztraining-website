@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import { useFormState } from 'react-dom';
 import Link from 'next/link';
 import type { Coach } from '@prisma/client';
@@ -14,11 +13,11 @@ import {
   FormActions,
   ActiveCheckbox,
 } from '@/components/admin/form-ui';
+import { ImageUploader } from '@/components/admin/ImageUploader';
 
 export function CoachForm({ coach }: { coach?: Coach }) {
   const editing = Boolean(coach);
   const [state, formAction] = useFormState<FormState, FormData>(saveCoach, {});
-  const [imageUrl, setImageUrl] = useState(coach?.imageUrl ?? '');
 
   return (
     <form action={formAction} className="max-w-2xl space-y-6">
@@ -51,23 +50,18 @@ export function CoachForm({ coach }: { coach?: Coach }) {
       </div>
 
       <div>
-        <label htmlFor="imageUrl" className={labelCls}>
-          Photo URL <span className="font-normal text-ink/50">(optional)</span>
-        </label>
-        <input
-          id="imageUrl"
-          name="imageUrl"
-          value={imageUrl}
-          onChange={(e) => setImageUrl(e.target.value)}
-          className={inputCls}
-          placeholder="https://…"
-        />
-        <p className="mt-1.5 text-xs text-ink/50">Paste a link for now — direct upload is coming soon.</p>
+        <span className={labelCls}>
+          Photo <span className="font-normal text-ink/50">(optional)</span>
+        </span>
+        <div className="mt-2">
+          <ImageUploader
+            name="imageUrl"
+            defaultValue={coach?.imageUrl ?? ''}
+            folder="coaches"
+            previewClassName="h-44 w-36"
+          />
+        </div>
         <FieldError message={state.fieldErrors?.imageUrl} />
-        {imageUrl && /^https?:\/\//i.test(imageUrl) ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={imageUrl} alt="Coach photo preview" className="mt-3 h-44 w-36 rounded-xl object-cover ring-1 ring-navy/10" />
-        ) : null}
       </div>
 
       <ActiveCheckbox defaultChecked={coach ? coach.isActive : true} />
