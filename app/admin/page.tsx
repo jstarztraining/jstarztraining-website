@@ -101,7 +101,10 @@ export default async function AdminHome() {
         })}
 
         {isAdmin ? (
-          <div className="flex flex-col rounded-2xl border border-gold/40 bg-white p-6 shadow-card">
+          <Link
+            href="/admin/users"
+            className="flex flex-col rounded-2xl border border-gold/40 bg-white p-6 shadow-card transition-all duration-300 hover:-translate-y-0.5 hover:border-gold hover:shadow-card-hover"
+          >
             <div className="flex items-center justify-between">
               <h3 className="font-heading text-lg font-bold text-navy">Users</h3>
               <span className="rounded-full bg-gold/15 px-2.5 py-1 text-[0.65rem] font-bold uppercase tracking-wide text-gold-deep">
@@ -111,7 +114,7 @@ export default async function AdminHome() {
             <p className="mt-2 text-sm leading-relaxed text-ink/65">
               Manage editor accounts and reset passwords. Admin only.
             </p>
-          </div>
+          </Link>
         ) : null}
       </div>
     </div>
