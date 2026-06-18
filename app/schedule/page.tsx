@@ -15,6 +15,7 @@ export const metadata: Metadata = {
   title: 'Schedule',
   description:
     'Weekly JStarz training schedule across BMO Soccer Centre, NDO Fitness, Sandy Lake Academy, and outdoor venues in Halifax, NS. Informational — book through our store.',
+  alternates: { canonical: '/schedule' },
 };
 
 const timeFmt = new Intl.DateTimeFormat('en-CA', {
@@ -42,6 +43,7 @@ export default async function SchedulePage() {
         titleLead="Weekly"
         titleAccent="training."
         subtitle="Where and when we train each week. Informational only — book any session through our store."
+        crumb={{ name: 'Schedule', path: '/schedule' }}
       />
 
       <section className="bg-white py-24 lg:py-32">

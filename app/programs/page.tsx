@@ -3,6 +3,7 @@ import { Container } from '@/components/ui/Container';
 import { Button } from '@/components/ui/Button';
 import { Reveal } from '@/components/motion/Reveal';
 import { ProgramCard } from '@/components/programs/ProgramCard';
+import { BreadcrumbJsonLd } from '@/components/site/BreadcrumbJsonLd';
 import { getActivePrograms } from '@/lib/queries';
 import { SITE } from '@/lib/site';
 
@@ -12,6 +13,7 @@ export const metadata: Metadata = {
   title: 'Programs',
   description:
     'Private soccer training, small-group development, goalkeeper sessions, camps and parties in Halifax, NS. Browse JStarz programs and book through our store.',
+  alternates: { canonical: '/programs' },
 };
 
 export default async function ProgramsPage() {
@@ -19,6 +21,7 @@ export default async function ProgramsPage() {
 
   return (
     <>
+      <BreadcrumbJsonLd name="Programs" path="/programs" />
       {/* Page header — navy band, clears the fixed nav */}
       <section className="relative isolate overflow-hidden bg-navy text-white">
         <div

@@ -14,6 +14,7 @@ export const metadata: Metadata = {
   title: 'Coaches & Staff',
   description:
     'Meet the JStarz coaching team — led by founder Jordan Ellis. Experienced, club-neutral coaches developing players and goalkeepers across Halifax, NS.',
+  alternates: { canonical: '/coaches' },
 };
 
 export default async function CoachesPage() {
@@ -26,6 +27,7 @@ export default async function CoachesPage() {
         titleLead="Meet your"
         titleAccent="coaches."
         subtitle="The people who make JStarz feel like family — and push every player to grow."
+        crumb={{ name: 'Coaches & Staff', path: '/coaches' }}
       />
 
       <section className="bg-white py-24 lg:py-32">

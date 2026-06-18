@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   title: 'About',
   description:
     'JStarz Training is more than an academy — a soccer community in Halifax, NS founded by Jordan Ellis. Small-group, club-neutral training built on confidence, connection, and community.',
+  alternates: { canonical: '/about' },
 };
 
 const WHAT_WE_DO = [
@@ -37,6 +38,7 @@ export default function AboutPage() {
         titleLead="More than an"
         titleAccent="academy."
         subtitle="At JStarz, soccer isn’t just training — it’s confidence, connection, and community."
+        crumb={{ name: 'About', path: '/about' }}
       />
 
       {/* Founding story */}

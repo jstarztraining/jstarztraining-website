@@ -13,6 +13,7 @@ export const metadata: Metadata = {
   title: 'Gallery',
   description:
     'Action shots, team moments, and community events from JStarz Training in Halifax, NS.',
+  alternates: { canonical: '/gallery' },
 };
 
 export default async function GalleryPage() {
@@ -25,6 +26,7 @@ export default async function GalleryPage() {
         titleLead="Moments on the"
         titleAccent="pitch."
         subtitle="Action, team spirit, and community — a look at JStarz in motion."
+        crumb={{ name: 'Gallery', path: '/gallery' }}
       />
 
       <section className="bg-white py-24 lg:py-32">

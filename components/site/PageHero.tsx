@@ -1,22 +1,27 @@
 import { Container } from '@/components/ui/Container';
+import { BreadcrumbJsonLd } from '@/components/site/BreadcrumbJsonLd';
 
 /**
  * Shared navy page header for interior public pages — clears the fixed nav,
- * with the gold eyebrow + accented title used across the site.
+ * with the gold eyebrow + accented title used across the site. When `crumb` is
+ * passed it also emits BreadcrumbList structured data (§8).
  */
 export function PageHero({
   eyebrow,
   titleLead,
   titleAccent,
   subtitle,
+  crumb,
 }: {
   eyebrow: string;
   titleLead: string;
   titleAccent?: string;
   subtitle?: string;
+  crumb?: { name: string; path: string };
 }) {
   return (
     <section className="relative isolate overflow-hidden bg-navy text-white">
+      {crumb ? <BreadcrumbJsonLd name={crumb.name} path={crumb.path} /> : null}
       <div
         aria-hidden
         className="absolute inset-0 -z-10"

@@ -8,6 +8,7 @@ import './globals.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://jstarztraining.com'),
+  alternates: { canonical: '/' },
   title: {
     default: 'JStarz Training — Private Soccer Training in Halifax, NS',
     template: '%s · JStarz Training',

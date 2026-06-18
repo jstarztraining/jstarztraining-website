@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   title: 'Contact',
   description:
     'Get in touch with JStarz Training in Halifax, NS. Questions about private soccer or goalkeeper training, programs, camps, or parties — we’re happy to help.',
+  alternates: { canonical: '/contact' },
 };
 
 export default async function ContactPage() {
@@ -31,6 +32,7 @@ export default async function ContactPage() {
         titleLead="Get in"
         titleAccent="touch."
         subtitle="Questions about programs, booking, camps, or parties? Send us a note and we’ll get back to you."
+        crumb={{ name: 'Contact', path: '/contact' }}
       />
 
       <section className="bg-white py-24 lg:py-32">

@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   title: 'Testimonials',
   description:
     'What parents and players say about JStarz private soccer training in Halifax, NS — real stories from the JStarz community.',
+  alternates: { canonical: '/testimonials' },
 };
 
 export default async function TestimonialsPage() {
@@ -24,6 +25,7 @@ export default async function TestimonialsPage() {
         titleLead="Voices of our"
         titleAccent="community."
         subtitle="The best measure of our work is how players and parents feel about it."
+        crumb={{ name: 'Testimonials', path: '/testimonials' }}
       />
 
       <section className="bg-white py-24 lg:py-32">

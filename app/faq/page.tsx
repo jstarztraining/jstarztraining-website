@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   title: 'FAQ',
   description:
     'Answers about JStarz soccer training in Halifax — ages, group sizes, locations, private vs group, goalkeeping, what to bring, and how to register.',
+  alternates: { canonical: '/faq' },
 };
 
 export default async function FaqPage() {
@@ -38,6 +39,7 @@ export default async function FaqPage() {
         titleLead="Questions?"
         titleAccent="Answered."
         subtitle="Ages, group sizes, locations, what to bring, and how to register — all in one place."
+        crumb={{ name: 'FAQ', path: '/faq' }}
       />
 
       <section className="bg-white py-24 lg:py-32">
