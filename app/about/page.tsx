@@ -4,7 +4,10 @@ import { Container } from '@/components/ui/Container';
 import { Button } from '@/components/ui/Button';
 import { PageHero } from '@/components/site/PageHero';
 import { Reveal } from '@/components/motion/Reveal';
+import { getPageContent } from '@/lib/queries';
 import { SITE } from '@/lib/site';
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: 'About',
@@ -13,31 +16,20 @@ export const metadata: Metadata = {
   alternates: { canonical: '/about' },
 };
 
-const WHAT_WE_DO = [
-  'Private 1-on-1 & small-group training (players & goalkeepers)',
-  'Goalkeeper development',
-  'Strength, speed & conditioning',
-  'School programs & community events',
-  'Soccer birthday parties',
-  'Camps & tournaments',
-  'Fundraisers & community initiatives',
-];
+const toList = (s: string) => s.split('\n').map((l) => l.trim()).filter(Boolean);
 
-const MISSION = [
-  'Grow the game across Halifax & Nova Scotia',
-  'Develop confident players and people',
-  'Create youth-leadership opportunities',
-  'Connect communities through sport',
-];
+export default async function AboutPage() {
+  const c = await getPageContent('about');
+  const whatWeDo = toList(c('whatwedo_items'));
+  const mission = toList(c('mission_items'));
 
-export default function AboutPage() {
   return (
     <>
       <PageHero
         eyebrow="Our Story"
         titleLead="More than an"
         titleAccent="academy."
-        subtitle="At JStarz, soccer isn’t just training — it’s confidence, connection, and community."
+        subtitle={c('hero_subtitle')}
         crumb={{ name: 'About', path: '/about' }}
       />
 
@@ -64,26 +56,14 @@ export default function AboutPage() {
           <div>
             <Reveal>
               <h2 className="font-display text-[clamp(1.75rem,4vw,2.75rem)] font-black leading-[1.04] tracking-tightest text-navy">
-                Built by a coach who wished this existed.
+                {c('story_heading')}
               </h2>
             </Reveal>
             <Reveal delay={90}>
-              <p className="mt-6 max-w-prose text-lg leading-relaxed text-ink/75">
-                JStarz Training was founded by <strong className="text-navy">Jordan Ellis</strong>, a
-                Jamaican-born Canadian coach who grew up loving the game and wishing he’d had access to
-                the kind of support, development, and mentorship JStarz now provides. What started as a
-                passion became a purpose: a space where players of all ages, backgrounds, and abilities
-                feel welcomed, supported, and challenged to grow.
-              </p>
+              <p className="mt-6 max-w-prose text-lg leading-relaxed text-ink/75">{c('story_p1')}</p>
             </Reveal>
             <Reveal delay={150}>
-              <p className="mt-4 max-w-prose text-lg leading-relaxed text-ink/75">
-                Sessions feel less like traditional training and more like a family. Players are
-                encouraged to express themselves, make mistakes and grow, and compete, laugh, and build
-                confidence. Parents are part of it too. We specialize in individual and small-group
-                training (4–6 players max) for maximum touches and coach interaction — and we’re proudly
-                club-neutral. All teams, all backgrounds. If it involves a soccer ball, we do it.
-              </p>
+              <p className="mt-4 max-w-prose text-lg leading-relaxed text-ink/75">{c('story_p2')}</p>
             </Reveal>
           </div>
         </Container>
@@ -95,11 +75,11 @@ export default function AboutPage() {
           <Reveal className="max-w-2xl">
             <p className="font-heading text-sm font-bold uppercase tracking-[0.18em] text-brand">What we do</p>
             <h2 className="mt-4 font-display text-[clamp(2rem,4.5vw,3rem)] font-black leading-[1.04] tracking-tightest text-navy">
-              Everything, if it involves a ball.
+              {c('whatwedo_heading')}
             </h2>
           </Reveal>
           <div className="mt-12 grid gap-px overflow-hidden rounded-[1.5rem] border border-navy/10 bg-navy/10 sm:grid-cols-2 lg:grid-cols-3">
-            {WHAT_WE_DO.map((item, i) => (
+            {whatWeDo.map((item, i) => (
               <Reveal key={item} delay={(i % 3) * 70} className="bg-white">
                 <div className="flex h-full items-start gap-4 p-7">
                   <span className="mt-1 h-2.5 w-2.5 shrink-0 rounded-full bg-gold" aria-hidden />
@@ -128,10 +108,7 @@ export default function AboutPage() {
               </h2>
             </Reveal>
             <Reveal delay={90}>
-              <p className="mt-6 max-w-prose text-lg leading-relaxed text-white/75">
-                We believe in hustle, creativity, and failing fast to learn faster. You’re not just
-                joining training — you’re joining a community.
-              </p>
+              <p className="mt-6 max-w-prose text-lg leading-relaxed text-white/75">{c('mentality_body')}</p>
             </Reveal>
           </div>
           <div>
@@ -139,7 +116,7 @@ export default function AboutPage() {
               <h3 className="font-heading text-sm font-bold uppercase tracking-[0.18em] text-gold-soft">Our mission</h3>
             </Reveal>
             <ul className="mt-5 space-y-4">
-              {MISSION.map((m, i) => (
+              {mission.map((m, i) => (
                 <Reveal key={m} delay={150 + i * 70} as="li" className="flex items-start gap-4 border-b border-white/10 pb-4">
                   <span className="font-display text-lg font-extrabold text-gold">{String(i + 1).padStart(2, '0')}</span>
                   <span className="text-lg leading-snug text-white/85">{m}</span>
@@ -155,7 +132,7 @@ export default function AboutPage() {
         <Container>
           <Reveal>
             <h2 className="mx-auto max-w-3xl font-display text-[clamp(1.75rem,4.5vw,3rem)] font-black leading-[1.04] tracking-tightest text-navy">
-              Train with purpose. Build confidence. Enjoy the game.
+              {c('close_heading')}
             </h2>
           </Reveal>
           <Reveal delay={90} className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
