@@ -1,7 +1,6 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
 import bcrypt from 'bcryptjs';
 import { Prisma, Role } from '@prisma/client';
 import { prisma } from '@/lib/prisma';
@@ -42,7 +41,7 @@ export async function createUser(_prev: FormState, formData: FormData): Promise<
   }
 
   revalidatePath('/admin/users');
-  redirect('/admin/users');
+  return { success: 'Account created.' };
 }
 
 export async function resetPassword(userId: string, newPassword: string): Promise<Result> {

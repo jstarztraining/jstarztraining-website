@@ -1,18 +1,40 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
 import { useFormState } from 'react-dom';
+import { useRouter } from 'next/navigation';
 import { createUser } from '@/lib/actions/users';
 import type { FormState } from '@/lib/form-state';
-import { inputCls, labelCls, FieldError, FormError, FormActions } from '@/components/admin/form-ui';
+import {
+  inputCls,
+  labelCls,
+  FieldError,
+  FormError,
+  FormSuccess,
+  FormActions,
+} from '@/components/admin/form-ui';
 
 export function CreateUserForm() {
   const [state, formAction] = useFormState<FormState, FormData>(createUser, {});
+  const formRef = useRef<HTMLFormElement>(null);
+  const router = useRouter();
+
+  // On success, clear the form and refresh the accounts list below.
+  useEffect(() => {
+    if (state?.success) {
+      formRef.current?.reset();
+      router.refresh();
+    }
+  }, [state, router]);
 
   return (
-    <form action={formAction} className="rounded-2xl border border-navy/10 bg-white p-6 shadow-card">
+    <form ref={formRef} action={formAction} className="rounded-2xl border border-navy/10 bg-white p-6 shadow-card">
       <h2 className="font-heading text-lg font-bold text-navy">Add an account</h2>
       <p className="mt-1 text-sm text-ink/60">Create an Admin or Editor. Share the starting password securely.</p>
-      <FormError message={state.error} />
+      <div className="mt-4 space-y-3">
+        <FormError message={state?.error} />
+        <FormSuccess message={state?.success} />
+      </div>
 
       <div className="mt-5 grid gap-5 sm:grid-cols-2">
         <div>
@@ -26,7 +48,7 @@ export function CreateUserForm() {
             Email
           </label>
           <input id="email" name="email" className={inputCls} placeholder="editor@example.com" />
-          <FieldError message={state.fieldErrors?.email} />
+          <FieldError message={state?.fieldErrors?.email} />
         </div>
         <div>
           <label htmlFor="role" className={labelCls}>
@@ -36,14 +58,14 @@ export function CreateUserForm() {
             <option value="Editor">Editor — edit all content</option>
             <option value="Admin">Admin — everything + manage users</option>
           </select>
-          <FieldError message={state.fieldErrors?.role} />
+          <FieldError message={state?.fieldErrors?.role} />
         </div>
         <div>
           <label htmlFor="password" className={labelCls}>
             Starting password
           </label>
           <input id="password" name="password" type="text" className={inputCls} placeholder="At least 8 characters" />
-          <FieldError message={state.fieldErrors?.password} />
+          <FieldError message={state?.fieldErrors?.password} />
         </div>
       </div>
 
