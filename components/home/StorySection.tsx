@@ -30,10 +30,7 @@ export function StorySection() {
 
         <div>
           <Reveal>
-            <p className="font-heading text-sm font-bold uppercase tracking-[0.18em] text-brand">
-              More than an academy
-            </p>
-            <h2 className="mt-4 font-display text-[clamp(2rem,4.5vw,3.25rem)] font-black leading-[1.02] tracking-tightest text-navy">
+            <h2 className="font-display text-[clamp(2rem,4.5vw,3.25rem)] font-black leading-[1.02] tracking-tightest text-navy">
               A soccer community, <span className="text-brand">not just training.</span>
             </h2>
           </Reveal>

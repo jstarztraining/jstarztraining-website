@@ -9,10 +9,7 @@ export function TestimonialsSection({ testimonials }: { testimonials: Testimonia
     <section className="bg-white py-24 lg:py-32">
       <Container>
         <Reveal className="max-w-3xl">
-          <p className="font-heading text-sm font-bold uppercase tracking-[0.18em] text-brand">
-            From the JStarz family
-          </p>
-          <h2 className="mt-4 font-display text-[clamp(2rem,4.5vw,3.25rem)] font-black leading-[1.02] tracking-tightest text-navy">
+          <h2 className="font-display text-[clamp(2rem,4.5vw,3.25rem)] font-black leading-[1.02] tracking-tightest text-navy">
             What parents and players say.
           </h2>
         </Reveal>

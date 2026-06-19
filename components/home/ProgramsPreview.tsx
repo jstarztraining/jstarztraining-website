@@ -14,10 +14,7 @@ export function ProgramsPreview({ programs }: { programs: Program[] }) {
       <Container>
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <Reveal className="max-w-2xl">
-            <p className="font-heading text-sm font-bold uppercase tracking-[0.18em] text-brand">
-              Programs
-            </p>
-            <h2 className="mt-4 font-display text-[clamp(2rem,4.5vw,3.25rem)] font-black leading-[1.02] tracking-tightest text-navy">
+            <h2 className="font-display text-[clamp(2rem,4.5vw,3.25rem)] font-black leading-[1.02] tracking-tightest text-navy">
               Training for every player.
             </h2>
             <p className="mt-4 max-w-prose text-lg leading-relaxed text-ink/70">

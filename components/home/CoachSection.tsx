@@ -34,12 +34,10 @@ export function CoachSection({ coach }: { coach: Coach | null }) {
 
         <div>
           <Reveal>
-            <p className="font-heading text-sm font-bold uppercase tracking-[0.18em] text-gold-soft">
-              {coach.role}
-            </p>
-            <h2 className="mt-4 font-display text-[clamp(2rem,4.5vw,3.25rem)] font-black leading-[1.02] tracking-tightest">
+            <h2 className="font-display text-[clamp(2rem,4.5vw,3.25rem)] font-black leading-[1.02] tracking-tightest">
               Meet {coach.name.split(' ')[0]}.
             </h2>
+            <p className="mt-3 text-base font-semibold text-gold-soft">{coach.role}</p>
           </Reveal>
           <Reveal delay={90}>
             <p className="mt-6 max-w-prose text-lg leading-relaxed text-white/75">{coach.bio}</p>
