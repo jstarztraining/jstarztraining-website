@@ -25,21 +25,10 @@ export interface Program {
   imageAlt: string;
 }
 
-// Verified Unsplash CDN ids (placeholders for Jordan's photos).
+// Verified Unsplash CDN id helper — still used for the head-coach placeholder
+// until Jordan's photo lands (§13). Program imagery now uses real /images/ files.
 const img = (id: string, w = 1200) =>
   `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=80`;
-
-const IMG = {
-  smallGroup: img('1551958219-acbc608c6377'),
-  fieldDusk: img('1431324155629-1a6deb1dec8d'),
-  youthPlay: img('1574629810360-7efbbe195018'),
-  keeper: img('1517466787929-bc90951d0974'),
-  ballGrass: img('1459865264687-595d652de67e'),
-  sprint: img('1543326727-cf6c39e8f84c'),
-  youthMatch: img('1606925797300-0b35e9d1794e'),
-  stadium: img('1486286701208-1d58e9338013'),
-  coach: img('1526232761682-d26e03ac148e'),
-};
 
 export const PROGRAMS: Program[] = [
   {
@@ -49,8 +38,8 @@ export const PROGRAMS: Program[] = [
     category: 'Private',
     blurb: 'One-on-one technical work at BMO Soccer Centre — maximum touches, full coach focus.',
     shopifyUrl: SITE.shopifyStoreUrl,
-    imageUrl: IMG.smallGroup,
-    imageAlt: 'Private soccer training session on an indoor pitch.',
+    imageUrl: '/images/private-training.jpg',
+    imageAlt: 'Saturday BMO Private Soccer Training — JStarz Training, Halifax NS',
   },
   {
     id: 'sun-bmo-private-soccer',
@@ -59,8 +48,8 @@ export const PROGRAMS: Program[] = [
     category: 'Private',
     blurb: 'Weekend private sessions built around your player’s goals and game.',
     shopifyUrl: SITE.shopifyStoreUrl,
-    imageUrl: IMG.sprint,
-    imageAlt: 'Player sprinting with the ball during training.',
+    imageUrl: '/images/private-training.jpg',
+    imageAlt: 'Sunday BMO Private Soccer Training — JStarz Training, Halifax NS',
   },
   {
     id: 'sun-bmo-private-keeper',
@@ -69,8 +58,8 @@ export const PROGRAMS: Program[] = [
     category: 'Goalkeeping',
     blurb: 'Specialist keeper coaching — handling, footwork, shot-stopping, distribution.',
     shopifyUrl: SITE.shopifyStoreUrl,
-    imageUrl: IMG.keeper,
-    imageAlt: 'Goalkeeper diving to make a save.',
+    imageUrl: '/images/goalkeeper-training.jpg',
+    imageAlt: 'Sunday BMO Private Goalkeeper Sessions — JStarz Training, Halifax NS',
   },
   {
     id: 'sat-bmo-private-keeper',
@@ -79,8 +68,8 @@ export const PROGRAMS: Program[] = [
     category: 'Goalkeeping',
     blurb: 'Dedicated one-on-one goalkeeper development at BMO Soccer Centre.',
     shopifyUrl: SITE.shopifyStoreUrl,
-    imageUrl: IMG.keeper,
-    imageAlt: 'Goalkeeper training between the posts.',
+    imageUrl: '/images/goalkeeper-training.jpg',
+    imageAlt: 'Saturday BMO Private Goalkeeper Sessions — JStarz Training, Halifax NS',
   },
   {
     id: 'outdoor-private-soccer',
@@ -89,8 +78,8 @@ export const PROGRAMS: Program[] = [
     category: 'Private',
     blurb: 'Summer training under the sun — private sessions on grass, Mon–Fri.',
     shopifyUrl: SITE.shopifyStoreUrl,
-    imageUrl: IMG.fieldDusk,
-    imageAlt: 'Outdoor soccer pitch at golden hour.',
+    imageUrl: '/images/private-training.jpg',
+    imageAlt: 'Outdoor Private Soccer Sessions — JStarz Training, Halifax NS',
   },
   {
     id: 'outdoor-private-keeper',
@@ -99,8 +88,8 @@ export const PROGRAMS: Program[] = [
     category: 'Goalkeeping',
     blurb: 'Outdoor keeper work — angles, crosses, and distribution on the full pitch.',
     shopifyUrl: SITE.shopifyStoreUrl,
-    imageUrl: IMG.keeper,
-    imageAlt: 'Goalkeeper preparing to catch a high ball outdoors.',
+    imageUrl: '/images/goalkeeper-training.jpg',
+    imageAlt: 'Outdoor Private Goalkeeping Sessions — JStarz Training, Halifax NS',
   },
   {
     id: 'speed-performance',
@@ -109,8 +98,8 @@ export const PROGRAMS: Program[] = [
     category: 'Private',
     blurb: 'Strength, speed and conditioning tailored to the demands of the game.',
     shopifyUrl: SITE.shopifyStoreUrl,
-    imageUrl: IMG.sprint,
-    imageAlt: 'Athlete in an explosive sprint during a speed session.',
+    imageUrl: '/images/athletic-conditioning.jpg',
+    imageAlt: 'Private Speed & Performance Training — JStarz Training, Halifax NS',
   },
   {
     id: 'thursday-technical-soccer-lab',
@@ -119,8 +108,8 @@ export const PROGRAMS: Program[] = [
     category: 'Development',
     blurb: 'Small-group technical lab at Sandy Lake — first touch, dribbling, finishing.',
     shopifyUrl: SITE.shopifyStoreUrl,
-    imageUrl: IMG.smallGroup,
-    imageAlt: 'Small group of players working through a technical drill.',
+    imageUrl: '/images/group-training.jpg',
+    imageAlt: 'Thursday Technical Soccer Lab — JStarz Training, Halifax NS',
   },
   {
     id: 'thursday-technical-keeper-lab',
@@ -129,8 +118,8 @@ export const PROGRAMS: Program[] = [
     category: 'Goalkeeping',
     blurb: 'Group keeper lab focused on the fundamentals that win games.',
     shopifyUrl: SITE.shopifyStoreUrl,
-    imageUrl: IMG.keeper,
-    imageAlt: 'Goalkeeper drill in a small-group lab setting.',
+    imageUrl: '/images/goalkeeper-training.jpg',
+    imageAlt: 'Thursday Technical Goalkeeper Lab — JStarz Training, Halifax NS',
   },
   {
     id: 'u9-development',
@@ -139,8 +128,8 @@ export const PROGRAMS: Program[] = [
     category: 'Development',
     blurb: 'Ages 6–9. Confidence, coordination and a love of the game come first.',
     shopifyUrl: SITE.shopifyStoreUrl,
-    imageUrl: IMG.youthPlay,
-    imageAlt: 'Young children playing soccer together.',
+    imageUrl: '/images/group-training.jpg',
+    imageAlt: 'U9 Player Development Program — JStarz Training, Halifax NS',
   },
   {
     id: 'u12-attacker-development',
@@ -149,8 +138,8 @@ export const PROGRAMS: Program[] = [
     category: 'Development',
     blurb: 'Sharpen attacking instincts — movement, combinations and finishing.',
     shopifyUrl: SITE.shopifyStoreUrl,
-    imageUrl: IMG.youthMatch,
-    imageAlt: 'Youth players competing for the ball in a match.',
+    imageUrl: '/images/group-training.jpg',
+    imageAlt: 'U12 Attacker Development Program — JStarz Training, Halifax NS',
   },
   {
     id: 'u13-goalkeeper-group',
@@ -159,8 +148,8 @@ export const PROGRAMS: Program[] = [
     category: 'Goalkeeping',
     blurb: 'Ages 8–13. Group keeper sessions building brave, technical goalkeepers.',
     shopifyUrl: SITE.shopifyStoreUrl,
-    imageUrl: IMG.keeper,
-    imageAlt: 'Young goalkeeper making a save in a group session.',
+    imageUrl: '/images/gk-wars.jpg',
+    imageAlt: 'U13 Goalkeeper Group Training — JStarz Training, Halifax NS',
   },
   {
     id: 'u15-attacker-development',
@@ -169,8 +158,8 @@ export const PROGRAMS: Program[] = [
     category: 'Development',
     blurb: 'Game-realistic attacking work for the U15 age group.',
     shopifyUrl: SITE.shopifyStoreUrl,
-    imageUrl: IMG.youthMatch,
-    imageAlt: 'Teenage players in a competitive training match.',
+    imageUrl: '/images/group-training.jpg',
+    imageAlt: 'U15 Attacker Development Program — JStarz Training, Halifax NS',
   },
   {
     id: 'u18-goalkeeper-group',
@@ -179,8 +168,8 @@ export const PROGRAMS: Program[] = [
     category: 'Goalkeeping',
     blurb: 'Ages 14–18. Advanced keeper group training and match preparation.',
     shopifyUrl: SITE.shopifyStoreUrl,
-    imageUrl: IMG.keeper,
-    imageAlt: 'Older goalkeeper training shot-stopping.',
+    imageUrl: '/images/gk-wars.jpg',
+    imageAlt: 'U18 Goalkeeper Group Training — JStarz Training, Halifax NS',
   },
   {
     id: 'defender-development',
@@ -189,8 +178,8 @@ export const PROGRAMS: Program[] = [
     category: 'Development',
     blurb: 'Defending as a craft — positioning, 1v1s, and reading the game.',
     shopifyUrl: SITE.shopifyStoreUrl,
-    imageUrl: IMG.youthMatch,
-    imageAlt: 'Defender shielding the ball under pressure.',
+    imageUrl: '/images/group-training.jpg',
+    imageAlt: 'Defender Development Workshops — JStarz Training, Halifax NS',
   },
   {
     id: 'team-training',
@@ -199,8 +188,8 @@ export const PROGRAMS: Program[] = [
     category: 'Development',
     blurb: 'Bring your whole team — sessions designed around your group’s needs.',
     shopifyUrl: SITE.shopifyStoreUrl,
-    imageUrl: IMG.smallGroup,
-    imageAlt: 'A team training together on the pitch.',
+    imageUrl: '/images/team-training.jpg',
+    imageAlt: 'JStarz Team Training Programs — JStarz Training, Halifax NS',
   },
   {
     id: 'goalie-warz-camp',
@@ -209,8 +198,8 @@ export const PROGRAMS: Program[] = [
     category: 'Camps & Events',
     blurb: 'High-energy goalkeeper camp — compete, learn, and level up.',
     shopifyUrl: SITE.shopifyStoreUrl,
-    imageUrl: IMG.keeper,
-    imageAlt: 'Goalkeepers competing at a camp.',
+    imageUrl: '/images/gk-wars.jpg',
+    imageAlt: 'Goalie Warz Camp — JStarz Training, Halifax NS',
   },
   {
     id: 'birthday-party',
@@ -219,8 +208,8 @@ export const PROGRAMS: Program[] = [
     category: 'Camps & Events',
     blurb: 'A soccer birthday to remember — games, coaching, and a whole lot of fun.',
     shopifyUrl: SITE.shopifyStoreUrl,
-    imageUrl: IMG.youthPlay,
-    imageAlt: 'Kids celebrating during a soccer party.',
+    imageUrl: '/images/birthday-parties.jpg',
+    imageAlt: 'JStarz Soccer Birthday Party — JStarz Training, Halifax NS',
   },
   {
     id: 'team-starz-rec-games',
@@ -229,8 +218,8 @@ export const PROGRAMS: Program[] = [
     category: 'Camps & Events',
     blurb: 'Rec games for the love of it — play, compete, and have a blast on Sundays.',
     shopifyUrl: SITE.shopifyStoreUrl,
-    imageUrl: IMG.youthMatch,
-    imageAlt: 'Recreational soccer match in progress.',
+    imageUrl: '/images/team-training.jpg',
+    imageAlt: 'Sunday Team Starz: Play • Win • Save — JStarz Training, Halifax NS',
   },
   {
     id: 'soccer-house-1v1-championship',
@@ -240,8 +229,22 @@ export const PROGRAMS: Program[] = [
     // Genuinely single-option → cart-permalink candidate (§5).
     blurb: 'A one-day U18 1v1 showdown. Settle it on the pitch.',
     shopifyUrl: SITE.shopifyStoreUrl,
-    imageUrl: IMG.stadium,
-    imageAlt: 'Floodlit pitch set for a championship event.',
+    imageUrl: '/images/community-events.jpg',
+    imageAlt: 'JStarz x Soccer House U18 1v1 Championship — JStarz Training, Halifax NS',
+  },
+  {
+    id: 'online-development-game-analysis',
+    title: 'Online Development & Game Analysis',
+    priceDisplay: 'From $56.99 + HST',
+    category: 'Development',
+    blurb:
+      'Virtual game analysis, tactical reviews, position-specific feedback, mindset development, and at-home training support for players looking to improve beyond the field — personalized insights and actionable recommendations to accelerate development and match performance.',
+    // Empty shopifyUrl → no store link yet. Cards treat this as "Coming soon"
+    // and render a disabled, non-clickable CTA (see ProgramCard).
+    shopifyUrl: '',
+    // No photo yet — falls back to the navy gradient placeholder. Jordan to add.
+    imageUrl: '',
+    imageAlt: '',
   },
 ];
 

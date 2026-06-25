@@ -25,14 +25,19 @@ function ImageFallback() {
   );
 }
 
+/** A program with no store link yet is "Coming soon" — a non-clickable card. */
+function isComingSoon(program: CardProgram) {
+  return !program.shopifyUrl?.trim();
+}
+
 /** Large image-overlay card for a featured program. */
 export function FeaturedProgramCard({ program }: { program: CardProgram }) {
-  return (
-    <a
-      href={program.shopifyUrl}
-      {...linkProps}
-      className="group relative flex h-full min-h-[22rem] flex-col justify-end overflow-hidden rounded-[1.5rem] bg-navy p-7 text-white shadow-card transition-all duration-500 ease-out-quint hover:-translate-y-1 hover:shadow-card-hover sm:p-9"
-    >
+  const comingSoon = isComingSoon(program);
+  const baseClass =
+    'relative flex h-full min-h-[22rem] flex-col justify-end overflow-hidden rounded-[1.5rem] bg-navy p-7 text-white shadow-card transition-all duration-500 ease-out-quint sm:p-9';
+
+  const body = (
+    <>
       {program.imageUrl ? (
         <Image
           src={program.imageUrl}
@@ -55,23 +60,42 @@ export function FeaturedProgramCard({ program }: { program: CardProgram }) {
         <p className="mt-3 max-w-md text-white/75">{program.description}</p>
         <div className="mt-5 flex items-center gap-4">
           <span className="font-heading text-lg font-bold text-gold-soft">{program.priceDisplay}</span>
-          <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-white transition-transform duration-300 ease-out-quint group-hover:translate-x-1">
-            Choose options <span aria-hidden>→</span>
-          </span>
+          {comingSoon ? (
+            <span className="inline-flex items-center rounded-full bg-white/10 px-3 py-1 text-sm font-semibold text-white/60">
+              Coming soon
+            </span>
+          ) : (
+            <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-white transition-transform duration-300 ease-out-quint group-hover:translate-x-1">
+              Choose options <span aria-hidden>→</span>
+            </span>
+          )}
         </div>
       </div>
+    </>
+  );
+
+  if (comingSoon) {
+    return <div className={`${baseClass} cursor-default`}>{body}</div>;
+  }
+  return (
+    <a
+      href={program.shopifyUrl}
+      {...linkProps}
+      className={`group ${baseClass} hover:-translate-y-1 hover:shadow-card-hover`}
+    >
+      {body}
     </a>
   );
 }
 
 /** Standard image-top program card. */
 export function ProgramCard({ program }: { program: CardProgram }) {
-  return (
-    <a
-      href={program.shopifyUrl}
-      {...linkProps}
-      className="group flex h-full flex-col overflow-hidden rounded-[1.5rem] bg-white shadow-card transition-all duration-500 ease-out-quint hover:-translate-y-1 hover:shadow-card-hover"
-    >
+  const comingSoon = isComingSoon(program);
+  const baseClass =
+    'flex h-full flex-col overflow-hidden rounded-[1.5rem] bg-white shadow-card transition-all duration-500 ease-out-quint';
+
+  const body = (
+    <>
       <div className="relative aspect-[16/10] overflow-hidden">
         {program.imageUrl ? (
           <Image
@@ -92,11 +116,30 @@ export function ProgramCard({ program }: { program: CardProgram }) {
         <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-ink/65">{program.description}</p>
         <div className="mt-auto flex items-center justify-between pt-4">
           <span className="font-heading font-bold text-brand">{program.priceDisplay}</span>
-          <span className="inline-flex items-center gap-1 text-sm font-semibold text-ink/55 transition-all duration-300 ease-out-quint group-hover:text-brand group-hover:gap-2">
-            Choose options <span aria-hidden>→</span>
-          </span>
+          {comingSoon ? (
+            <span className="inline-flex items-center rounded-full bg-ink/5 px-3 py-1 text-sm font-semibold text-ink/40">
+              Coming soon
+            </span>
+          ) : (
+            <span className="inline-flex items-center gap-1 text-sm font-semibold text-ink/55 transition-all duration-300 ease-out-quint group-hover:text-brand group-hover:gap-2">
+              Choose options <span aria-hidden>→</span>
+            </span>
+          )}
         </div>
       </div>
+    </>
+  );
+
+  if (comingSoon) {
+    return <div className={`${baseClass} cursor-default`}>{body}</div>;
+  }
+  return (
+    <a
+      href={program.shopifyUrl}
+      {...linkProps}
+      className={`group ${baseClass} hover:-translate-y-1 hover:shadow-card-hover`}
+    >
+      {body}
     </a>
   );
 }

@@ -34,6 +34,10 @@ yarn-error.log*
 .claude
 .impeccable
 
+# full-res photo originals + staging dropboxes — kept locally, not committed
+# or deployed (only the optimized /public/images/*.jpg + thumbs ship)
+/public/images/originals/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
