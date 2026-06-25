@@ -48,14 +48,8 @@ const localBusinessJsonLd = {
     latitude: 44.6761,
     longitude: -63.6777,
   },
-  // Public training windows per the documented weekly schedule (§10).
-  // Set in code (not Jordan-editable, §8) — update here if the schedule shifts.
-  openingHoursSpecification: [
-    { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Wednesday', opens: '18:00', closes: '21:00' },
-    { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Thursday', opens: '18:00', closes: '21:00' },
-    { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Saturday', opens: '09:00', closes: '13:00' },
-    { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Sunday', opens: '10:00', closes: '14:00' },
-  ],
+  // Training is by appointment & program schedule (no fixed storefront hours),
+  // so no openingHoursSpecification is asserted — see lib/site.ts hours note.
   areaServed: 'Halifax, Nova Scotia',
   sport: 'Soccer',
 };

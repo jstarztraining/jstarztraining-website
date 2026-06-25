@@ -17,10 +17,12 @@ export const SITE = {
   },
   registry: 'NS Registry ID 4643639',
   // Site never handles money — every booking path links OUT to the Shopify store.
-  shopifyStoreUrl: 'https://9bejay-2u.myshopify.com',
+  // Programs link to per-collection paths off this base (see lib/content.ts).
+  shopifyStoreUrl: 'https://jstarztraining.myshopify.com',
   social: {
-    instagram: 'https://instagram.com/jstarztraining',
-    facebook: 'https://facebook.com/jstarztraining',
+    instagram: 'https://www.instagram.com/jstarz_t',
+    facebook: 'https://www.facebook.com/share/1DDCjDFQTV/',
+    // TikTok unconfirmed by Jordan — placeholder; remove if no account exists.
     tiktok: 'https://tiktok.com/@jstarztraining',
   },
 } as const;
