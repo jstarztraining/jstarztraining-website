@@ -55,8 +55,16 @@ export function ContactForm() {
           <label htmlFor="name" className={labelCls}>
             Name
           </label>
-          <input id="name" name="name" className={inputCls} placeholder="Your name" autoComplete="name" />
-          <FieldError message={state.fieldErrors?.name} />
+          <input
+            id="name"
+            name="name"
+            className={inputCls}
+            placeholder="Your name"
+            autoComplete="name"
+            aria-invalid={state.fieldErrors?.name ? true : undefined}
+            aria-describedby={state.fieldErrors?.name ? 'name-error' : undefined}
+          />
+          <FieldError id="name-error" message={state.fieldErrors?.name} />
         </div>
         <div>
           <label htmlFor="phone" className={labelCls}>
@@ -70,16 +78,33 @@ export function ContactForm() {
         <label htmlFor="email" className={labelCls}>
           Email
         </label>
-        <input id="email" name="email" type="email" className={inputCls} placeholder="you@example.com" autoComplete="email" />
-        <FieldError message={state.fieldErrors?.email} />
+        <input
+          id="email"
+          name="email"
+          type="email"
+          className={inputCls}
+          placeholder="you@example.com"
+          autoComplete="email"
+          aria-invalid={state.fieldErrors?.email ? true : undefined}
+          aria-describedby={state.fieldErrors?.email ? 'email-error' : undefined}
+        />
+        <FieldError id="email-error" message={state.fieldErrors?.email} />
       </div>
 
       <div>
         <label htmlFor="message" className={labelCls}>
           Message
         </label>
-        <textarea id="message" name="message" rows={5} className={inputCls} placeholder="Tell us about your player and what you’re looking for…" />
-        <FieldError message={state.fieldErrors?.message} />
+        <textarea
+          id="message"
+          name="message"
+          rows={5}
+          className={inputCls}
+          placeholder="Tell us about your player and what you’re looking for…"
+          aria-invalid={state.fieldErrors?.message ? true : undefined}
+          aria-describedby={state.fieldErrors?.message ? 'message-error' : undefined}
+        />
+        <FieldError id="message-error" message={state.fieldErrors?.message} />
       </div>
 
       <SubmitButton />

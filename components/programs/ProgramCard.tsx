@@ -117,7 +117,7 @@ export function ProgramCard({ program }: { program: CardProgram }) {
         <div className="mt-auto flex items-center justify-between pt-4">
           <span className="font-heading font-bold text-brand">{program.priceDisplay}</span>
           {comingSoon ? (
-            <span className="inline-flex items-center rounded-full bg-ink/5 px-3 py-1 text-sm font-semibold text-ink/40">
+            <span className="inline-flex items-center rounded-full bg-ink/5 px-3 py-1 text-sm font-semibold text-ink/60">
               Coming soon
             </span>
           ) : (

@@ -7,9 +7,13 @@ export const inputCls =
 export const labelCls = 'block text-sm font-semibold text-navy';
 export const errCls = 'mt-1.5 text-sm font-medium text-red-600';
 
-export function FieldError({ message }: { message?: string }) {
+export function FieldError({ message, id }: { message?: string; id?: string }) {
   if (!message) return null;
-  return <p className={errCls}>{message}</p>;
+  return (
+    <p id={id} className={errCls}>
+      {message}
+    </p>
+  );
 }
 
 export function FormError({ message }: { message?: string }) {
