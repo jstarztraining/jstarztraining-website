@@ -1,0 +1,10 @@
+{
+  // Forward dev-server ports WITHOUT opening anything (no browser tab, no
+  // in-editor Simple Browser preview). The `npm run dev` script opens the app
+  // in the correct Chrome profile; these settings stop VSCode from also
+  // opening it in a browser or an editor preview pane.
+  "remote.portsAttributes": {
+    "3000": { "onAutoForward": "silent" }
+  },
+  "remote.otherPortsAttributes": { "onAutoForward": "silent" }
+}
