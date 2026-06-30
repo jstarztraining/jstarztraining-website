@@ -5,7 +5,6 @@ import { Button } from '@/components/ui/Button';
 import { PageHero } from '@/components/site/PageHero';
 import { Reveal } from '@/components/motion/Reveal';
 import { getPageContent } from '@/lib/queries';
-import { SITE } from '@/lib/site';
 
 export const revalidate = 60;
 
@@ -136,11 +135,11 @@ export default async function AboutPage() {
             </h2>
           </Reveal>
           <Reveal delay={90} className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Button href={SITE.shopifyStoreUrl} size="lg">
+            <Button href="/programs" size="lg">
               Book a Session
             </Button>
-            <Button href="/programs" variant="ghost-dark" size="lg">
-              Explore Programs
+            <Button href="/contact" variant="ghost-dark" size="lg">
+              Get in touch
             </Button>
           </Reveal>
         </Container>

@@ -3,6 +3,7 @@
 import { usePathname } from 'next/navigation';
 import type { ReactNode } from 'react';
 import { Navbar, type NavBanner } from './Navbar';
+import { MobileBookBar } from './MobileBookBar';
 
 /**
  * Renders the public navbar + footer around page content, but omits them on the
@@ -34,6 +35,7 @@ export function SiteChrome({
       {!bare && <Navbar banner={banner} />}
       <main id="main">{children}</main>
       {!bare && footer}
+      {!bare && <MobileBookBar />}
     </>
   );
 }

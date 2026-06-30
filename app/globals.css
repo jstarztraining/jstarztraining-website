@@ -8,6 +8,13 @@
        These literal fallbacks only apply before the font CSS loads. */
     --font-display: 'Archivo', system-ui, sans-serif;
     --font-body: 'Hanken Grotesk', system-ui, sans-serif;
+
+    /* Floodlit-gradient stops beyond the named Tailwind palette. Defined once
+       here so the hero / page-header / card navy gradients stay in sync — they
+       live in inline styles (which can't use Tailwind tokens) so they reference
+       these vars. Documented in DESIGN.md. */
+    --brand-crown: #114089; /* bright crown — top of every floodlit gradient */
+    --navy-floor: #050f29; /* deepest floor — a touch below navy */
   }
 
   html {
@@ -35,8 +42,10 @@
   }
 
   /* Visible, on-brand focus ring for keyboard users. */
+  /* Brand-blue focus ring: clears 3:1 on both the navy and white section worlds
+     (gold fails ~1.8:1 on white), and matches the brand-blue focus on inputs. */
   :focus-visible {
-    outline: 2px solid theme('colors.gold.DEFAULT');
+    outline: 2px solid theme('colors.brand.bright');
     outline-offset: 3px;
     border-radius: 2px;
   }
@@ -73,6 +82,9 @@
   .reveal-ready [data-reveal].is-visible {
     opacity: 1;
     transform: none;
+    /* Reveal is done — release the compositor hint so long pages don't hold
+       dozens of promoted layers. */
+    will-change: auto;
   }
 }
 
@@ -88,7 +100,10 @@
   .accent-underline {
     position: relative;
     display: inline-block;
-    white-space: nowrap;
+    /* Cap to the line width and let an over-long editable last word break
+       rather than overflow the viewport on mobile (headlines are owner-editable). */
+    max-width: 100%;
+    overflow-wrap: break-word;
   }
   .accent-underline::after {
     content: '';

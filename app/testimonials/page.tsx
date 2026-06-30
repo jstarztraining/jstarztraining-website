@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/Button';
 import { PageHero } from '@/components/site/PageHero';
 import { Reveal } from '@/components/motion/Reveal';
 import { getActiveTestimonials } from '@/lib/queries';
-import { SITE } from '@/lib/site';
 
 export const revalidate = 60;
 
@@ -43,7 +42,7 @@ export default async function TestimonialsPage() {
                       <blockquote className="mt-2 flex-1 text-lg leading-relaxed text-ink/80">{t.quote}</blockquote>
                       <figcaption className="mt-6 border-t border-navy/10 pt-5">
                         <span className="block font-heading font-bold text-navy">{name}</span>
-                        {role ? <span className="mt-0.5 block text-sm text-ink/55">{role}</span> : null}
+                        {role ? <span className="mt-0.5 block text-sm text-ink/70">{role}</span> : null}
                       </figcaption>
                     </figure>
                   </Reveal>
@@ -63,7 +62,7 @@ export default async function TestimonialsPage() {
             </h2>
           </Reveal>
           <Reveal delay={90} className="mt-8">
-            <Button href={SITE.shopifyStoreUrl} size="lg">
+            <Button href="/programs" size="lg">
               Book a Session
             </Button>
           </Reveal>

@@ -3,14 +3,16 @@
 import { useFormStatus } from 'react-dom';
 
 export const inputCls =
-  'mt-2 w-full rounded-xl border border-navy/15 bg-white px-4 py-2.5 text-navy outline-none transition-colors focus:border-brand focus:ring-2 focus:ring-brand/25';
+  'mt-2 w-full rounded-xl border border-navy/15 bg-white px-4 py-2.5 text-navy outline-none transition-colors placeholder:text-ink/60 focus:border-brand focus:ring-2 focus:ring-brand/25';
 export const labelCls = 'block text-sm font-semibold text-navy';
 export const errCls = 'mt-1.5 text-sm font-medium text-red-600';
 
-export function FieldError({ message, id }: { message?: string; id?: string }) {
+export function FieldError({ id, message }: { id?: string; message?: string }) {
   if (!message) return null;
+  // role="alert" so screen readers announce the error when it appears; the id
+  // lets the field reference it via aria-describedby.
   return (
-    <p id={id} className={errCls}>
+    <p id={id} role="alert" className={errCls}>
       {message}
     </p>
   );

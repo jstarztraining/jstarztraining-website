@@ -5,7 +5,9 @@ colors:
   brand-bright: "#1f7ae0"
   brand: "#1158c4"
   brand-deep: "#0a2a63"
+  brand-crown: "#114089"
   navy: "#06183f"
+  navy-floor: "#050f29"
   ink: "#0a1430"
   gold-soft: "#f4d889"
   gold: "#e6b945"
@@ -125,6 +127,7 @@ A floodlit palette: deep blues as the field, a three-step gold as the brand's wa
 - **Royal Blue** (`#1158c4`): The brand's pulse. Prices, in-text links, focus rings on light surfaces, hover color shifts on dark cards, the active/hover state of light-mode ghost buttons. The voice of "this is a serious program."
 - **Floodlight Blue** (`#1f7ae0`): The brightest blue, used as luminous glow — the drifting blurred orb behind heroes (`brand-bright/25`), the top of hero radial gradients (`#114089` neighbor). Energy and light, rarely a fill.
 - **Crown Blue** (`#0a2a63`): The mid-depth of every navy gradient — the band between the bright crown and the navy floor.
+- **Floodlight Crown** (`#114089`, token `brand-crown` / `--brand-crown`): The brightest stop at the very top of every floodlit navy gradient (hero, page-header, featured/fallback cards) — the lit edge of the stadium. Lives only in gradients; tokenized as the CSS var `--brand-crown` so all four gradients stay in sync.
 
 ### Secondary
 - **Crest Gold** (`#e6b945`): The brand's energy and warmth, used freely and on purpose — primary CTA fills, the hero accent-word underline swipe, section kicker rules, active nav underlines, the "Featured" tag, hover-grown dividers, the scroll cue. Gold is how the brand smiles.
@@ -133,6 +136,7 @@ A floodlit palette: deep blues as the field, a three-step gold as the brand's wa
 
 ### Neutral
 - **Stadium Navy** (`#06183f`): The dominant dark surface — hero floor, page headers, featured cards, footer, mobile menu, the condensed nav background (`navy/85` + blur). The "floodlit" half of the system.
+- **Stadium Floor** (`#050f29`, token `navy-floor` / `--navy-floor`): The deepest stop at the bottom of the hero and page-header gradients, a touch below navy. Gradient-only; tokenized as the CSS var `--navy-floor`.
 - **Ink** (`#0a1430`): Default body text color on white. Near-black with a blue undertone, never a warm gray.
 - **Mist** (`#f4f6fb`) & **Cloud** (`#eaeefa`): Faintly blue-tinted light surfaces for daylight sections and hover fills — the brand's own hue at low chroma, not a warm cream.
 - **White** (`#ffffff`): The daylight section background and program-card surface.

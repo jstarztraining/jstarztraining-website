@@ -85,7 +85,7 @@ export default async function SchedulePage() {
 
           {/* Venues legend */}
           <Reveal className="mt-14 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-navy/10 pt-8 text-sm text-ink/60">
-            <span className="font-bold uppercase tracking-wide text-ink/60">Venues</span>
+            <span className="font-bold uppercase tracking-wide text-ink/70">Venues</span>
             {VENUES.map((v) => (
               <span key={v} className="inline-flex items-center gap-2">
                 <span className="h-1.5 w-1.5 rounded-full bg-gold" aria-hidden />

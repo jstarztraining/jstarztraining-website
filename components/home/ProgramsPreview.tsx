@@ -2,12 +2,32 @@ import type { Program } from '@prisma/client';
 import { Container } from '@/components/ui/Container';
 import { Button } from '@/components/ui/Button';
 import { Reveal } from '@/components/motion/Reveal';
-import { FeaturedProgramCard, ProgramCard } from '@/components/programs/ProgramCard';
+import {
+  FeaturedProgramCard,
+  ProgramCard,
+  type CardProgram,
+} from '@/components/programs/ProgramCard';
+import { FEATURED_PROGRAMS } from '@/lib/content';
+
+type PreviewProgram = CardProgram & { id: string };
+
+// Resilience: if the DB has no active programs (unseeded, or an editor
+// deactivated everything), the home page must not lose its conversion core.
+// Fall back to the real featured offerings from the brief (§5) so the section
+// — and the path to Shopify — always renders.
+const FALLBACK: PreviewProgram[] = FEATURED_PROGRAMS.map((p) => ({
+  id: p.id,
+  title: p.title,
+  description: p.blurb,
+  priceDisplay: p.priceDisplay,
+  imageUrl: p.imageUrl,
+  shopifyUrl: p.shopifyUrl,
+}));
 
 export function ProgramsPreview({ programs }: { programs: Program[] }) {
-  if (programs.length === 0) return null;
+  const source: PreviewProgram[] = programs.length > 0 ? programs : FALLBACK;
 
-  const [featured, ...rest] = programs.slice(0, 6);
+  const [featured, ...rest] = source.slice(0, 6);
 
   return (
     <section className="relative bg-mist py-24 lg:py-32">
@@ -19,7 +39,7 @@ export function ProgramsPreview({ programs }: { programs: Program[] }) {
             </h2>
             <p className="mt-4 max-w-prose text-lg leading-relaxed text-ink/70">
               Private sessions, small-group development, goalkeeper specialists, camps and parties —
-              pick your path and book straight through.
+              pick your path and check out securely on our store.
             </p>
           </Reveal>
           <Reveal delay={120} className="hidden sm:block">

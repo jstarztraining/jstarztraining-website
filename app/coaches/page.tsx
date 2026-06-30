@@ -6,7 +6,6 @@ import { Button } from '@/components/ui/Button';
 import { PageHero } from '@/components/site/PageHero';
 import { Reveal } from '@/components/motion/Reveal';
 import { getActiveCoaches } from '@/lib/queries';
-import { SITE } from '@/lib/site';
 
 export const revalidate = 60;
 
@@ -54,7 +53,7 @@ export default async function CoachesPage() {
             </h2>
           </Reveal>
           <Reveal delay={90} className="mt-8">
-            <Button href={SITE.shopifyStoreUrl} size="lg">
+            <Button href="/programs" size="lg">
               Book a Session
             </Button>
           </Reveal>

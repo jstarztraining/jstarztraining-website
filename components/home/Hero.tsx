@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/Button';
 import { SoccerBall } from '@/components/ui/SoccerBall';
 import { CountUp } from '@/components/motion/CountUp';
 import { HERO_STATS } from '@/lib/content';
-import { SITE } from '@/lib/site';
 import { cn } from '@/lib/utils';
 
 const FALLBACK = {
@@ -12,7 +11,10 @@ const FALLBACK = {
   subhead:
     'One-on-one and small-group training (4–6 max) for players and goalkeepers of every age and background. More touches. Real coaching. A community that feels like family.',
   ctaLabel: 'Book a Session',
-  ctaUrl: SITE.shopifyStoreUrl,
+  // Guided path: the primary CTA routes to the on-site catalog (visitors pick a
+  // program, then that card links out to Shopify) rather than a raw storefront.
+  // Owner-editable via the dashboard if a direct store/product link is wanted.
+  ctaUrl: '/programs',
 };
 
 // Split a headline so the final word renders as the gold accent (with underline).
@@ -41,7 +43,7 @@ export function Hero({ hero }: { hero: HomeHero | null }) {
         className="absolute inset-0 -z-20"
         style={{
           backgroundImage:
-            'radial-gradient(130% 95% at 50% -10%, #114089 0%, #0a2a63 38%, #06183f 70%, #050f29 100%)',
+            'radial-gradient(130% 95% at 50% -10%, var(--brand-crown) 0%, #0a2a63 38%, #06183f 70%, var(--navy-floor) 100%)',
         }}
       />
       {/* Drifting brand + gold glows */}
@@ -103,8 +105,8 @@ export function Hero({ hero }: { hero: HomeHero | null }) {
                 →
               </span>
             </Button>
-            <Button href="/programs" variant="ghost" size="lg">
-              Explore Programs
+            <Button href="/about" variant="ghost" size="lg">
+              Our story
             </Button>
           </div>
         </div>

@@ -3,7 +3,30 @@ import { Container } from '@/components/ui/Container';
 import { Reveal } from '@/components/motion/Reveal';
 
 export function TestimonialsSection({ testimonials }: { testimonials: Testimonial[] }) {
-  if (testimonials.length === 0) return null;
+  // Resilience: no real testimonials yet (they're permissioned, §13). Rather than
+  // fabricate quotes or drop the section — which would collapse two navy sections
+  // together and break the world rhythm — hold the white beat with a confident,
+  // honest brand band until real ones are added in the dashboard.
+  if (testimonials.length === 0) {
+    return (
+      <section className="bg-white py-24 lg:py-32">
+        <Container>
+          <Reveal className="mx-auto max-w-2xl text-center">
+            <h2 className="font-display text-[clamp(2rem,4.5vw,3.25rem)] font-black leading-[1.02] tracking-tightest text-navy">
+              Built on <span className="text-brand">word of mouth.</span>
+            </h2>
+            <p className="mx-auto mt-5 max-w-prose text-lg leading-relaxed text-ink/70">
+              Families across Halifax &amp; Nova Scotia choose JStarz for real coaching, small
+              groups, and a place every player wants to come back to.
+            </p>
+            <p className="mt-8 font-display text-xl font-extrabold tracking-tight text-navy">
+              “No ego. No politics. Just soccer.”
+            </p>
+          </Reveal>
+        </Container>
+      </section>
+    );
+  }
 
   return (
     <section className="bg-white py-24 lg:py-32">
@@ -27,7 +50,7 @@ export function TestimonialsSection({ testimonials }: { testimonials: Testimonia
                   </blockquote>
                   <figcaption className="mt-6 border-t border-navy/10 pt-5">
                     <span className="block font-heading font-bold text-navy">{name}</span>
-                    {role ? <span className="mt-0.5 block text-sm text-ink/55">{role}</span> : null}
+                    {role ? <span className="mt-0.5 block text-sm text-ink/70">{role}</span> : null}
                   </figcaption>
                 </figure>
               </Reveal>

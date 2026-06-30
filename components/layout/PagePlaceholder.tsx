@@ -1,6 +1,5 @@
 import { Container } from '@/components/ui/Container';
 import { Button } from '@/components/ui/Button';
-import { SITE } from '@/lib/site';
 
 /**
  * Temporary on-brand placeholder for routes not yet built, so the nav never
@@ -22,7 +21,7 @@ export function PagePlaceholder({
         className="absolute inset-0 -z-10"
         style={{
           backgroundImage:
-            'radial-gradient(120% 95% at 50% -10%, #114089 0%, #0a2a63 40%, #06183f 75%, #050f29 100%)',
+            'radial-gradient(120% 95% at 50% -10%, var(--brand-crown) 0%, #0a2a63 40%, #06183f 75%, var(--navy-floor) 100%)',
         }}
       />
       <div
@@ -40,7 +39,7 @@ export function PagePlaceholder({
         </h1>
         <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-white/70">{blurb}</p>
         <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <Button href={SITE.shopifyStoreUrl} size="lg">
+          <Button href="/programs" size="lg">
             Book a Session
           </Button>
           <Button href="/" variant="ghost" size="lg">

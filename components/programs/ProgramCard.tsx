@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import type { Program } from '@prisma/client';
 
-type CardProgram = Pick<
+export type CardProgram = Pick<
   Program,
   'title' | 'description' | 'priceDisplay' | 'imageUrl' | 'shopifyUrl'
 >;
@@ -19,7 +19,7 @@ function ImageFallback() {
       className="absolute inset-0"
       style={{
         backgroundImage:
-          'radial-gradient(120% 120% at 30% 0%, #114089 0%, #0a2a63 55%, #06183f 100%)',
+          'radial-gradient(120% 120% at 30% 0%, var(--brand-crown) 0%, #0a2a63 55%, #06183f 100%)',
       }}
     />
   );
@@ -54,7 +54,7 @@ export function FeaturedProgramCard({ program }: { program: CardProgram }) {
         <span className="inline-flex rounded-full bg-gold px-3 py-1 text-xs font-bold uppercase tracking-wide text-navy">
           Featured
         </span>
-        <h3 className="mt-4 max-w-md font-display text-2xl font-extrabold leading-tight tracking-tight sm:text-3xl">
+        <h3 className="mt-4 line-clamp-3 max-w-md font-display text-2xl font-extrabold leading-tight tracking-tight sm:text-3xl">
           {program.title}
         </h3>
         <p className="mt-3 max-w-md text-white/75">{program.description}</p>
@@ -66,7 +66,7 @@ export function FeaturedProgramCard({ program }: { program: CardProgram }) {
             </span>
           ) : (
             <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-white transition-transform duration-300 ease-out-quint group-hover:translate-x-1">
-              Choose options <span aria-hidden>→</span>
+              Choose options <span aria-hidden>↗</span>
             </span>
           )}
         </div>
@@ -110,7 +110,7 @@ export function ProgramCard({ program }: { program: CardProgram }) {
         )}
       </div>
       <div className="flex flex-1 flex-col p-5">
-        <h3 className="font-heading text-lg font-bold leading-snug tracking-tight text-navy">
+        <h3 className="line-clamp-2 font-heading text-lg font-bold leading-snug tracking-tight text-navy">
           {program.title}
         </h3>
         <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-ink/65">{program.description}</p>
@@ -121,8 +121,8 @@ export function ProgramCard({ program }: { program: CardProgram }) {
               Coming soon
             </span>
           ) : (
-            <span className="inline-flex items-center gap-1 text-sm font-semibold text-ink/55 transition-all duration-300 ease-out-quint group-hover:text-brand group-hover:gap-2">
-              Choose options <span aria-hidden>→</span>
+            <span className="inline-flex items-center gap-1 text-sm font-semibold text-ink/70 transition-all duration-300 ease-out-quint group-hover:text-brand group-hover:gap-2">
+              Choose options <span aria-hidden>↗</span>
             </span>
           )}
         </div>

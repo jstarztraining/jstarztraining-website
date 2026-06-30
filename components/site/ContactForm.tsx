@@ -61,6 +61,7 @@ export function ContactForm() {
             className={inputCls}
             placeholder="Your name"
             autoComplete="name"
+            aria-required
             aria-invalid={state.fieldErrors?.name ? true : undefined}
             aria-describedby={state.fieldErrors?.name ? 'name-error' : undefined}
           />
@@ -68,7 +69,7 @@ export function ContactForm() {
         </div>
         <div>
           <label htmlFor="phone" className={labelCls}>
-            Phone <span className="font-normal text-ink/50">(optional)</span>
+            Phone <span className="font-normal text-ink/70">(optional)</span>
           </label>
           <input id="phone" name="phone" className={inputCls} placeholder="(782) 000-0000" autoComplete="tel" />
         </div>
@@ -85,6 +86,7 @@ export function ContactForm() {
           className={inputCls}
           placeholder="you@example.com"
           autoComplete="email"
+          aria-required
           aria-invalid={state.fieldErrors?.email ? true : undefined}
           aria-describedby={state.fieldErrors?.email ? 'email-error' : undefined}
         />
@@ -101,6 +103,7 @@ export function ContactForm() {
           rows={5}
           className={inputCls}
           placeholder="Tell us about your player and what you’re looking for…"
+          aria-required
           aria-invalid={state.fieldErrors?.message ? true : undefined}
           aria-describedby={state.fieldErrors?.message ? 'message-error' : undefined}
         />

@@ -5,7 +5,6 @@ import { Button } from '@/components/ui/Button';
 import { PageHero } from '@/components/site/PageHero';
 import { Reveal } from '@/components/motion/Reveal';
 import { prisma } from '@/lib/prisma';
-import { SITE } from '@/lib/site';
 
 export const revalidate = 60;
 
@@ -34,7 +33,7 @@ export default async function GalleryPage() {
           {assets.length === 0 ? (
             <div className="rounded-[1.5rem] border border-dashed border-navy/15 bg-mist p-16 text-center">
               <p className="text-lg text-ink/60">Photos are coming soon.</p>
-              <p className="mx-auto mt-2 max-w-md text-sm text-ink/50">
+              <p className="mx-auto mt-2 max-w-md text-sm text-ink/70">
                 We’re putting together a gallery of action shots and team moments. Check back soon.
               </p>
             </div>
@@ -58,7 +57,7 @@ export default async function GalleryPage() {
           )}
 
           <Reveal className="mt-16 text-center">
-            <Button href={SITE.shopifyStoreUrl} size="lg">
+            <Button href="/programs" size="lg">
               Join the JStarz family
             </Button>
           </Reveal>

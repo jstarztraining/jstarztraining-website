@@ -1,7 +1,6 @@
 import { Container } from '@/components/ui/Container';
 import { Button } from '@/components/ui/Button';
 import { Reveal } from '@/components/motion/Reveal';
-import { SITE } from '@/lib/site';
 
 export function FinalCta() {
   return (
@@ -11,7 +10,7 @@ export function FinalCta() {
         className="absolute inset-0 -z-10"
         style={{
           backgroundImage:
-            'radial-gradient(110% 120% at 50% 120%, #114089 0%, #0a2a63 45%, #06183f 100%)',
+            'radial-gradient(110% 120% at 50% 120%, var(--brand-crown) 0%, #0a2a63 45%, #06183f 100%)',
         }}
       />
       <div
@@ -32,7 +31,7 @@ export function FinalCta() {
           </p>
         </Reveal>
         <Reveal delay={150} className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <Button href={SITE.shopifyStoreUrl} size="lg">
+          <Button href="/programs" size="lg">
             Book a Session
             <span aria-hidden className="transition-transform duration-300 ease-out-quint group-hover/btn:translate-x-1">
               →

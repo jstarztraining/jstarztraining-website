@@ -47,7 +47,7 @@ export default async function ContactPage() {
 
           <Reveal delay={120}>
             <div className="rounded-[1.5rem] bg-mist p-8">
-              <h2 className="font-heading text-sm font-bold uppercase tracking-[0.16em] text-ink/50">
+              <h2 className="font-heading text-sm font-bold uppercase tracking-[0.16em] text-ink/70">
                 Reach us directly
               </h2>
               <ul className="mt-6 space-y-6">

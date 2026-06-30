@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/Button';
 import { PageHero } from '@/components/site/PageHero';
 import { Reveal } from '@/components/motion/Reveal';
 import { getActiveFaqs } from '@/lib/queries';
-import { SITE } from '@/lib/site';
 
 export const revalidate = 60;
 
@@ -76,7 +75,7 @@ export default async function FaqPage() {
               <Button href="/contact" size="lg">
                 Contact us
               </Button>
-              <Button href={SITE.shopifyStoreUrl} variant="ghost" size="lg">
+              <Button href="/programs" variant="ghost" size="lg">
                 Browse programs
               </Button>
             </div>

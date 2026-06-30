@@ -3,9 +3,13 @@ import type { Coach } from '@prisma/client';
 import { Container } from '@/components/ui/Container';
 import { Button } from '@/components/ui/Button';
 import { Reveal } from '@/components/motion/Reveal';
+import { HEAD_COACH } from '@/lib/content';
 
 export function CoachSection({ coach }: { coach: Coach | null }) {
-  if (!coach) return null;
+  // Resilience: the founder is the heart of this section. If no active coach is
+  // in the DB yet, fall back to Jordan's real bio (§10) rather than dropping the
+  // whole section and the only human face on the homepage.
+  const c = coach ?? HEAD_COACH;
 
   return (
     <section className="relative overflow-hidden bg-navy py-24 text-white lg:py-32">
@@ -16,10 +20,10 @@ export function CoachSection({ coach }: { coach: Coach | null }) {
       <Container className="relative grid items-center gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
         <Reveal direction="left" className="relative mx-auto w-full max-w-sm lg:max-w-none">
           <div className="relative aspect-[4/5] overflow-hidden rounded-[1.75rem] bg-brand-deep shadow-card-hover">
-            {coach.imageUrl ? (
+            {c.imageUrl ? (
               <Image
-                src={coach.imageUrl}
-                alt={`${coach.name} — ${coach.role}`}
+                src={c.imageUrl}
+                alt={`${c.name} — ${c.role}`}
                 fill
                 sizes="(max-width: 1024px) 90vw, 40vw"
                 className="object-cover"
@@ -35,12 +39,12 @@ export function CoachSection({ coach }: { coach: Coach | null }) {
         <div>
           <Reveal>
             <h2 className="font-display text-[clamp(2rem,4.5vw,3.25rem)] font-black leading-[1.02] tracking-tightest">
-              Meet {coach.name.split(' ')[0]}.
+              Meet {c.name.split(' ')[0]}.
             </h2>
-            <p className="mt-3 text-base font-semibold text-gold-soft">{coach.role}</p>
+            <p className="mt-3 text-base font-semibold text-gold-soft">{c.role}</p>
           </Reveal>
           <Reveal delay={90}>
-            <p className="mt-6 max-w-prose text-lg leading-relaxed text-white/75">{coach.bio}</p>
+            <p className="mt-6 max-w-prose text-lg leading-relaxed text-white/75">{c.bio}</p>
           </Reveal>
           <Reveal delay={150}>
             <blockquote className="mt-7">

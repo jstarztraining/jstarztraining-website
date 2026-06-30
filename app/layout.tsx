@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { fontVariables } from '@/lib/fonts';
 import { SiteChrome } from '@/components/layout/SiteChrome';
 import { Footer } from '@/components/layout/Footer';
@@ -39,6 +39,14 @@ export const metadata: Metadata = {
       'Private and small-group soccer and goalkeeper training in Halifax, NS. More touches, real coaching, a community that feels like family.',
   },
   robots: { index: true, follow: true },
+};
+
+export const viewport: Viewport = {
+  // viewport-fit=cover enables env(safe-area-inset-*) so the mobile book bar
+  // clears the home indicator on notched phones. themeColor tints the mobile
+  // browser chrome to brand navy.
+  themeColor: '#06183f',
+  viewportFit: 'cover',
 };
 
 // Pre-paint: arm scroll-reveal only when JS runs and motion is allowed, so

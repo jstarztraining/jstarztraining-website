@@ -21,7 +21,7 @@ export default async function LoginPage() {
         className="absolute inset-0 -z-10"
         style={{
           backgroundImage:
-            'radial-gradient(120% 100% at 50% -10%, #114089 0%, #0a2a63 45%, #06183f 80%, #050f29 100%)',
+            'radial-gradient(120% 100% at 50% -10%, var(--brand-crown) 0%, #0a2a63 45%, #06183f 80%, var(--navy-floor) 100%)',
         }}
       />
       <div

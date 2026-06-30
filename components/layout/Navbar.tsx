@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Logo } from '@/components/ui/Logo';
 import { Button } from '@/components/ui/Button';
-import { NAV_LINKS, SITE } from '@/lib/site';
+import { NAV_LINKS } from '@/lib/site';
 import { cn } from '@/lib/utils';
 
 export type NavBanner = { enabled: boolean; message: string | null; url: string | null };
@@ -83,8 +83,8 @@ export function Navbar({ banner }: { banner?: NavBanner }) {
                   {link.label}
                   <span
                     className={cn(
-                      'absolute -bottom-1.5 left-0 h-0.5 rounded-full bg-gold transition-all duration-300 ease-out-quint',
-                      active ? 'w-full' : 'w-0 group-hover:w-full',
+                      'absolute -bottom-1.5 left-0 h-0.5 w-full origin-left rounded-full bg-gold transition-transform duration-300 ease-out-quint',
+                      active ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100',
                     )}
                   />
                 </Link>
@@ -94,7 +94,7 @@ export function Navbar({ banner }: { banner?: NavBanner }) {
         </ul>
 
         <div className="flex items-center gap-3">
-          <Button href={SITE.shopifyStoreUrl} size="md" className="hidden sm:inline-flex">
+          <Button href="/programs" size="md" className="hidden sm:inline-flex">
             Book Now
           </Button>
 
@@ -165,7 +165,7 @@ export function Navbar({ banner }: { banner?: NavBanner }) {
               {link.label}
             </Link>
           ))}
-          <Button href={SITE.shopifyStoreUrl} size="lg" className="mt-8 w-full">
+          <Button href="/programs" size="lg" className="mt-8 w-full">
             Book a Session
           </Button>
         </nav>
