@@ -109,7 +109,9 @@
     content: '';
     position: absolute;
     left: 0;
-    bottom: -0.04em;
+    /* Sit below the descender line so the swipe clears letters like p/g/y
+       (negative offset keeps it out of the box, so no line-height shift). */
+    bottom: -0.32em;
     height: 0.1em;
     width: 100%;
     border-radius: 999px;
