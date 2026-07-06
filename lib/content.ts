@@ -38,7 +38,7 @@ export const PROGRAMS: Program[] = [
     category: 'Private',
     blurb:
       'Personalized one-on-one training designed to improve technical ability, confidence, decision-making, position-specific skills, and overall game performance. Available for youth and adult players of all levels.',
-    shopifyUrl: `${SITE.shopifyStoreUrl}/collections/1-on-1-training`,
+    shopifyUrl: `${SITE.shopifyStoreUrl}/products/1-on-1-session`,
     imageUrl: '/images/private-training.jpg',
     imageAlt: 'One-on-one JStarz soccer training session in Halifax',
   },
@@ -49,7 +49,7 @@ export const PROGRAMS: Program[] = [
     category: 'Development',
     blurb:
       'Small-group and academy-style training focused on technical development, attacking play, defending, game awareness, and confidence in a fun, competitive environment.',
-    shopifyUrl: `${SITE.shopifyStoreUrl}/collections/group-training`,
+    shopifyUrl: `${SITE.shopifyStoreUrl}/products/u10-group-soccer-training-sessions`,
     imageUrl: '/images/group-training.jpg',
     imageAlt: 'JStarz small-group soccer development session',
   },
@@ -60,7 +60,7 @@ export const PROGRAMS: Program[] = [
     category: 'Development',
     blurb:
       'Customized training sessions for clubs, schools, academies, and teams. Sessions can focus on technical, tactical, physical, goalkeeper, or team-specific objectives.',
-    shopifyUrl: `${SITE.shopifyStoreUrl}/collections/group-training`,
+    shopifyUrl: `${SITE.shopifyStoreUrl}/products/jstarz-masters-program`,
     imageUrl: '/images/team-workshops.jpg',
     imageAlt: 'A JStarz team gathered for a workshop in the indoor dome in Halifax',
   },
@@ -71,7 +71,7 @@ export const PROGRAMS: Program[] = [
     category: 'Goalkeeping',
     blurb:
       'Specialized goalkeeper training focused on handling, footwork, diving, positioning, distribution, communication, and match-specific situations.',
-    shopifyUrl: `${SITE.shopifyStoreUrl}/collections/goalkeeping`,
+    shopifyUrl: `${SITE.shopifyStoreUrl}/products/saturday-bmo-1-1-gk-sessions`,
     imageUrl: '/images/goalkeeper-training.jpg',
     imageAlt: 'JStarz goalkeeper training — diving and handling drills',
   },
@@ -82,7 +82,7 @@ export const PROGRAMS: Program[] = [
     category: 'Goalkeeping',
     blurb:
       'Small-group goalkeeper training and competitive GK Wars events designed to develop technical skills, confidence, and game performance in a challenging environment.',
-    shopifyUrl: `${SITE.shopifyStoreUrl}/collections/goalkeeping`,
+    shopifyUrl: `${SITE.shopifyStoreUrl}/products/u13-group-goalkeeper-sessions-ages-10-13`,
     imageUrl: '/images/gk-wars.jpg',
     imageAlt: 'JStarz GK Wars competitive goalkeeper group session',
   },
@@ -93,7 +93,7 @@ export const PROGRAMS: Program[] = [
     category: 'Development',
     blurb:
       'Speed, agility, strength, explosiveness, injury prevention, and athletic development training designed to help athletes perform at their highest level.',
-    shopifyUrl: `${SITE.shopifyStoreUrl}/collections/athletic-conditioning`,
+    shopifyUrl: `${SITE.shopifyStoreUrl}/products/1-on-1-plyometrics-training`,
     imageUrl: '/images/athletic-conditioning.jpg',
     imageAlt: 'JStarz speed and agility conditioning training',
   },
@@ -104,7 +104,10 @@ export const PROGRAMS: Program[] = [
     category: 'Camps & Events',
     blurb:
       'Fun, engaging soccer-themed birthday parties and private camp experiences featuring games, challenges, competitions, and professional coaching in a safe and exciting environment.',
-    shopifyUrl: `${SITE.shopifyStoreUrl}/collections/supplementary-programs`,
+    // No standalone birthday/camp product found in the live store — set to
+    // "Coming soon" rather than dump visitors on the storefront. Jordan can
+    // paste the exact product URL in the dashboard when ready.
+    shopifyUrl: '',
     imageUrl: '/images/birthday-parties.jpg',
     imageAlt: 'JStarz soccer birthday party and private camp',
   },
@@ -115,7 +118,7 @@ export const PROGRAMS: Program[] = [
     category: 'Camps & Events',
     blurb:
       'Half-day and full-day camps featuring technical training, competitions, small-sided games, leadership development, and plenty of opportunities to learn, improve, and have fun.',
-    shopifyUrl: `${SITE.shopifyStoreUrl}/collections/supplementary-programs`,
+    shopifyUrl: `${SITE.shopifyStoreUrl}/products/soccer-camps`,
     imageUrl: '/images/soccer-camps.jpg',
     imageAlt: 'JStarz half- and full-day soccer camp',
   },
@@ -126,7 +129,9 @@ export const PROGRAMS: Program[] = [
     category: 'Camps & Events',
     blurb:
       'Community-focused soccer events, scrimmages, tournaments, showcases, and special development opportunities that bring players and families together through the game.',
-    shopifyUrl: `${SITE.shopifyStoreUrl}/collections/community-events`,
+    // No standalone community-events product in the live store — "Coming soon"
+    // until Jordan provides the product URL (community events vary by event).
+    shopifyUrl: '',
     imageUrl: '/images/community-tournaments.jpg',
     imageAlt: 'JStarz community soccer event and tournament',
   },
