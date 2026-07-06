@@ -1,7 +1,8 @@
 import type { HomeHero } from '@prisma/client';
+import Image from 'next/image';
 import { Container } from '@/components/ui/Container';
 import { Button } from '@/components/ui/Button';
-import { SoccerBall } from '@/components/ui/SoccerBall';
+import { HeroShowcase } from '@/components/home/HeroShowcase';
 import { CountUp } from '@/components/motion/CountUp';
 import { HERO_STATS } from '@/lib/content';
 import { cn } from '@/lib/utils';
@@ -37,13 +38,24 @@ export function Hero({ hero }: { hero: HomeHero | null }) {
       {/* The promo banner lives in the fixed header stack (Navbar), above the
           nav row — see components/layout/Navbar.tsx. */}
 
-      {/* Base radial gradient: deep blue crown → navy floor */}
+      {/* Full-bleed background — real JStarz session, heavily darkened to navy */}
+      <Image
+        src="/images/hero-bg.jpg"
+        alt=""
+        aria-hidden
+        fill
+        priority
+        sizes="100vw"
+        className="absolute inset-0 -z-30 object-cover object-center"
+      />
+      {/* Navy wash: near-solid on the left for text legibility, opening up on the
+          right so the photograph reads. Crown glow on top, floor darken at base. */}
       <div
         aria-hidden
         className="absolute inset-0 -z-20"
         style={{
           backgroundImage:
-            'radial-gradient(130% 95% at 50% -10%, var(--brand-crown) 0%, #0a2a63 38%, #06183f 70%, var(--navy-floor) 100%)',
+            'radial-gradient(82% 78% at 50% 44%, rgba(6,24,63,0.88) 0%, rgba(6,24,63,0.62) 48%, rgba(17,64,137,0.36) 78%, rgba(31,122,224,0.24) 100%), radial-gradient(120% 92% at 50% -12%, rgba(31,122,224,0.4) 0%, rgba(6,24,63,0) 55%), linear-gradient(to bottom, rgba(5,15,41,0.14) 0%, rgba(5,15,41,0) 32%, rgba(5,15,41,0.55) 100%)',
         }}
       />
       {/* Drifting brand + gold glows */}
@@ -56,50 +68,38 @@ export function Hero({ hero }: { hero: HomeHero | null }) {
         className="absolute right-[-8%] top-[-6%] -z-10 h-[28rem] w-[28rem] rounded-full bg-gold/15 blur-[120px] animate-drift"
         style={{ animationDelay: '-8s' }}
       />
-      {/* Faint pitch-line grid */}
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-10 opacity-[0.06]"
-        style={{
-          backgroundImage:
-            'linear-gradient(to right, #fff 1px, transparent 1px), linear-gradient(to bottom, #fff 1px, transparent 1px)',
-          backgroundSize: '64px 64px',
-          maskImage: 'radial-gradient(80% 70% at 50% 35%, #000 30%, transparent 100%)',
-          WebkitMaskImage: 'radial-gradient(80% 70% at 50% 35%, #000 30%, transparent 100%)',
-        }}
-      />
 
-      {/* Floating ball */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute right-[4%] top-[20%] -z-10 hidden h-44 w-44 opacity-90 animate-float md:block lg:right-[8%] lg:h-56 lg:w-56 xl:h-64 xl:w-64"
-      >
-        <SoccerBall className="drop-shadow-[0_30px_60px_rgba(5,15,41,0.6)]" />
-      </div>
+      {/* Floating real-photo clusters flank the centred content (xl+) */}
+      <HeroShowcase side="left" />
+      <HeroShowcase side="right" />
 
       <Container
         className={cn(
-          'relative flex flex-1 flex-col justify-center pb-16',
+          'relative flex flex-1 flex-col items-center justify-center pb-16 text-center',
           // Extra top padding when the promo banner adds a row to the fixed header.
           hero?.bannerEnabled && hero.bannerMessage ? 'pt-40 lg:pt-44' : 'pt-32 lg:pt-36',
         )}
       >
-        <div className="max-w-3xl">
-          {/* Single deliberate brand kicker (not repeated per section) */}
-          <p className="flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.2em] text-gold-soft">
-            <span className="h-px w-10 bg-gold" aria-hidden />
-            Private Soccer Training · Halifax, NS
+        <div className="mx-auto max-w-2xl">
+          {/* Single deliberate brand kicker (not repeated per section) —
+              crest badge: Archivo display label in a gold-outlined pill. */}
+          <p className="flex justify-center">
+            <span className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/10 px-3.5 py-1.5 font-heading text-sm tracking-tight text-gold-soft">
+              <span className="font-extrabold">Private Soccer Training</span>
+              <span aria-hidden className="h-1 w-1 rounded-full bg-gold/70" />
+              <span className="font-medium text-gold-soft/75">Halifax, NS</span>
+            </span>
           </p>
 
-          <h1 className="mt-6 font-display text-[clamp(2.75rem,8.5vw,5.5rem)] font-black leading-[0.95] tracking-tightest text-white">
+          <h1 className="mt-6 font-display text-[clamp(2.75rem,8.5vw,5.5rem)] font-black leading-[0.95] tracking-tightest text-white text-balance">
             {lead ? <>{lead} </> : null}
             <span className="accent-underline text-gold">{accent}</span>
           </h1>
 
-          <p className="mt-7 max-w-xl text-lg leading-relaxed text-white/75 sm:text-xl">{subhead}</p>
+          <p className="mx-auto mt-7 max-w-xl text-lg leading-relaxed text-white/75 sm:text-xl">{subhead}</p>
 
-          <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <Button href={ctaUrl} size="lg">
+          <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row sm:items-center">
+            <Button href={ctaUrl} variant="glow" size="lg">
               {ctaLabel}
               <span aria-hidden className="transition-transform duration-300 ease-out-quint group-hover/btn:translate-x-1">
                 →
@@ -112,7 +112,7 @@ export function Hero({ hero }: { hero: HomeHero | null }) {
         </div>
 
         {/* Stats strip */}
-        <dl className="mt-16 grid max-w-3xl grid-cols-2 gap-x-8 gap-y-8 border-t border-white/15 pt-9 sm:grid-cols-4 lg:mt-20">
+        <dl className="mx-auto mt-16 grid max-w-3xl grid-cols-2 gap-x-8 gap-y-8 border-t border-white/15 pt-9 sm:grid-cols-4 lg:mt-20">
           {HERO_STATS.map((stat) => (
             <div key={stat.label}>
               <dd className="font-display text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
@@ -130,13 +130,6 @@ export function Hero({ hero }: { hero: HomeHero | null }) {
           ))}
         </dl>
       </Container>
-
-      {/* Scroll cue */}
-      <div aria-hidden className="absolute inset-x-0 bottom-6 flex justify-center">
-        <span className="flex h-10 w-6 items-start justify-center rounded-full border border-white/25 p-1.5">
-          <span className="h-2 w-1 rounded-full bg-gold animate-scroll-cue" />
-        </span>
-      </div>
     </section>
   );
 }

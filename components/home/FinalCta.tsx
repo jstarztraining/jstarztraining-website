@@ -31,7 +31,7 @@ export function FinalCta() {
           </p>
         </Reveal>
         <Reveal delay={150} className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <Button href="/programs" size="lg">
+          <Button href="/programs" variant="glow" size="lg">
             Book a Session
             <span aria-hidden className="transition-transform duration-300 ease-out-quint group-hover/btn:translate-x-1">
               →

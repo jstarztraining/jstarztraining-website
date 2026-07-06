@@ -19,7 +19,7 @@ export function CoachSection({ coach }: { coach: Coach | null }) {
       />
       <Container className="relative grid items-center gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
         <Reveal direction="left" className="relative mx-auto w-full max-w-sm lg:max-w-none">
-          <div className="relative aspect-[4/5] overflow-hidden rounded-[1.75rem] bg-brand-deep shadow-card-hover">
+          <div className="relative aspect-[4/5] overflow-hidden rounded-[1.75rem] bg-brand-deep ring-1 ring-gold/40 shadow-[0_0_60px_-10px_rgba(230,185,69,0.5)]">
             {c.imageUrl ? (
               <Image
                 src={c.imageUrl}

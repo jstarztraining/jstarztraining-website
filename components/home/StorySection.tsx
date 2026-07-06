@@ -7,12 +7,12 @@ export function StorySection() {
   return (
     <section className="relative overflow-hidden bg-white py-24 lg:py-32">
       <Container className="grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
-        {/* Imagery — placeholder, swaps for Jordan's real action photos */}
+        {/* Real JStarz community — full session group, coaches + players (§13) */}
         <Reveal direction="left" className="relative">
-          <div className="relative aspect-[4/5] overflow-hidden rounded-[1.75rem] shadow-card">
+          <div className="relative aspect-[3/2] overflow-hidden rounded-[1.75rem] shadow-card">
             <Image
-              src="https://images.unsplash.com/photo-1551958219-acbc608c6377?auto=format&fit=crop&w=1100&q=80"
-              alt="Coach guiding a player through a small-group training drill."
+              src="/images/home-story.jpg"
+              alt="The full JStarz training community — players in the gold-star kit and coaches together at an indoor session in Halifax."
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover"

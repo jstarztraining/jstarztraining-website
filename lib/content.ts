@@ -61,8 +61,8 @@ export const PROGRAMS: Program[] = [
     blurb:
       'Customized training sessions for clubs, schools, academies, and teams. Sessions can focus on technical, tactical, physical, goalkeeper, or team-specific objectives.',
     shopifyUrl: `${SITE.shopifyStoreUrl}/collections/group-training`,
-    imageUrl: '/images/team-training.jpg',
-    imageAlt: 'JStarz team training workshop for clubs and schools',
+    imageUrl: '/images/team-workshops.jpg',
+    imageAlt: 'A JStarz team gathered for a workshop in the indoor dome in Halifax',
   },
   {
     id: 'goalkeeper-training',
@@ -127,7 +127,7 @@ export const PROGRAMS: Program[] = [
     blurb:
       'Community-focused soccer events, scrimmages, tournaments, showcases, and special development opportunities that bring players and families together through the game.',
     shopifyUrl: `${SITE.shopifyStoreUrl}/collections/community-events`,
-    imageUrl: '/images/community-events.jpg',
+    imageUrl: '/images/community-tournaments.jpg',
     imageAlt: 'JStarz community soccer event and tournament',
   },
   {
@@ -214,25 +214,55 @@ export interface Testimonial {
   role: string;
 }
 
-// Placeholder quotes — replace with Jordan's real, permissioned testimonials (§13).
+// Real, published 5★ reviews from JStarz's store (Judge.me export, §13).
+// First name + last initial; role reflects the program reviewed.
 export const TESTIMONIALS: Testimonial[] = [
   {
     quote:
-      'My son went from nervous on the ball to fearless. The small groups mean he actually gets coached every single session.',
-    name: 'Sarah M.',
-    role: 'Parent, U12 player',
+      'My daughter’s first 1:1 keeper training was wonderful. Addy greeted us at the door and introduced herself before getting started. Her constant feedback and guidance was really great — I could watch my kiddo’s energy, confidence and skill improve throughout the session!',
+    name: 'Jenn R.',
+    role: 'Parent · Goalkeeper training',
   },
   {
     quote:
-      'Jordan treats every keeper like a project. The goalkeeper sessions are the best value in the city, full stop.',
-    name: 'David R.',
-    role: 'Parent, U15 goalkeeper',
+      'I’ve been enlightened to a lot of new things — positional awareness, shooting techniques, being vocal on the field. I’d highly recommend Coach Jordan and Marvin to anyone looking to take their game to the next level.',
+    name: 'Oke',
+    role: 'Player · Attacker development',
   },
   {
     quote:
-      'It honestly feels more like a family than a training program. The kids compete hard and leave smiling.',
-    name: 'Amanda T.',
-    role: 'Parent, U9 player',
+      'My son has grown so much as a player since trying these sessions. He’s learned to read attackers and developed confidence in 1v1 situations. The coaches make the sessions fun, and he leaves asking when he can go to his next one!',
+    name: 'Serena G.',
+    role: 'Parent · Defender sessions',
+  },
+  {
+    quote:
+      'I highly recommend JStarz for kids and young adults of all levels. Jordan and his team have created a wonderful community here, with a focus on making development fun.',
+    name: 'Miranda F.',
+    role: 'Parent · JStarz community',
+  },
+  {
+    quote:
+      'Friendly atmosphere, small groups, training essential skills, and great tips for improving yourself as a goalkeeper. Highly recommend.',
+    name: 'Kir A.',
+    role: 'Goalkeeper · U15 group',
+  },
+  {
+    quote:
+      'Ayden loved the warm, inclusive environment! He really enjoyed learning new skills and felt uplifted by the amazing encouragement, which gave his confidence a big boost.',
+    name: 'Larissa L.',
+    role: 'Parent · Technical labs',
+  },
+  {
+    quote:
+      'Coach Jordan made it engaging and fun for all the kids. Hands down the best birthday party we’ve ever had. Thank you, Coach Jordan!',
+    name: 'Kala K.',
+    role: 'Parent · Birthday party',
+  },
+  {
+    quote: 'Max always has a great session with Zach!',
+    name: 'Judith P.',
+    role: 'Parent · Goalkeeper training',
   },
 ];
 
@@ -241,6 +271,71 @@ export const HEAD_COACH = {
   name: 'Jordan Ellis',
   role: 'Founder & Head Coach',
   bio: 'A Jamaican-born Canadian coach who grew up loving the game and wishing he’d had the support, development and mentorship JStarz now provides. What started as a passion became a purpose — a place where players of every background feel welcomed, challenged, and part of something.',
-  imageUrl: img('1526232761682-d26e03ac148e', 900),
-  imageAlt: 'Soccer coach on the sideline during a training session.',
+  imageUrl: '/images/jordan-coach.jpg',
+  imageAlt: 'Jordan Ellis coaching a group of young players during a JStarz session in Halifax.',
 };
+
+// Full coaching staff (§13). Jordan's bio is his real voice; Zach's is a
+// placeholder derived from the GK program — replace with Jordan's real copy.
+export interface Coach {
+  name: string;
+  role: string;
+  bio: string;
+  imageUrl: string;
+  imageAlt: string;
+}
+export const COACHES: Coach[] = [
+  HEAD_COACH,
+  {
+    name: 'Zach Stevenson',
+    role: 'Head Goalkeeper Coach',
+    bio: 'Zach brings incredible passion and experience to goalkeeper development. A Canada Soccer C Licence trained coach, he leads the goalkeeper department at Inter Halifax and has coached 100+ goalkeepers ranging from beginners to athletes competing at university, Canada Games, and academy levels.\n\nKnown for his positive personality and technical knowledge, Zach has become one of the most respected goalkeeper coaches in the local game.',
+    imageUrl: '/images/zach-portrait.jpg',
+    imageAlt: 'Zach Stevenson coaching a young goalkeeper during a JStarz session in Halifax.',
+  },
+  {
+    name: 'Marvin Okello',
+    role: 'Senior Performance Coach',
+    bio: 'Marvin has competed at the highest levels of local soccer and has a deep understanding of the game. His coaching emphasizes technical excellence, intelligent decision-making, and elite ball striking.\n\nAlongside coaching HCU’s men’s program, Marvin works with CSI Atlantic and FunSports while maintaining strong connections within the Halifax Wanderers soccer community. His experience allows him to bridge high-performance sport with player development at every level.',
+    imageUrl: '/images/marvin-portrait.jpg',
+    imageAlt: 'Marvin Okello leading a JStarz performance and fitness session in Halifax.',
+  },
+  {
+    name: 'Addison Graves',
+    role: 'Goalkeeper Coach',
+    bio: 'Addison shares the same passion for goalkeeping as Zach and brings valuable experience from training with professional goalkeepers in Ontario.\n\nShe excels at working with youth and female goalkeepers, creating an encouraging environment where players can develop confidence, technique, and a genuine love for the position through relatable mentorship.',
+    imageUrl: '/images/addison-portrait.jpg',
+    imageAlt: 'Addison Graves coaching a 1-on-1 dribbling battle during a JStarz session in Halifax.',
+  },
+];
+
+/* ------------------------------------------------------------------ Gallery */
+// Real JStarz session photography (§13). Seeded into MediaAsset for /gallery.
+export interface GalleryItem {
+  url: string;
+  alt: string;
+}
+export const GALLERY: GalleryItem[] = [
+  { url: '/images/dribbling.jpg', alt: 'A young JStarz player dribbling through slalom poles during technical training.' },
+  { url: '/images/gk-training.jpg', alt: 'A JStarz goalkeeper set in front of the net during a goalkeeper development session.' },
+  { url: '/images/zach-gk.jpg', alt: 'Head goalkeeper coach Zach Stevenson working a young keeper through a catching drill.' },
+  { url: '/images/marvin-coach.jpg', alt: 'Senior performance coach Marvin Okello running a fitness session with young players.' },
+  { url: '/images/addison-coach.jpg', alt: 'Goalkeeper coach Addison Graves guiding a 1-on-1 dribbling battle on the pitch.' },
+  { url: '/images/event-trophy.jpg', alt: 'Young players lifting a trophy together at a JStarz community tournament.' },
+  { url: '/images/home-features.jpg', alt: 'A JStarz player striking the ball during an indoor session in Halifax.' },
+  { url: '/images/coach-action.jpg', alt: 'A JStarz coach leading a small-group session on the pitch.' },
+  { url: '/images/home-story.jpg', alt: 'The full JStarz training community — players in the gold-star kit and coaches together.' },
+  { url: '/images/coaching-gym.jpg', alt: 'A JStarz coach guiding players through a drill in the gym.' },
+  { url: '/images/coach-ball.jpg', alt: 'A JStarz coach setting up a technical drill while players train behind.' },
+  // Additional session photography (§13).
+  { url: '/images/gallery-01.jpg', alt: 'Young JStarz players in team kit at an indoor session in Halifax.' },
+  { url: '/images/gallery-02.jpg', alt: 'The JStarz coaching staff talking through a session plan on the pitch.' },
+  { url: '/images/gallery-03.jpg', alt: 'A young player dribbling at speed during JStarz training.' },
+  { url: '/images/gallery-04.jpg', alt: 'Players competing in a 1-on-1 duel during a small-group session.' },
+  { url: '/images/gallery-05.jpg', alt: 'A JStarz coach guiding a young player through a cone drill in the gym.' },
+  { url: '/images/gallery-06.jpg', alt: 'A coach working closely with a young player between drills.' },
+  { url: '/images/gallery-07.jpg', alt: 'Young players gathered around their coach during a training break.' },
+  { url: '/images/gallery-08.jpg', alt: 'A 1-on-1 challenge in front of the net during a JStarz session.' },
+  { url: '/images/gallery-09.jpg', alt: 'JStarz coaches reviewing notes together courtside.' },
+  { url: '/images/gallery-10.jpg', alt: 'JStarz players posing together in team kit after a session.' },
+];

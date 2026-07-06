@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import { PROGRAMS, TESTIMONIALS, HEAD_COACH } from '../lib/content';
+import { PROGRAMS, TESTIMONIALS, COACHES, GALLERY } from '../lib/content';
 import { SITE } from '../lib/site';
 
 const prisma = new PrismaClient();
@@ -94,6 +94,17 @@ const SESSIONS = [
   { title: 'Private Training', startsAt: at(6, 11), endsAt: at(6, 13), location: 'BMO Soccer Centre' },
   { title: 'Private Training', startsAt: at(0, 10), endsAt: at(0, 13), location: 'BMO Soccer Centre' },
   { title: 'Sunday Team Starz (Rec Games)', startsAt: at(0, 13), endsAt: at(0, 14), location: 'BMO Soccer Centre', notes: 'Play • Win • Save.' },
+  { title: 'Private Goalkeeper Session', startsAt: at(0, 14), endsAt: at(0, 15), location: 'BMO Soccer Centre', notes: 'Goalkeeper development.' },
+
+  // Outdoor summer sessions (§10) — private 1-on-1 & small group, Mon–Fri.
+  { title: 'Outdoor Private Sessions', startsAt: at(1, 9), endsAt: at(1, 11), location: 'Outdoor — Summer', notes: 'Morning · private 1-on-1 & small group.' },
+  { title: 'Outdoor Private Sessions', startsAt: at(1, 17, 30), endsAt: at(1, 19, 30), location: 'Outdoor — Summer', notes: 'Evening session.' },
+  { title: 'Outdoor Private Sessions', startsAt: at(2, 9), endsAt: at(2, 11), location: 'Outdoor — Summer', notes: 'Morning · private 1-on-1 & small group.' },
+  { title: 'Private Speed & Performance', startsAt: at(2, 17, 30), endsAt: at(2, 19), location: 'Outdoor — Summer', notes: 'Strength, speed & conditioning.' },
+  { title: 'Outdoor Private Sessions', startsAt: at(3, 9), endsAt: at(3, 11), location: 'Outdoor — Summer', notes: 'Morning session.' },
+  { title: 'Outdoor Private Sessions', startsAt: at(4, 9), endsAt: at(4, 11), location: 'Outdoor — Summer', notes: 'Morning session.' },
+  { title: 'Outdoor Private Sessions', startsAt: at(5, 9), endsAt: at(5, 11), location: 'Outdoor — Summer', notes: 'Morning · private 1-on-1 & small group.' },
+  { title: 'Outdoor Private Sessions', startsAt: at(5, 17, 30), endsAt: at(5, 19, 30), location: 'Outdoor — Summer', notes: 'Evening session.' },
 ];
 
 async function main() {
@@ -107,6 +118,7 @@ async function main() {
   await prisma.coach.deleteMany();
   await prisma.testimonial.deleteMany();
   await prisma.faqItem.deleteMany();
+  await prisma.mediaAsset.deleteMany();
 
   // Pages
   await prisma.page.createMany({ data: PAGES });
@@ -132,17 +144,17 @@ async function main() {
   });
   console.log(`  • ${SESSIONS.length} sessions`);
 
-  // Coaches — Jordan to start; more land once bios/photos arrive.
-  await prisma.coach.create({
-    data: {
-      name: HEAD_COACH.name,
-      role: HEAD_COACH.role,
-      bio: HEAD_COACH.bio,
-      imageUrl: HEAD_COACH.imageUrl,
-      sortOrder: 0,
-    },
+  // Coaches — Jordan (founder) + Zach (head GK coach).
+  await prisma.coach.createMany({
+    data: COACHES.map((coach, i) => ({
+      name: coach.name,
+      role: coach.role,
+      bio: coach.bio,
+      imageUrl: coach.imageUrl,
+      sortOrder: i,
+    })),
   });
-  console.log('  • 1 coach');
+  console.log(`  • ${COACHES.length} coaches`);
 
   // Testimonials (placeholders)
   await prisma.testimonial.createMany({
@@ -159,6 +171,12 @@ async function main() {
     data: FAQS.map((f, i) => ({ ...f, sortOrder: i })),
   });
   console.log(`  • ${FAQS.length} FAQ items`);
+
+  // Gallery (real session photography)
+  await prisma.mediaAsset.createMany({
+    data: GALLERY.map((g, i) => ({ url: g.url, alt: g.alt, type: 'gallery', sortOrder: i })),
+  });
+  console.log(`  • ${GALLERY.length} gallery photos`);
 
   // Site settings singleton
   const addr = `${SITE.address.street}, ${SITE.address.city}, ${SITE.address.region} ${SITE.address.postal}`;

@@ -62,13 +62,13 @@ export function Navbar({ banner }: { banner?: NavBanner }) {
         aria-label="Primary"
         className={cn(
           'container-px flex items-center justify-between transition-[height] duration-500 ease-out-quint',
-          scrolled ? 'h-16' : 'h-20',
+          scrolled ? 'h-20' : 'h-24',
         )}
       >
-        <Logo dark />
+        <Logo dark size="lg" />
 
         {/* Desktop links */}
-        <ul className="hidden items-center gap-7 lg:flex">
+        <ul className="hidden items-center gap-8 lg:flex xl:gap-9">
           {NAV_LINKS.slice(1).map((link) => {
             const active = pathname === link.href;
             return (
@@ -76,7 +76,7 @@ export function Navbar({ banner }: { banner?: NavBanner }) {
                 <Link
                   href={link.href}
                   className={cn(
-                    'group relative text-sm font-medium text-white/85 transition-colors duration-300 hover:text-white',
+                    'group relative text-base font-medium text-white/85 transition-colors duration-300 hover:text-white',
                     active && 'text-white',
                   )}
                 >
@@ -94,7 +94,7 @@ export function Navbar({ banner }: { banner?: NavBanner }) {
         </ul>
 
         <div className="flex items-center gap-3">
-          <Button href="/programs" size="md" className="hidden sm:inline-flex">
+          <Button href="/programs" size="lg" className="hidden sm:inline-flex">
             Book Now
           </Button>
 

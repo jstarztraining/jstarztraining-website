@@ -37,7 +37,7 @@ export default async function ProgramsPage() {
           className="pointer-events-none absolute right-[-8%] top-0 -z-10 h-80 w-80 rounded-full bg-brand-bright/20 blur-[120px] animate-drift"
         />
         <Container className="pt-36 pb-20 lg:pt-40 lg:pb-24">
-          <p className="flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.2em] text-gold-soft">
+          <p className="flex items-center gap-3 font-heading text-sm font-bold tracking-tight text-gold-soft">
             <span className="h-px w-10 bg-gold" aria-hidden />
             Programs
           </p>

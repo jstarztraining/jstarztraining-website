@@ -38,8 +38,8 @@ export default async function AboutPage() {
           <Reveal direction="left" className="relative">
             <div className="relative aspect-[4/5] overflow-hidden rounded-[1.75rem] shadow-card">
               <Image
-                src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=1100&q=80"
-                alt="Young players together at a JStarz training session."
+                src="/images/about-training.jpg"
+                alt="Jordan Ellis leading a JStarz training session in the indoor dome in Halifax."
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover"

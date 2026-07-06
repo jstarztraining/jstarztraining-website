@@ -44,3 +44,26 @@ export function groupByWeekday(sessions: Session[]): { day: string; items: Sessi
   }
   return groups;
 }
+
+const SHORT_DAY: Record<string, string> = {
+  Monday: 'Mon',
+  Tuesday: 'Tue',
+  Wednesday: 'Wed',
+  Thursday: 'Thu',
+  Friday: 'Fri',
+  Saturday: 'Sat',
+  Sunday: 'Sun',
+};
+
+export type WeekDayColumn = { day: string; short: string; items: Session[] };
+
+/** A full Mon→Sun week, each day carrying its time-sorted sessions (empty = rest day). */
+export function weekGrid(sessions: Session[]): WeekDayColumn[] {
+  const sorted = sortSessionsWeekly(sessions);
+  const byDay = new Map<string, Session[]>();
+  for (const s of sorted) {
+    const day = weekdayOf(s.startsAt);
+    (byDay.get(day) ?? byDay.set(day, []).get(day)!).push(s);
+  }
+  return WEEKDAYS.map((day) => ({ day, short: SHORT_DAY[day], items: byDay.get(day) ?? [] }));
+}

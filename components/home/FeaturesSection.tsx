@@ -3,9 +3,8 @@ import { Container } from '@/components/ui/Container';
 import { Reveal } from '@/components/motion/Reveal';
 import { FEATURES } from '@/lib/content';
 
-// Verified Unsplash id — placeholder for Jordan's real action photography (§13).
-const ACTION_PHOTO =
-  'https://images.unsplash.com/photo-1606925797300-0b35e9d1794e?auto=format&fit=crop&w=1600&q=80';
+// Jordan's real action photography — player mid-strike, indoor turf (§13).
+const ACTION_PHOTO = '/images/home-features.jpg';
 
 export function FeaturesSection() {
   return (
@@ -28,7 +27,7 @@ export function FeaturesSection() {
           <div className="relative aspect-[16/10] overflow-hidden rounded-[1.75rem] shadow-card sm:aspect-[16/7] lg:aspect-[16/6]">
             <Image
               src={ACTION_PHOTO}
-              alt="Young players competing during a small-group JStarz training session."
+              alt="JStarz player striking the ball during an indoor training session in Halifax."
               fill
               sizes="(max-width: 1024px) 100vw, 80rem"
               className="object-cover"
