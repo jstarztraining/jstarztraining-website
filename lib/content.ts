@@ -104,10 +104,8 @@ export const PROGRAMS: Program[] = [
     category: 'Camps & Events',
     blurb:
       'Fun, engaging soccer-themed birthday parties and private camp experiences featuring games, challenges, competitions, and professional coaching in a safe and exciting environment.',
-    // No standalone birthday/camp product found in the live store — set to
-    // "Coming soon" rather than dump visitors on the storefront. Jordan can
-    // paste the exact product URL in the dashboard when ready.
-    shopifyUrl: '',
+    // Product handle contains emoji (JSt🌟rz Birthday Challenge 🎂🎈) — kept URL-encoded.
+    shopifyUrl: `${SITE.shopifyStoreUrl}/products/jst%F0%9F%8C%9Frz-birthday-challenge-%F0%9F%8E%82%F0%9F%8E%88`,
     imageUrl: '/images/birthday-parties.jpg',
     imageAlt: 'JStarz soccer birthday party and private camp',
   },
