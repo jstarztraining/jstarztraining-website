@@ -207,7 +207,10 @@ async function main() {
       subhead:
         'One-on-one and small-group training (4–6 max) for players and goalkeepers of every age and background. More touches. Real coaching. A community that feels like family.',
       ctaLabel: 'Book a Session',
-      ctaUrl: SITE.shopifyStoreUrl,
+      // Guided path: hero CTA routes to the on-site catalog (visitors pick a
+      // program, then that card links out to the specific Shopify product)
+      // rather than the raw storefront. Owner-editable in the dashboard.
+      ctaUrl: '/programs',
       bannerEnabled: false,
     },
   });
