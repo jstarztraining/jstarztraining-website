@@ -26,7 +26,7 @@ export function PagePlaceholder({
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute right-[-10%] top-1/4 -z-10 h-96 w-96 rounded-full bg-brand-bright/20 blur-[130px] animate-drift"
+        className="pointer-events-none absolute right-[-10%] top-1/4 -z-10 h-96 w-96 rounded-full bg-brand-bright/20 blur-[130px]"
       />
       <Container className="py-32 text-center">
         <p className="flex items-center justify-center gap-3 text-sm font-semibold uppercase tracking-[0.2em] text-gold-soft">

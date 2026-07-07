@@ -32,7 +32,7 @@ export function PageHero({
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute right-[-8%] top-0 -z-10 h-80 w-80 rounded-full bg-brand-bright/20 blur-[120px] animate-drift"
+        className="pointer-events-none absolute right-[-8%] top-0 -z-10 h-80 w-80 rounded-full bg-brand-bright/20 blur-[120px]"
       />
       <Container className="pt-36 pb-20 lg:pt-40 lg:pb-24">
         {/* Kicker: title-case (no all-caps) gold-rule label. */}

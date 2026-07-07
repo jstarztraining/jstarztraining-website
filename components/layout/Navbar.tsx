@@ -55,7 +55,9 @@ export function Navbar({ banner }: { banner?: NavBanner }) {
           'transition-[background-color,box-shadow,backdrop-filter] duration-500 ease-out-quint',
           transparent
             ? 'bg-transparent'
-            : 'bg-navy/85 shadow-[0_8px_30px_-12px_rgba(6,24,63,0.7)] backdrop-blur-xl',
+            // navy/90 is near-opaque, so a light blur reads the same as blur-xl
+            // but costs iOS Safari far less on every scroll frame.
+            : 'bg-navy/90 shadow-[0_8px_30px_-12px_rgba(6,24,63,0.7)] backdrop-blur-md',
         )}
       >
       <nav

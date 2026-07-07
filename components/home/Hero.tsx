@@ -58,15 +58,16 @@ export function Hero({ hero }: { hero: HomeHero | null }) {
             'radial-gradient(82% 78% at 50% 44%, rgba(6,24,63,0.88) 0%, rgba(6,24,63,0.62) 48%, rgba(17,64,137,0.36) 78%, rgba(31,122,224,0.24) 100%), radial-gradient(120% 92% at 50% -12%, rgba(31,122,224,0.4) 0%, rgba(6,24,63,0) 55%), linear-gradient(to bottom, rgba(5,15,41,0.14) 0%, rgba(5,15,41,0) 32%, rgba(5,15,41,0.55) 100%)',
         }}
       />
-      {/* Drifting brand + gold glows */}
+      {/* Brand + gold glows. Static (not animated) — animating a 120px+ blur
+          forces iOS Safari to re-rasterize the blur every frame and tanks
+          scroll performance. The drift is imperceptible at 22s anyway. */}
       <div
         aria-hidden
-        className="absolute -left-[12%] top-1/3 -z-10 h-[34rem] w-[34rem] rounded-full bg-brand-bright/25 blur-[130px] animate-drift"
+        className="absolute -left-[12%] top-1/3 -z-10 h-[34rem] w-[34rem] rounded-full bg-brand-bright/25 blur-[130px]"
       />
       <div
         aria-hidden
-        className="absolute right-[-8%] top-[-6%] -z-10 h-[28rem] w-[28rem] rounded-full bg-gold/15 blur-[120px] animate-drift"
-        style={{ animationDelay: '-8s' }}
+        className="absolute right-[-8%] top-[-6%] -z-10 h-[28rem] w-[28rem] rounded-full bg-gold/15 blur-[120px]"
       />
 
       {/* Floating real-photo clusters flank the centred content (xl+) */}
