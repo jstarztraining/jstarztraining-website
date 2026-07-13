@@ -43,8 +43,8 @@ function venueColor(location?: string | null) {
 // Venue detail (§10) — what happens where, keyed to the same colour dots.
 const VENUE_INFO = [
   { name: 'BMO Soccer Centre', detail: 'Weekend home base — group development, goalkeeping, and private sessions on Saturdays and Sundays.' },
-  { name: 'NDO Fitness Gym', detail: 'Wednesday-night private training and U9 player development.' },
-  { name: 'Sandy Lake Academy Gym', detail: 'Thursday technical labs and private 1-on-1 sessions.' },
+  { name: 'NDO Fitness Gym', detail: 'Winter-only indoor home for Wednesday-night private training and U9 player development — closed in summer.' },
+  { name: 'Sandy Lake Academy Gym', detail: 'Winter-only indoor venue for Thursday technical labs and private 1-on-1 sessions — closed in summer.' },
   { name: 'Outdoor — Summer', detail: 'Private outdoor sessions Monday through Friday across the summer months.' },
 ];
 
@@ -121,7 +121,7 @@ export default async function SchedulePage() {
               Where we train
             </h2>
             <p className="mt-3 max-w-prose text-ink/65">
-              Four venues across Halifax &amp; Nova Scotia — indoors year-round, outdoors through the summer.
+              Four venues across Halifax &amp; Nova Scotia — BMO year-round, NDO and Sandy Lake winter-only, and outdoors all summer.
             </p>
             <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {VENUE_INFO.map((v) => (

@@ -41,7 +41,7 @@ export function renderOgImage() {
 
         {/* Headline */}
         <div style={{ display: 'flex', flexWrap: 'wrap', fontSize: 128, fontWeight: 900, lineHeight: 1, letterSpacing: -4 }}>
-          <span>Elevate Your&nbsp;</span>
+          <span>Develop Your&nbsp;</span>
           <span style={{ color: '#e6b945' }}>Game.</span>
         </div>
 

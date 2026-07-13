@@ -34,7 +34,7 @@ export function HeroForm({ hero }: { hero: HomeHero | null }) {
           <label htmlFor="headline" className={labelCls}>
             Headline
           </label>
-          <input id="headline" name="headline" defaultValue={hero?.headline ?? ''} className={inputCls} placeholder="Elevate Your Game." />
+          <input id="headline" name="headline" defaultValue={hero?.headline ?? ''} className={inputCls} placeholder="Develop Your Game." />
           <p className="mt-1.5 text-xs text-ink/50">The last word is shown in gold with the animated underline.</p>
           <FieldError message={state.fieldErrors?.headline} />
         </div>

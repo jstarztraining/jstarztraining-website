@@ -8,7 +8,7 @@ import { HERO_STATS } from '@/lib/content';
 import { cn } from '@/lib/utils';
 
 const FALLBACK = {
-  headline: 'Elevate Your Game.',
+  headline: 'Develop Your Game.',
   subhead:
     'One-on-one and small-group training (4–6 max) for players and goalkeepers of every age and background. More touches. Real coaching. A community that feels like family.',
   ctaLabel: 'Book a Session',

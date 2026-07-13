@@ -38,7 +38,8 @@ export const PROGRAMS: Program[] = [
     category: 'Private',
     blurb:
       'Personalized one-on-one training designed to improve technical ability, confidence, decision-making, position-specific skills, and overall game performance. Available for youth and adult players of all levels.',
-    shopifyUrl: `${SITE.shopifyStoreUrl}/products/1-on-1-session`,
+    // Multi-product collection (Jordan's request): all 1-on-1 offerings, not one product.
+    shopifyUrl: `${SITE.shopifyStoreUrl}/collections/1-on-1-training`,
     imageUrl: '/images/private-training.jpg',
     imageAlt: 'One-on-one JStarz soccer training session in Halifax',
   },
@@ -71,7 +72,8 @@ export const PROGRAMS: Program[] = [
     category: 'Goalkeeping',
     blurb:
       'Specialized goalkeeper training focused on handling, footwork, diving, positioning, distribution, communication, and match-specific situations.',
-    shopifyUrl: `${SITE.shopifyStoreUrl}/products/saturday-bmo-1-1-gk-sessions`,
+    // Goalkeeping collection (Jordan's request): all GK offerings, private + group.
+    shopifyUrl: `${SITE.shopifyStoreUrl}/collections/goalkeeping`,
     imageUrl: '/images/goalkeeper-training.jpg',
     imageAlt: 'JStarz goalkeeper training — diving and handling drills',
   },
@@ -82,7 +84,8 @@ export const PROGRAMS: Program[] = [
     category: 'Goalkeeping',
     blurb:
       'Small-group goalkeeper training and competitive GK Wars events designed to develop technical skills, confidence, and game performance in a challenging environment.',
-    shopifyUrl: `${SITE.shopifyStoreUrl}/products/u13-group-goalkeeper-sessions-ages-10-13`,
+    // Goalkeeping collection (Jordan's request): both GK cards point here.
+    shopifyUrl: `${SITE.shopifyStoreUrl}/collections/goalkeeping`,
     imageUrl: '/images/gk-wars.jpg',
     imageAlt: 'JStarz GK Wars competitive goalkeeper group session',
   },

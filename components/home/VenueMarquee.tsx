@@ -7,8 +7,8 @@ import { VENUES } from '@/lib/content';
 
 const VENUE_NOTES: Record<string, string> = {
   'BMO Soccer Centre': 'Sat & Sun · indoor turf',
-  'NDO Fitness Gym': 'Wed · speed & strength',
-  'Sandy Lake Academy Gym': 'Thu · private sessions',
+  'NDO Fitness Gym': 'Wed · Winter only · speed & strength',
+  'Sandy Lake Academy Gym': 'Thu · Winter only · private sessions',
   'Outdoor — Summer': 'Mon–Fri · outdoor',
 };
 

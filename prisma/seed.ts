@@ -83,10 +83,11 @@ const at = (weekday: number, h: number, m = 0) => nextWeekdayAt(weekday, h, m);
 
 /* Representative weekly schedule board (§10). Informational only — no links. */
 const SESSIONS = [
-  { title: 'Private Training', startsAt: at(3, 18), endsAt: at(3, 21), location: 'NDO Fitness Gym', notes: 'All ages — private 1-on-1 & small group.' },
-  { title: 'U9 Player Development', startsAt: at(3, 19, 30), endsAt: at(3, 20, 30), location: 'NDO Fitness Gym', notes: 'Ages 6–9.' },
-  { title: 'Thursday Technical Soccer Lab', startsAt: at(4, 18), endsAt: at(4, 19), location: 'Sandy Lake Academy Gym' },
-  { title: 'Private Training', startsAt: at(4, 18), endsAt: at(4, 21), location: 'Sandy Lake Academy Gym', notes: 'All ages.' },
+  // NDO Fitness & Sandy Lake are winter-only indoor venues — no sessions there in summer (outdoor instead).
+  { title: 'Private Training', startsAt: at(3, 18), endsAt: at(3, 21), location: 'NDO Fitness Gym', notes: 'Winter only · All ages — private 1-on-1 & small group.' },
+  { title: 'U9 Player Development', startsAt: at(3, 19, 30), endsAt: at(3, 20, 30), location: 'NDO Fitness Gym', notes: 'Winter only · Ages 6–9.' },
+  { title: 'Thursday Technical Soccer Lab', startsAt: at(4, 18), endsAt: at(4, 19), location: 'Sandy Lake Academy Gym', notes: 'Winter only.' },
+  { title: 'Private Training', startsAt: at(4, 18), endsAt: at(4, 21), location: 'Sandy Lake Academy Gym', notes: 'Winter only · All ages.' },
   { title: 'U9 / U12 Development', startsAt: at(6, 9), endsAt: at(6, 10), location: 'BMO Soccer Centre', notes: '1st hour.' },
   { title: 'U13 Goalkeeping (Ages 8–13)', startsAt: at(6, 9), endsAt: at(6, 10), location: 'BMO Soccer Centre', notes: '1st hour.' },
   { title: 'U15 Development', startsAt: at(6, 10), endsAt: at(6, 11), location: 'BMO Soccer Centre', notes: '2nd hour.' },
@@ -203,7 +204,7 @@ async function main() {
     update: {},
     create: {
       id: 'singleton',
-      headline: 'Elevate Your Game.',
+      headline: 'Develop Your Game.',
       subhead:
         'One-on-one and small-group training (4–6 max) for players and goalkeepers of every age and background. More touches. Real coaching. A community that feels like family.',
       ctaLabel: 'Book a Session',
