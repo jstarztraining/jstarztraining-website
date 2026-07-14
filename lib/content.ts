@@ -12,7 +12,8 @@ export type ProgramCategory =
   | 'Private'
   | 'Goalkeeping'
   | 'Development'
-  | 'Camps & Events';
+  | 'Camps & Events'
+  | 'Apparel';
 
 export interface Program {
   id: string;
@@ -148,6 +149,17 @@ export const PROGRAMS: Program[] = [
     // No photo yet — falls back to the navy gradient placeholder. Jordan to add.
     imageUrl: '',
     imageAlt: '',
+  },
+  {
+    id: 'jstarz-training-apparel',
+    title: 'JStarz Training Apparel',
+    priceDisplay: 'From $26.99 + HST',
+    category: 'Apparel',
+    blurb:
+      'Official JStarz Training apparel for players, goalkeepers, coaches, and supporters — short- and long-sleeve performance shirts, including an exclusive Electric Blue colourway for our keepers. Wear the JStarz badge with pride, on and off the field.',
+    shopifyUrl: `${SITE.shopifyStoreUrl}/collections/jstarz-training-apparel`,
+    imageUrl: '/images/apparel.jpg',
+    imageAlt: 'Four young JStarz players wearing the black JStarz Training shirts with the blue crest',
   },
 ];
 
