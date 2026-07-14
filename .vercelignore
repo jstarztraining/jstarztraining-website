@@ -1,0 +1,10 @@
+# Local env files must never ship — Vercel injects env vars from the dashboard.
+# (vercel deploy uploads the working dir and does NOT honor .gitignore, so a
+# leaked .env AUTH_URL=http://localhost:3000 was overriding the real host and
+# breaking the /admin auth cookie. Keep these out of the deployment.)
+.env
+.env.local
+.env.development
+.env.development.local
+.env.production.local
+.env*.local
