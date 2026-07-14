@@ -13,7 +13,8 @@ export type ProgramCategory =
   | 'Goalkeeping'
   | 'Development'
   | 'Camps & Events'
-  | 'Apparel';
+  | 'Apparel'
+  | 'Offers';
 
 export interface Program {
   id: string;
@@ -160,6 +161,28 @@ export const PROGRAMS: Program[] = [
     shopifyUrl: `${SITE.shopifyStoreUrl}/collections/jstarz-training-apparel`,
     imageUrl: '/images/apparel.jpg',
     imageAlt: 'Four young JStarz players wearing the black JStarz Training shirts with the blue crest',
+  },
+  {
+    id: 'bundles-savings',
+    title: 'Bundles & Savings Packages',
+    priceDisplay: 'Save up to $105',
+    category: 'Offers',
+    blurb:
+      'Train more and save with Silver, Gold, and Platinum session bundles (6, 8, or 12 sessions) for both private and group training — or build your own and apply a savings code at checkout. The more you train, the more you save.',
+    shopifyUrl: `${SITE.shopifyStoreUrl}/pages/bundle-savings-packages`,
+    imageUrl: '/images/bundles.jpg',
+    imageAlt: 'A young JStarz player dribbling the ball during an indoor training session',
+  },
+  {
+    id: 'referral-program',
+    title: 'Referral Program',
+    priceDisplay: '$10 back + 14% off',
+    category: 'Offers',
+    blurb:
+      'Love training with JStarz? Refer a friend and you both win — your friend gets $10 back on their first booking, and you earn a 14% discount code toward future training for every player you send our way.',
+    shopifyUrl: `${SITE.shopifyStoreUrl}/pages/referral-programs`,
+    imageUrl: '/images/referral.jpg',
+    imageAlt: 'A young JStarz player in the branded training shirt pointing upward',
   },
 ];
 
