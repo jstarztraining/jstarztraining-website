@@ -4,8 +4,8 @@ import { revalidatePath } from 'next/cache';
 import { prisma } from '@/lib/prisma';
 import { requireEditor } from '@/lib/auth-guard';
 import type { FormState } from '@/lib/form-state';
+import { isAbsoluteUrl, isUrlOrPath, withScheme, ABSOLUTE_URL_ERROR, URL_OR_PATH_ERROR } from '@/lib/url';
 
-const isUrl = (v: string) => /^https?:\/\//i.test(v);
 const SINGLETON = 'singleton';
 
 export async function saveHomeHero(_prev: FormState, formData: FormData): Promise<FormState> {
@@ -14,17 +14,18 @@ export async function saveHomeHero(_prev: FormState, formData: FormData): Promis
   const headline = String(formData.get('headline') ?? '').trim();
   const subhead = String(formData.get('subhead') ?? '').trim();
   const ctaLabel = String(formData.get('ctaLabel') ?? '').trim();
-  const ctaUrl = String(formData.get('ctaUrl') ?? '').trim();
+  const ctaUrl = withScheme(String(formData.get('ctaUrl') ?? ''));
   const imageUrl = String(formData.get('imageUrl') ?? '').trim();
   const bannerMessage = String(formData.get('bannerMessage') ?? '').trim();
-  const bannerUrl = String(formData.get('bannerUrl') ?? '').trim();
+  const bannerUrl = withScheme(String(formData.get('bannerUrl') ?? ''));
   const bannerEnabled = formData.get('bannerEnabled') === 'on';
 
   const fieldErrors: Record<string, string> = {};
   if (!headline) fieldErrors.headline = 'A headline is required.';
-  if (ctaUrl && !isUrl(ctaUrl)) fieldErrors.ctaUrl = 'Must be a full URL (https://…).';
-  if (imageUrl && !isUrl(imageUrl)) fieldErrors.imageUrl = 'Must be a full URL (https://…).';
-  if (bannerUrl && !isUrl(bannerUrl)) fieldErrors.bannerUrl = 'Must be a full URL (https://…).';
+  // CTA and banner links may point at internal pages ("/programs"), so paths are valid.
+  if (ctaUrl && !isUrlOrPath(ctaUrl)) fieldErrors.ctaUrl = URL_OR_PATH_ERROR;
+  if (imageUrl && !isUrlOrPath(imageUrl)) fieldErrors.imageUrl = URL_OR_PATH_ERROR;
+  if (bannerUrl && !isUrlOrPath(bannerUrl)) fieldErrors.bannerUrl = URL_OR_PATH_ERROR;
   if (bannerEnabled && !bannerMessage) fieldErrors.bannerMessage = 'Add a message, or turn the banner off.';
   if (Object.keys(fieldErrors).length) return { fieldErrors };
 
@@ -62,9 +63,9 @@ export async function saveSiteSettings(_prev: FormState, formData: FormData): Pr
   const address = String(formData.get('address') ?? '').trim();
   const hours = String(formData.get('hours') ?? '').trim();
   const mapEmbed = String(formData.get('mapEmbed') ?? '').trim();
-  const instagram = String(formData.get('instagram') ?? '').trim();
-  const facebook = String(formData.get('facebook') ?? '').trim();
-  const tiktok = String(formData.get('tiktok') ?? '').trim();
+  const instagram = withScheme(String(formData.get('instagram') ?? ''));
+  const facebook = withScheme(String(formData.get('facebook') ?? ''));
+  const tiktok = withScheme(String(formData.get('tiktok') ?? ''));
   const footerText = String(formData.get('footerText') ?? '').trim();
 
   const fieldErrors: Record<string, string> = {};
@@ -74,7 +75,8 @@ export async function saveSiteSettings(_prev: FormState, formData: FormData): Pr
     ['facebook', facebook],
     ['tiktok', tiktok],
   ] as const) {
-    if (v && !isUrl(v)) fieldErrors[k] = 'Must be a full URL (https://…).';
+    // Social profiles always live off-site — keep these strict.
+    if (v && !isAbsoluteUrl(v)) fieldErrors[k] = ABSOLUTE_URL_ERROR;
   }
   if (Object.keys(fieldErrors).length) return { fieldErrors };
 

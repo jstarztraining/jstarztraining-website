@@ -83,7 +83,10 @@ export function ProgramForm({ program }: { program?: Program }) {
             className={inputCls}
             placeholder="https://…myshopify.com/products/…"
           />
-          <p className="mt-1.5 text-xs text-ink/50">Product page, or a cart permalink for single-option items.</p>
+          <p className="mt-1.5 text-xs text-ink/65">
+            Product page, or a cart permalink for single-option items. Paste it however you
+            copied it — the <span className="font-medium">https://</span> gets added for you.
+          </p>
           {state.fieldErrors?.shopifyUrl ? (
             <p className={errCls}>{state.fieldErrors.shopifyUrl}</p>
           ) : null}
