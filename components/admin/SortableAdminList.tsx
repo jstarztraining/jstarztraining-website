@@ -31,11 +31,29 @@ export function SortableAdminList({ rows, editHrefBase, newHref, entityLabel, ac
   const [items, setItems] = useState(rows);
   const [dragIndex, setDragIndex] = useState<number | null>(null);
   const [busyId, setBusyId] = useState<string | null>(null);
+  const [error, setError] = useState('');
   const [, startTransition] = useTransition();
 
+  /**
+   * These lists update optimistically, so a rejected server action would otherwise
+   * look identical to a successful one until the next hard reload. Snapshot first,
+   * restore on failure, and tell the user what happened.
+   */
+  function persist(optimistic: AdminRow[], action: () => Promise<void>, what: string) {
+    const snapshot = items;
+    setError('');
+    setItems(optimistic);
+    startTransition(() => {
+      action().catch(() => {
+        setItems(snapshot);
+        setBusyId(null);
+        setError(`Couldn’t save ${what}. Check your connection and try again.`);
+      });
+    });
+  }
+
   function persistOrder(next: AdminRow[]) {
-    setItems(next);
-    startTransition(() => actions.reorder(next.map((r) => r.id)));
+    persist(next, () => actions.reorder(next.map((r) => r.id)), 'the new order');
   }
 
   function move(from: number, to: number) {
@@ -58,15 +76,18 @@ export function SortableAdminList({ rows, editHrefBase, newHref, entityLabel, ac
 
   function onToggle(row: AdminRow) {
     const nextActive = !row.isActive;
-    setItems((cur) => cur.map((r) => (r.id === row.id ? { ...r, isActive: nextActive } : r)));
-    startTransition(() => actions.toggle(row.id, nextActive));
+    const next = items.map((r) => (r.id === row.id ? { ...r, isActive: nextActive } : r));
+    persist(next, () => actions.toggle(row.id, nextActive), `“${row.primary}”`);
   }
 
   function onDelete(row: AdminRow) {
     if (!confirm(`Delete “${row.primary}”? This can’t be undone.`)) return;
     setBusyId(row.id);
-    setItems((cur) => cur.filter((r) => r.id !== row.id));
-    startTransition(() => actions.remove(row.id));
+    persist(
+      items.filter((r) => r.id !== row.id),
+      () => actions.remove(row.id),
+      `the deletion of “${row.primary}”`,
+    );
   }
 
   if (items.length === 0) {
@@ -84,8 +105,17 @@ export function SortableAdminList({ rows, editHrefBase, newHref, entityLabel, ac
   }
 
   return (
-    <ul className="space-y-2">
-      {items.map((row, i) => (
+    <>
+      {error ? (
+        <p
+          role="alert"
+          className="mb-3 rounded-xl bg-red-50 px-4 py-3 text-sm font-medium text-red-700"
+        >
+          {error}
+        </p>
+      ) : null}
+      <ul className="space-y-2">
+        {items.map((row, i) => (
         <li
           key={row.id}
           draggable
@@ -160,9 +190,10 @@ export function SortableAdminList({ rows, editHrefBase, newHref, entityLabel, ac
             >
               Delete
             </button>
-          </div>
-        </li>
-      ))}
-    </ul>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </>
   );
 }

@@ -5,14 +5,13 @@ import { redirect } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
 import { requireEditor } from '@/lib/auth-guard';
 import type { FormState } from '@/lib/form-state';
+import { isUrlOrPath, URL_OR_PATH_ERROR } from '@/lib/url';
 
 function revalidateCoaches() {
   revalidatePath('/');
   revalidatePath('/coaches');
   revalidatePath('/admin/coaches');
 }
-
-const isUrl = (v: string) => /^https?:\/\//i.test(v);
 
 export async function saveCoach(_prev: FormState, formData: FormData): Promise<FormState> {
   await requireEditor();
@@ -28,7 +27,7 @@ export async function saveCoach(_prev: FormState, formData: FormData): Promise<F
   if (!name) fieldErrors.name = 'Name is required.';
   if (!role) fieldErrors.role = 'Role is required.';
   if (!bio) fieldErrors.bio = 'A short bio is required.';
-  if (imageUrl && !isUrl(imageUrl)) fieldErrors.imageUrl = 'Must be a full URL (https://…).';
+  if (imageUrl && !isUrlOrPath(imageUrl)) fieldErrors.imageUrl = URL_OR_PATH_ERROR;
   if (Object.keys(fieldErrors).length) return { fieldErrors };
 
   const data = { name, role, bio, imageUrl: imageUrl || null, isActive };

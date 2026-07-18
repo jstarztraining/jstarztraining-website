@@ -112,11 +112,18 @@ export function ImageUploader({
         <summary className="cursor-pointer text-xs font-semibold text-ink/50 hover:text-brand">
           …or paste an image URL
         </summary>
+        {/*
+          Deliberately type="text", not type="url". Seeded images are root-relative
+          paths ("/images/x.jpg"), which fail type="url" validation — and since this
+          input sits inside a collapsed <details>, the browser can't focus it to show
+          the error, so it blocks form submission silently. Validation lives server-side.
+        */}
         <input
-          type="url"
+          type="text"
+          inputMode="url"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
-          placeholder="https://…"
+          placeholder="https://… or /images/…"
           className="mt-2 w-full max-w-sm rounded-xl border border-navy/15 bg-white px-4 py-2.5 text-sm text-navy outline-none focus:border-brand focus:ring-2 focus:ring-brand/25"
         />
       </details>

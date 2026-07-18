@@ -12,10 +12,27 @@ export function ProgramsList({ programs }: { programs: Program[] }) {
   const [dragIndex, setDragIndex] = useState<number | null>(null);
   const [, startTransition] = useTransition();
   const [busyId, setBusyId] = useState<string | null>(null);
+  const [error, setError] = useState('');
+
+  /**
+   * Optimistic updates hide server failures — a rejected action looked exactly like
+   * a successful one until reload. Snapshot, restore on failure, and surface it.
+   */
+  function persist(optimistic: Program[], action: () => Promise<void>, what: string) {
+    const snapshot = items;
+    setError('');
+    setItems(optimistic);
+    startTransition(() => {
+      action().catch(() => {
+        setItems(snapshot);
+        setBusyId(null);
+        setError(`Couldn’t save ${what}. Check your connection and try again.`);
+      });
+    });
+  }
 
   function persistOrder(next: Program[]) {
-    setItems(next);
-    startTransition(() => reorderPrograms(next.map((p) => p.id)));
+    persist(next, () => reorderPrograms(next.map((p) => p.id)), 'the new order');
   }
 
   function move(from: number, to: number) {
@@ -38,15 +55,18 @@ export function ProgramsList({ programs }: { programs: Program[] }) {
 
   function onToggle(program: Program) {
     const nextActive = !program.isActive;
-    setItems((cur) => cur.map((p) => (p.id === program.id ? { ...p, isActive: nextActive } : p)));
-    startTransition(() => toggleProgramActive(program.id, nextActive));
+    const next = items.map((p) => (p.id === program.id ? { ...p, isActive: nextActive } : p));
+    persist(next, () => toggleProgramActive(program.id, nextActive), `“${program.title}”`);
   }
 
   function onDelete(program: Program) {
     if (!confirm(`Delete “${program.title}”? This can’t be undone.`)) return;
     setBusyId(program.id);
-    setItems((cur) => cur.filter((p) => p.id !== program.id));
-    startTransition(() => deleteProgram(program.id));
+    persist(
+      items.filter((p) => p.id !== program.id),
+      () => deleteProgram(program.id),
+      `the deletion of “${program.title}”`,
+    );
   }
 
   if (items.length === 0) {
@@ -64,8 +84,17 @@ export function ProgramsList({ programs }: { programs: Program[] }) {
   }
 
   return (
-    <ul className="space-y-2">
-      {items.map((program, i) => (
+    <>
+      {error ? (
+        <p
+          role="alert"
+          className="mb-3 rounded-xl bg-red-50 px-4 py-3 text-sm font-medium text-red-700"
+        >
+          {error}
+        </p>
+      ) : null}
+      <ul className="space-y-2">
+        {items.map((program, i) => (
         <li
           key={program.id}
           draggable
@@ -146,9 +175,10 @@ export function ProgramsList({ programs }: { programs: Program[] }) {
             >
               Delete
             </button>
-          </div>
-        </li>
-      ))}
-    </ul>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </>
   );
 }
