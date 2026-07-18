@@ -7,7 +7,10 @@ import { supabaseAdmin, ensureMediaBucket, MEDIA_BUCKET } from '@/lib/supabase-a
 export const runtime = 'nodejs';
 
 const ALLOWED = ['image/jpeg', 'image/png', 'image/webp', 'image/avif', 'image/gif'];
-const MAX_BYTES = 8 * 1024 * 1024;
+// Vercel rejects serverless request bodies over 4.5MB before this route runs, so
+// anything above that never reaches us. Keep our own cap just under it, and match
+// it in ImageUploader (which downscales client-side to stay within it).
+const MAX_BYTES = 4 * 1024 * 1024;
 
 // Cap stored images so an 8MB phone photo doesn't sit in the bucket at full size.
 // Nothing on the site renders larger than this; Next/Image handles delivery sizing.
@@ -72,7 +75,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Unsupported file type. Use JPG, PNG, WebP, AVIF or GIF.' }, { status: 400 });
   }
   if (file.size > MAX_BYTES) {
-    return NextResponse.json({ error: 'File too large (max 8MB).' }, { status: 400 });
+    return NextResponse.json({ error: 'That image is too large to upload. Try one under 4MB.' }, { status: 400 });
   }
 
   await ensureMediaBucket();
