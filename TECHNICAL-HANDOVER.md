@@ -20,7 +20,7 @@ The developer/maintainer reference for the JStarz site. For the non-technical "h
 - **Next.js 14 (App Router) + TypeScript + Tailwind** on **Vercel**
 - **Supabase** — Postgres + Storage (uploaded images)
 - **Prisma** ORM · **Auth.js (NextAuth)** email+password, roles in DB, JWT sessions
-- **Resend** — contact-form email
+- **SendGrid** — contact-form email (from `noreply@jstarztraining.com` → `jstarz@jstarztraining.com`; domain-authenticated with `sgz` DKIM selector)
 - Public pages: SSG + ISR (~60s). Dashboard writes to the DB and re-renders via ISR (no redeploy)
 
 ## 3. Accounts & ownership
@@ -32,7 +32,7 @@ The **website build** accounts are under the dedicated Google account **jstarztr
 | **GitHub** | Source code | `github.com/jstarztraining/jstarztraining-website` |
 | **Vercel** | Hosting / deploys | project `jstarz-website`, team `jstarz` |
 | **Supabase** | Database + image storage | — |
-| **Resend** | Contact-form email | — |
+| **SendGrid** | Contact-form email | — |
 
 **Separately, Jordan already owns his email:** the `jstarz@jstarztraining.com` mailbox runs on **Google Workspace under Jordan's own account** (the Google MX records on the domain). It is *not* part of the `jstarztraining.web@gmail.com` build account and does not transfer — it was already his. The build must simply avoid breaking it (see §6).
 
@@ -54,7 +54,7 @@ git push origin main      # → Vercel builds & deploys to jstarztraining.com
 
 In **Vercel → Settings → Environment Variables**, set for **Production _and_ Preview**:
 
-`DATABASE_URL`, `DIRECT_URL`, `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `AUTH_SECRET`, `RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL`, `CRON_SECRET`
+`DATABASE_URL`, `DIRECT_URL`, `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `AUTH_SECRET`, `SENDGRID_API_KEY`, `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL`, `CRON_SECRET`
 
 > ⚠️ **Never set `AUTH_URL`.** The app uses `trustHost: true` and derives its URL from the request. A leftover `AUTH_URL=http://localhost:3000` previously broke admin login (secure-cookie mismatch → `/admin` redirect loop). `.vercelignore` now stops the local `.env` from ever shipping and reintroducing it.
 

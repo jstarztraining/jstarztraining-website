@@ -6,33 +6,21 @@ The punch-list to close out before final handover. Ordered by priority. 🔴 = b
 
 ---
 
-## 🟡 1. Contact form email
+## ✅ 1. Contact form email — DONE (2026-07-22, branded + live)
 
-### ✅ Interim fix applied (2026-07-14) — form works now
-The form was broken (it tried to send from the unverified `website@jstarztraining.com`, which Resend rejects). **Interim fix is live:**
-- `CONTACT_FROM_EMAIL` = `JStarz Website <onboarding@resend.dev>` (Resend's shared sender — no domain verification needed)
-- `CONTACT_TO_EMAIL` = `jstarztraining.web@gmail.com` (unverified Resend can only deliver to the account's own email)
-- Updated in Vercel (Production + Preview) and `.env`, redeployed. Verified sending works.
+Enquiries now send **from `noreply@jstarztraining.com` → Jordan's real inbox `jstarz@jstarztraining.com`** via **SendGrid**. (Resend was dropped: it needed a subdomain MX record Wix can't create, so the domain was never verifiable. SendGrid verifies with CNAME records only, which Wix can create.)
 
-**Limitations of the interim:** emails come from `onboarding@resend.dev` (unbranded) and land in the **build Gmail**, not Jordan's real inbox. Fine for now; upgrade before final handover.
+**What was done:**
+- `lib/actions/contact.ts` swapped from Resend (`resend`) to SendGrid (`@sendgrid/mail`).
+- SendGrid "Authenticate Your Domain" for `jstarztraining.com` with a **custom DKIM selector `sgz`** — necessary because the default `s1`/`s2._domainkey` hosts already existed (Wix Ascend, → `ascendbywix.com`) and would have collided. Three CNAMEs added in Wix (MX/SPF/existing records left untouched, so email is unaffected):
+  - `em6492` → `u110946341.wl092.sendgrid.net`
+  - `sgz._domainkey` → `sgz.domainkey.u110946341.wl092.sendgrid.net`
+  - `sgz2._domainkey` → `sgz2.domainkey.u110946341.wl092.sendgrid.net`
+  - (skipped SendGrid's `_dmarc` TXT — the domain already has one)
+- Env in Vercel (Production + Preview) + local `.env`: `SENDGRID_API_KEY`, `CONTACT_FROM_EMAIL="JStarz Website <noreply@jstarztraining.com>"`, `CONTACT_TO_EMAIL="jstarz@jstarztraining.com"`. Stale `RESEND_API_KEY` removed.
+- Deployed (commit `4c918be`). Direct SendGrid API test returned **202** (accepted) and delivered a test email to Jordan's inbox.
 
-### 🟡 Branded fix (before handover) — PARKED, pick a path
-Goal: enquiries from `noreply@jstarztraining.com` → Jordan's real inbox `jstarz@jstarztraining.com`.
-
-**Two Wix walls block the obvious routes:**
-- Resend needs a **subdomain MX** — Wix can't create subdomain MX records.
-- Moving DNS to Cloudflare would fix that, BUT on this Wix-registered domain the **nameservers are "not editable"** and **DNSSEC has no self-service toggle** (it's ON). So Cloudflare needs a Wix support ticket or a domain transfer.
-
-**Recommended path when resumed — switch mail provider (no DNS migration):**
-Use **SendGrid / Amazon SES / Postmark**, which verify a sending domain with **CNAME/TXT records only** — which Wix CAN create. Then:
-1. Create the account; add domain `jstarztraining.com`; add the CNAME/TXT records it gives you in **Wix → Manage DNS Records** (leave the Google MX/SPF alone).
-2. Swap `lib/actions/contact.ts` from Resend to the new provider (or SMTP).
-3. Env (Production + Preview + `.env`): `CONTACT_FROM_EMAIL` = `JStarz Website <noreply@jstarztraining.com>`, `CONTACT_TO_EMAIL` = `jstarz@jstarztraining.com`.
-4. Redeploy, test the live form.
-
-**Alternative paths:** Wix support to unlock Cloudflare (see `CLOUDFLARE-MIGRATION.md`, zone already set up), or transfer the domain off Wix (5-7 days, best long-term — Jordan should own it at a real registrar anyway).
-
-> Documented current DNS: apex A `76.76.21.21`; www → Vercel; MX = Google (`aspmx.l.google.com` +4 alts); TXT = `v=spf1 include:_spf.google.com ~all` + `google-site-verification=…`; DKIM CNAMEs `s1/s2._domainkey` → ascendbywix.com (Wix email marketing, not Google); `_dmarc` CNAME → wixemails.com; stale `replit-verify` TXT (droppable).
+> SendGrid account is under `jstarztraining.web@gmail.com` (transfers with the other build accounts on final payment). Free trial ends 2026-09-15; the free tier continues after.
 
 ---
 
