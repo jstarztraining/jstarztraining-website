@@ -102,6 +102,28 @@ export function SettingsForm({ settings }: { settings: SiteSettings | null }) {
         </div>
       </fieldset>
 
+      <fieldset className="space-y-4 border-t border-navy/10 pt-8">
+        <legend className="font-heading text-sm font-bold uppercase tracking-[0.16em] text-ink/50">
+          Sponsors page
+        </legend>
+        <label className="flex items-start gap-3 rounded-2xl border border-navy/10 bg-mist/50 p-4">
+          <input
+            type="checkbox"
+            name="sponsorsEnabled"
+            defaultChecked={settings?.sponsorsEnabled ?? false}
+            className="mt-0.5 h-5 w-5 rounded border-navy/30 text-brand focus:ring-brand/30"
+          />
+          <span className="text-sm">
+            <span className="font-semibold text-navy">Show the Sponsors page on the site</span>
+            <span className="mt-1 block text-ink/60">
+              When off, the Sponsors page is hidden and its nav &amp; footer links disappear — you
+              can still add and edit sponsors in the dashboard. Turn this on when you&rsquo;re ready
+              to launch the section publicly.
+            </span>
+          </span>
+        </label>
+      </fieldset>
+
       <div className="border-t border-navy/10 pt-6">
         <SaveButton />
       </div>

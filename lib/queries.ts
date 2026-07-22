@@ -50,6 +50,13 @@ export const getActiveCoaches = cache(() =>
   }),
 );
 
+export const getActiveSponsors = cache(() =>
+  prisma.sponsor.findMany({
+    where: { isActive: true },
+    orderBy: { sortOrder: 'asc' },
+  }),
+);
+
 export const getActiveFaqs = cache(() =>
   prisma.faqItem.findMany({
     where: { isActive: true },

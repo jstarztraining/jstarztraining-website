@@ -67,6 +67,7 @@ export async function saveSiteSettings(_prev: FormState, formData: FormData): Pr
   const facebook = withScheme(String(formData.get('facebook') ?? ''));
   const tiktok = withScheme(String(formData.get('tiktok') ?? ''));
   const footerText = String(formData.get('footerText') ?? '').trim();
+  const sponsorsEnabled = formData.get('sponsorsEnabled') === 'on';
 
   const fieldErrors: Record<string, string> = {};
   if (email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) fieldErrors.email = 'Enter a valid email.';
@@ -90,6 +91,7 @@ export async function saveSiteSettings(_prev: FormState, formData: FormData): Pr
     facebook: facebook || null,
     tiktok: tiktok || null,
     footerText: footerText || null,
+    sponsorsEnabled,
   };
 
   try {

@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import { PROGRAMS, TESTIMONIALS, COACHES, GALLERY } from '../lib/content';
+import { PROGRAMS, TESTIMONIALS, COACHES, GALLERY, SPONSORS } from '../lib/content';
 import { SITE } from '../lib/site';
 
 const prisma = new PrismaClient();
@@ -118,6 +118,7 @@ async function main() {
   await prisma.program.deleteMany();
   await prisma.coach.deleteMany();
   await prisma.testimonial.deleteMany();
+  await prisma.sponsor.deleteMany();
   await prisma.faqItem.deleteMany();
   await prisma.mediaAsset.deleteMany();
 
@@ -167,6 +168,19 @@ async function main() {
   });
   console.log(`  • ${TESTIMONIALS.length} testimonials`);
 
+  // Sponsors & supporters (starter list — Jordan manages the rest in the dashboard)
+  await prisma.sponsor.createMany({
+    data: SPONSORS.map((s, i) => ({
+      name: s.name,
+      tier: s.tier,
+      role: s.role ?? null,
+      logoUrl: s.logoUrl ?? null,
+      websiteUrl: s.websiteUrl ?? null,
+      sortOrder: i,
+    })),
+  });
+  console.log(`  • ${SPONSORS.length} sponsors`);
+
   // FAQ
   await prisma.faqItem.createMany({
     data: FAQS.map((f, i) => ({ ...f, sortOrder: i })),
@@ -194,6 +208,8 @@ async function main() {
       facebook: SITE.social.facebook,
       tiktok: SITE.social.tiktok,
       footerText: 'No ego. No politics. Just soccer.',
+      // Sponsors section stays hidden until deliberately switched on in the dashboard.
+      sponsorsEnabled: false,
     },
   });
   console.log('  • site settings');

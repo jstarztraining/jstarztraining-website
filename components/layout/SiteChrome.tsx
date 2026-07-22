@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 import type { ReactNode } from 'react';
-import { Navbar, type NavBanner } from './Navbar';
+import { Navbar, type NavBanner, type NavLink } from './Navbar';
 import { MobileBookBar } from './MobileBookBar';
 
 /**
@@ -14,10 +14,12 @@ export function SiteChrome({
   children,
   footer,
   banner,
+  navLinks,
 }: {
   children: ReactNode;
   footer: ReactNode;
   banner?: NavBanner;
+  navLinks?: readonly NavLink[];
 }) {
   const pathname = usePathname();
   const bare = pathname.startsWith('/admin') || pathname.startsWith('/login');
@@ -32,7 +34,7 @@ export function SiteChrome({
           Skip to content
         </a>
       )}
-      {!bare && <Navbar banner={banner} />}
+      {!bare && <Navbar banner={banner} links={navLinks} />}
       <main id="main">{children}</main>
       {!bare && footer}
       {!bare && <MobileBookBar />}

@@ -350,6 +350,23 @@ export const COACHES: Coach[] = [
   },
 ];
 
+/* ----------------------------------------------------------------- Sponsors */
+// Community sponsors & supporters (goodwill add). Businesses render as logo
+// tiles; individuals render as name chips. `tier` must be one of SPONSOR_TIERS
+// (lib/sponsor-tiers.ts). Starter list only — Jordan manages the rest from the
+// dashboard.
+export interface Sponsor {
+  name: string;
+  tier: string;
+  role?: string;
+  logoUrl?: string;
+  websiteUrl?: string;
+}
+export const SPONSORS: Sponsor[] = [
+  // Site developer — swap in the real portfolio URL once confirmed.
+  { name: 'Jeremy Crooks', tier: 'Supporters', role: 'Web Developer' },
+];
+
 /* ------------------------------------------------------------------ Gallery */
 // Real JStarz session photography (§13). Seeded into MediaAsset for /gallery.
 export interface GalleryItem {

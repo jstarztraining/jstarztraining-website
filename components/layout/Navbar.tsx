@@ -9,8 +9,9 @@ import { NAV_LINKS } from '@/lib/site';
 import { cn } from '@/lib/utils';
 
 export type NavBanner = { enabled: boolean; message: string | null; url: string | null };
+export type NavLink = { label: string; href: string };
 
-export function Navbar({ banner }: { banner?: NavBanner }) {
+export function Navbar({ banner, links = NAV_LINKS }: { banner?: NavBanner; links?: readonly NavLink[] }) {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -71,7 +72,7 @@ export function Navbar({ banner }: { banner?: NavBanner }) {
 
         {/* Desktop links */}
         <ul className="hidden items-center gap-8 lg:flex xl:gap-9">
-          {NAV_LINKS.slice(1).map((link) => {
+          {links.slice(1).map((link) => {
             const active = pathname === link.href;
             return (
               <li key={link.href}>
@@ -153,7 +154,7 @@ export function Navbar({ banner }: { banner?: NavBanner }) {
           </button>
         </div>
         <nav aria-label="Mobile" className="container-px flex flex-1 flex-col justify-center gap-1 pb-24">
-          {NAV_LINKS.map((link, i) => (
+          {links.map((link, i) => (
             <Link
               key={link.href}
               href={link.href}

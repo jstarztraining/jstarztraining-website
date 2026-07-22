@@ -2,8 +2,8 @@ import type { Metadata, Viewport } from 'next';
 import { fontVariables } from '@/lib/fonts';
 import { SiteChrome } from '@/components/layout/SiteChrome';
 import { Footer } from '@/components/layout/Footer';
-import { getHomeHero } from '@/lib/queries';
-import { SITE } from '@/lib/site';
+import { getHomeHero, getSiteSettings } from '@/lib/queries';
+import { NAV_LINKS, SITE } from '@/lib/site';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -54,18 +54,23 @@ export const viewport: Viewport = {
 const revealReadyScript = `(function(){try{if(!window.matchMedia||!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('reveal-ready');}}catch(e){}})();`;
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const hero = await getHomeHero();
+  const [hero, settings] = await Promise.all([getHomeHero(), getSiteSettings()]);
   const banner = {
     enabled: hero?.bannerEnabled ?? false,
     message: hero?.bannerMessage ?? null,
     url: hero?.bannerUrl ?? null,
   };
 
+  // The Sponsors section is hidden until it's switched on in Site Settings.
+  const navLinks = settings?.sponsorsEnabled
+    ? NAV_LINKS
+    : NAV_LINKS.filter((l) => l.href !== '/sponsors');
+
   return (
     <html lang="en" className={fontVariables}>
       <body>
         <script dangerouslySetInnerHTML={{ __html: revealReadyScript }} />
-        <SiteChrome footer={<Footer />} banner={banner}>
+        <SiteChrome footer={<Footer />} banner={banner} navLinks={navLinks}>
           {children}
         </SiteChrome>
       </body>

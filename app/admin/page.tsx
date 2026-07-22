@@ -9,6 +9,7 @@ const MODULES: { key: string; title: string; desc: string; href: string }[] = [
   { key: 'schedule', title: 'Schedule', desc: 'Sessions for the calendar & list board. Informational only.', href: '/admin/schedule' },
   { key: 'coaches', title: 'Coaches & Staff', desc: 'Names, roles, bios, photos, ordering.', href: '/admin/coaches' },
   { key: 'testimonials', title: 'Testimonials', desc: 'Quotes from players & parents.', href: '/admin/testimonials' },
+  { key: 'sponsors', title: 'Sponsors & Supporters', desc: 'Sponsor logos & community supporters, grouped by tier.', href: '/admin/sponsors' },
   { key: 'faq', title: 'FAQ', desc: 'Questions & answers.', href: '/admin/faq' },
   { key: 'gallery', title: 'Gallery', desc: 'Upload, reorder, and delete photos for the public gallery.', href: '/admin/gallery' },
   { key: 'content', title: 'Site Content', desc: 'Editable written copy on your public pages.', href: '/admin/content' },
@@ -20,19 +21,21 @@ export default async function AdminHome() {
   const session = await auth();
   const isAdmin = session?.user.role === 'Admin';
 
-  const [programs, coaches, testimonials, faqs, sessions, media] = await Promise.all([
+  const [programs, coaches, testimonials, faqs, sessions, media, sponsors] = await Promise.all([
     prisma.program.count(),
     prisma.coach.count(),
     prisma.testimonial.count(),
     prisma.faqItem.count(),
     prisma.session.count(),
     prisma.mediaAsset.count(),
+    prisma.sponsor.count(),
   ]);
 
   const stats = [
     { label: 'Programs', value: programs },
     { label: 'Coaches', value: coaches },
     { label: 'Testimonials', value: testimonials },
+    { label: 'Sponsors', value: sponsors },
     { label: 'FAQ items', value: faqs },
     { label: 'Sessions', value: sessions },
     { label: 'Media', value: media },
@@ -48,7 +51,7 @@ export default async function AdminHome() {
       </p>
 
       {/* Live counts */}
-      <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
+      <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7">
         {stats.map((s) => (
           <div key={s.label} className="rounded-2xl border border-navy/10 bg-white p-5 shadow-card">
             <div className="font-display text-3xl font-extrabold text-navy">{s.value}</div>

@@ -117,6 +117,19 @@ model Testimonial {
   updatedAt DateTime @updatedAt
 }
 
+model Sponsor {
+  id         String   @id @default(cuid())
+  name       String
+  tier       String // one of SPONSOR_TIERS (lib/sponsor-tiers.ts)
+  role       String? // optional label for individual supporters, e.g. "Web Developer"
+  logoUrl    String? // businesses show a logo; individuals leave blank → styled name
+  websiteUrl String? // optional outbound link
+  isActive   Boolean  @default(true)
+  sortOrder  Int      @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
 model FaqItem {
   id        String   @id @default(cuid())
   question  String
@@ -139,6 +152,9 @@ model SiteSettings {
   facebook   String?
   tiktok     String?
   footerText String?  @db.Text
+  // Master switch for the public Sponsors page + nav/footer link. Off by default
+  // so the section can be built out privately and launched with one toggle.
+  sponsorsEnabled Boolean @default(false)
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 }

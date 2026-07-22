@@ -7,9 +7,9 @@ import { getSiteSettings } from '@/lib/queries';
 const exploreLinks = NAV_LINKS.filter((l) =>
   ['/programs', '/schedule', '/about', '/coaches'].includes(l.href),
 );
-const moreLinks = NAV_LINKS.filter((l) =>
-  ['/testimonials', '/gallery', '/faq', '/contact'].includes(l.href),
-);
+// Sponsors sits in the "More" column, but only once the section is switched on
+// in Site Settings — so it's added conditionally inside the component below.
+const moreHrefsBase = ['/testimonials', '/gallery', '/faq', '/contact'];
 
 const defaultAddress = `${SITE.address.street}, ${SITE.address.city}, ${SITE.address.region} ${SITE.address.postal}`;
 
@@ -44,6 +44,12 @@ export async function Footer() {
   const phoneHref = phone ? `tel:${phone.replace(/[^0-9+]/g, '')}` : SITE.phoneHref;
   const address = settings?.address || defaultAddress;
   const tagline = settings?.footerText || 'No ego. No politics. Just soccer.';
+
+  const moreHrefs = settings?.sponsorsEnabled
+    ? [...moreHrefsBase, '/sponsors']
+    : moreHrefsBase;
+  // Filter NAV_LINKS so the column preserves the canonical nav order.
+  const moreLinks = NAV_LINKS.filter((l) => moreHrefs.includes(l.href));
 
   const social = (
     [
