@@ -1,11 +1,12 @@
 'use server';
 
-import { Resend } from 'resend';
+import sgMail from '@sendgrid/mail';
 import { SITE } from '@/lib/site';
 import type { FormState } from '@/lib/form-state';
 
-// Contact form → email via Resend. No DB record (no ContactSubmission table, §7);
-// the inbox is a Phase-2 add-on.
+// Contact form → email via SendGrid. No DB record (no ContactSubmission table, §7);
+// the inbox is a Phase-2 add-on. SendGrid replaced Resend because Wix can't create
+// the subdomain MX Resend needs to verify the domain; SendGrid verifies with CNAMEs.
 export async function sendContact(_prev: FormState, formData: FormData): Promise<FormState> {
   // Honeypot — bots fill hidden fields. Silently "succeed" without sending.
   if (String(formData.get('company') ?? '').trim()) {
@@ -24,7 +25,7 @@ export async function sendContact(_prev: FormState, formData: FormData): Promise
   if (!message || message.length < 10) fieldErrors.message = 'Please add a bit more detail (10+ characters).';
   if (Object.keys(fieldErrors).length) return { fieldErrors };
 
-  const apiKey = process.env.RESEND_API_KEY;
+  const apiKey = process.env.SENDGRID_API_KEY;
   if (!apiKey) {
     return {
       error: `Our contact form isn’t connected yet. Please email us directly at ${SITE.email}.`,
@@ -32,13 +33,13 @@ export async function sendContact(_prev: FormState, formData: FormData): Promise
   }
 
   const to = process.env.CONTACT_TO_EMAIL || SITE.email;
-  const from = process.env.CONTACT_FROM_EMAIL || 'JStarz Website <onboarding@resend.dev>';
+  const from = process.env.CONTACT_FROM_EMAIL || 'JStarz Website <noreply@jstarztraining.com>';
 
   try {
-    const resend = new Resend(apiKey);
-    const { error } = await resend.emails.send({
-      from,
+    sgMail.setApiKey(apiKey);
+    await sgMail.send({
       to,
+      from,
       replyTo: email,
       subject: `New website enquiry from ${name}`,
       text: [
@@ -51,10 +52,6 @@ export async function sendContact(_prev: FormState, formData: FormData): Promise
         .filter((l) => l !== null)
         .join('\n'),
     });
-
-    if (error) {
-      return { error: `Something went wrong sending your message. Please email ${SITE.email}.` };
-    }
   } catch {
     return { error: `Something went wrong sending your message. Please email ${SITE.email}.` };
   }
