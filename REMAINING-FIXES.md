@@ -48,10 +48,10 @@ Only login in the database today is `jeremycrooks20@gmail.com` (developer, tempo
 
 ---
 
-## 🟡 4. Verify all Shopify program links
+## ✅ 4. Verify all Shopify program links — DONE (2026-07-22)
 
-- [ ] Click through **every** program card on the live site and confirm each opens the correct Shopify product/collection.
-- [ ] Confirm each displayed price still matches Shopify (prices are typed by hand — they don't sync).
+- [x] Clicked through every program card on the live site — each opens the correct Shopify product/collection.
+- [x] Displayed prices confirmed against Shopify (prices are typed by hand — they don't sync).
 
 ---
 
