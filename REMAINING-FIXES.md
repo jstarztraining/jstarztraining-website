@@ -16,19 +16,23 @@ The form was broken (it tried to send from the unverified `website@jstarztrainin
 
 **Limitations of the interim:** emails come from `onboarding@resend.dev` (unbranded) and land in the **build Gmail**, not Jordan's real inbox. Fine for now; upgrade before final handover.
 
-### 🔴 Proper fix (before handover) — verify the domain in Resend
-**Blocker discovered:** Resend needs a **subdomain MX** record (`send.…` → `feedback-smtp…ses.com`), and **Wix's DNS editor cannot create MX records on a subdomain.** So the domain can't be verified while DNS lives at Wix.
+### 🟡 Branded fix (before handover) — PARKED, pick a path
+Goal: enquiries from `noreply@jstarztraining.com` → Jordan's real inbox `jstarz@jstarztraining.com`.
 
-**The fix: move DNS from Wix to Cloudflare** (free, supports subdomain MX, faster). Then:
-1. In Cloudflare, add the domain; it imports existing records. **Carefully recreate every current record** — especially the 5 Google Workspace **MX** records + SPF TXT (so `jstarz@` email keeps working), the Vercel **A `@` → 76.76.21.21**, and the `www` record.
-2. Point the registrar's **nameservers** to Cloudflare's (from `ns4/ns5.wixdns.net`).
-3. In Resend, add the **root** domain `jstarztraining.com` (not a subdomain — avoids the `send.send` double-prefix). Add its DKIM/SPF/MX records in Cloudflare and **Verify**.
-4. Update env (Production + Preview + `.env`):
-   - `CONTACT_FROM_EMAIL` = `JStarz Website <noreply@jstarztraining.com>`
-   - `CONTACT_TO_EMAIL` = `jstarz@jstarztraining.com` (Jordan's real inbox — matches the site)
-5. Redeploy and test the live form → confirm it arrives at `jstarz@jstarztraining.com`.
+**Two Wix walls block the obvious routes:**
+- Resend needs a **subdomain MX** — Wix can't create subdomain MX records.
+- Moving DNS to Cloudflare would fix that, BUT on this Wix-registered domain the **nameservers are "not editable"** and **DNSSEC has no self-service toggle** (it's ON). So Cloudflare needs a Wix support ticket or a domain transfer.
 
-> Current documented DNS (for the Cloudflare recreate): apex A `76.76.21.21`; www → Vercel; MX = Google (`aspmx.l.google.com` +4 alts); TXT = `v=spf1 include:_spf.google.com ~all`, a `google-site-verification=…`, and a stale `replit-verify=…` (can drop that one).
+**Recommended path when resumed — switch mail provider (no DNS migration):**
+Use **SendGrid / Amazon SES / Postmark**, which verify a sending domain with **CNAME/TXT records only** — which Wix CAN create. Then:
+1. Create the account; add domain `jstarztraining.com`; add the CNAME/TXT records it gives you in **Wix → Manage DNS Records** (leave the Google MX/SPF alone).
+2. Swap `lib/actions/contact.ts` from Resend to the new provider (or SMTP).
+3. Env (Production + Preview + `.env`): `CONTACT_FROM_EMAIL` = `JStarz Website <noreply@jstarztraining.com>`, `CONTACT_TO_EMAIL` = `jstarz@jstarztraining.com`.
+4. Redeploy, test the live form.
+
+**Alternative paths:** Wix support to unlock Cloudflare (see `CLOUDFLARE-MIGRATION.md`, zone already set up), or transfer the domain off Wix (5-7 days, best long-term — Jordan should own it at a real registrar anyway).
+
+> Documented current DNS: apex A `76.76.21.21`; www → Vercel; MX = Google (`aspmx.l.google.com` +4 alts); TXT = `v=spf1 include:_spf.google.com ~all` + `google-site-verification=…`; DKIM CNAMEs `s1/s2._domainkey` → ascendbywix.com (Wix email marketing, not Google); `_dmarc` CNAME → wixemails.com; stale `replit-verify` TXT (droppable).
 
 ---
 
