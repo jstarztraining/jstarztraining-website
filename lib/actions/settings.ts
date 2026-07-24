@@ -16,6 +16,10 @@ export async function saveHomeHero(_prev: FormState, formData: FormData): Promis
   const ctaLabel = String(formData.get('ctaLabel') ?? '').trim();
   const ctaUrl = withScheme(String(formData.get('ctaUrl') ?? ''));
   const imageUrl = String(formData.get('imageUrl') ?? '').trim();
+  const showcaseLeftMain = String(formData.get('showcaseLeftMain') ?? '').trim();
+  const showcaseLeftSub = String(formData.get('showcaseLeftSub') ?? '').trim();
+  const showcaseRightMain = String(formData.get('showcaseRightMain') ?? '').trim();
+  const showcaseRightSub = String(formData.get('showcaseRightSub') ?? '').trim();
   const bannerMessage = String(formData.get('bannerMessage') ?? '').trim();
   const bannerUrl = withScheme(String(formData.get('bannerUrl') ?? ''));
   const bannerEnabled = formData.get('bannerEnabled') === 'on';
@@ -25,6 +29,10 @@ export async function saveHomeHero(_prev: FormState, formData: FormData): Promis
   // CTA and banner links may point at internal pages ("/programs"), so paths are valid.
   if (ctaUrl && !isUrlOrPath(ctaUrl)) fieldErrors.ctaUrl = URL_OR_PATH_ERROR;
   if (imageUrl && !isUrlOrPath(imageUrl)) fieldErrors.imageUrl = URL_OR_PATH_ERROR;
+  if (showcaseLeftMain && !isUrlOrPath(showcaseLeftMain)) fieldErrors.showcaseLeftMain = URL_OR_PATH_ERROR;
+  if (showcaseLeftSub && !isUrlOrPath(showcaseLeftSub)) fieldErrors.showcaseLeftSub = URL_OR_PATH_ERROR;
+  if (showcaseRightMain && !isUrlOrPath(showcaseRightMain)) fieldErrors.showcaseRightMain = URL_OR_PATH_ERROR;
+  if (showcaseRightSub && !isUrlOrPath(showcaseRightSub)) fieldErrors.showcaseRightSub = URL_OR_PATH_ERROR;
   if (bannerUrl && !isUrlOrPath(bannerUrl)) fieldErrors.bannerUrl = URL_OR_PATH_ERROR;
   if (bannerEnabled && !bannerMessage) fieldErrors.bannerMessage = 'Add a message, or turn the banner off.';
   if (Object.keys(fieldErrors).length) return { fieldErrors };
@@ -35,6 +43,10 @@ export async function saveHomeHero(_prev: FormState, formData: FormData): Promis
     ctaLabel,
     ctaUrl,
     imageUrl: imageUrl || null,
+    showcaseLeftMain: showcaseLeftMain || null,
+    showcaseLeftSub: showcaseLeftSub || null,
+    showcaseRightMain: showcaseRightMain || null,
+    showcaseRightSub: showcaseRightSub || null,
     bannerMessage: bannerMessage || null,
     bannerUrl: bannerUrl || null,
     bannerEnabled,

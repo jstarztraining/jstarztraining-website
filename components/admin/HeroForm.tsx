@@ -73,6 +73,53 @@ export function HeroForm({ hero }: { hero: HomeHero | null }) {
         </div>
       </fieldset>
 
+      {/* Floating photo bubbles */}
+      <fieldset className="space-y-6 border-t border-navy/10 pt-8">
+        <legend className="font-heading text-sm font-bold uppercase tracking-[0.16em] text-ink/50">
+          Photo bubbles
+        </legend>
+        <p className="-mt-2 text-xs text-ink/55">
+          The floating photos on the homepage hero. Leave any blank to keep the built-in default.
+          On phones, only the <span className="font-medium text-ink/70">right pair</span> is shown — a tall photo with a wide
+          one overlapping it.
+        </p>
+
+        <div className="grid gap-6 sm:grid-cols-2">
+          <div>
+            <span className={labelCls}>Left — tall photo</span>
+            <div className="mt-2">
+              <ImageUploader name="showcaseLeftMain" defaultValue={hero?.showcaseLeftMain ?? ''} folder="hero" />
+            </div>
+            <FieldError message={state.fieldErrors?.showcaseLeftMain} />
+          </div>
+          <div>
+            <span className={labelCls}>Left — wide photo</span>
+            <div className="mt-2">
+              <ImageUploader name="showcaseLeftSub" defaultValue={hero?.showcaseLeftSub ?? ''} folder="hero" />
+            </div>
+            <FieldError message={state.fieldErrors?.showcaseLeftSub} />
+          </div>
+          <div>
+            <span className={labelCls}>
+              Right — tall photo <span className="font-normal text-ink/50">(also shown on phones)</span>
+            </span>
+            <div className="mt-2">
+              <ImageUploader name="showcaseRightMain" defaultValue={hero?.showcaseRightMain ?? ''} folder="hero" />
+            </div>
+            <FieldError message={state.fieldErrors?.showcaseRightMain} />
+          </div>
+          <div>
+            <span className={labelCls}>
+              Right — wide photo <span className="font-normal text-ink/50">(also shown on phones)</span>
+            </span>
+            <div className="mt-2">
+              <ImageUploader name="showcaseRightSub" defaultValue={hero?.showcaseRightSub ?? ''} folder="hero" />
+            </div>
+            <FieldError message={state.fieldErrors?.showcaseRightSub} />
+          </div>
+        </div>
+      </fieldset>
+
       {/* Promo banner */}
       <fieldset className="space-y-6 border-t border-navy/10 pt-8">
         <legend className="font-heading text-sm font-bold uppercase tracking-[0.16em] text-ink/50">

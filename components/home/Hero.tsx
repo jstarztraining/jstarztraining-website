@@ -2,7 +2,7 @@ import type { HomeHero } from '@prisma/client';
 import Image from 'next/image';
 import { Container } from '@/components/ui/Container';
 import { Button } from '@/components/ui/Button';
-import { HeroShowcase } from '@/components/home/HeroShowcase';
+import { HeroShowcase, HeroShowcaseMobile, DEFAULT_SHOWCASE } from '@/components/home/HeroShowcase';
 import { CountUp } from '@/components/motion/CountUp';
 import { HERO_STATS } from '@/lib/content';
 import { cn } from '@/lib/utils';
@@ -32,6 +32,16 @@ export function Hero({ hero }: { hero: HomeHero | null }) {
   const ctaLabel = hero?.ctaLabel?.trim() || FALLBACK.ctaLabel;
   const ctaUrl = hero?.ctaUrl?.trim() || FALLBACK.ctaUrl;
   const { lead, accent } = splitAccent(headline);
+
+  // Photo-bubble collage: owner-editable per slot, each falling back to a
+  // built-in default so the hero is never missing an image. Mobile reuses the
+  // right-hand pair.
+  const showcase = {
+    leftMain: hero?.showcaseLeftMain?.trim() || DEFAULT_SHOWCASE.leftMain,
+    leftSub: hero?.showcaseLeftSub?.trim() || DEFAULT_SHOWCASE.leftSub,
+    rightMain: hero?.showcaseRightMain?.trim() || DEFAULT_SHOWCASE.rightMain,
+    rightSub: hero?.showcaseRightSub?.trim() || DEFAULT_SHOWCASE.rightSub,
+  };
 
   return (
     <section className="relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-navy text-white">
@@ -71,8 +81,8 @@ export function Hero({ hero }: { hero: HomeHero | null }) {
       />
 
       {/* Floating real-photo clusters flank the centred content (xl+) */}
-      <HeroShowcase side="left" />
-      <HeroShowcase side="right" />
+      <HeroShowcase side="left" main={showcase.leftMain} sub={showcase.leftSub} />
+      <HeroShowcase side="right" main={showcase.rightMain} sub={showcase.rightSub} />
 
       <Container
         className={cn(
@@ -111,6 +121,10 @@ export function Hero({ hero }: { hero: HomeHero | null }) {
             </Button>
           </div>
         </div>
+
+        {/* Floating photo "bubbles" for mobile/tablet, where the flanking
+            desktop clusters have no gutter to live in (xl:hidden). */}
+        <HeroShowcaseMobile main={showcase.rightMain} sub={showcase.rightSub} />
 
         {/* Stats strip */}
         <dl className="mx-auto mt-16 grid max-w-3xl grid-cols-2 gap-x-8 gap-y-8 border-t border-white/15 pt-9 sm:grid-cols-4 lg:mt-20">

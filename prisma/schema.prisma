@@ -167,6 +167,13 @@ model HomeHero {
   ctaLabel      String   @default("")
   ctaUrl        String   @default("")
   imageUrl      String?
+  // Floating "photo bubble" collage on the homepage hero. Four images: two
+  // clusters flank the copy on desktop; the right pair alone shows on mobile.
+  // Null → the built-in default photo for that slot (see components/home/Hero).
+  showcaseLeftMain  String?
+  showcaseLeftSub   String?
+  showcaseRightMain String?
+  showcaseRightSub  String?
   bannerMessage String?
   bannerUrl     String?
   bannerEnabled Boolean  @default(false)
