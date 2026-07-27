@@ -21,6 +21,60 @@ export function weekdayOf(d: Date): string {
   return weekdayFmt.format(d);
 }
 
+/* ── Weekday + time-of-day <-> instant ────────────────────────────────────────
+ * The board is a repeating weekly view, so a session is really just "which day,
+ * what time" — the calendar week its Date happens to land in is noise. These
+ * helpers convert between that pair and the stored DateTime, always resolving
+ * the wall clock in Halifax time. Doing the conversion explicitly (rather than
+ * leaning on the server's local timezone) is what keeps an admin-entered 7:00 PM
+ * from rendering as 4:00 PM on a UTC server.
+ */
+
+/** Mon-first options for the admin day picker. */
+export const WEEKDAY_OPTIONS = WEEKDAYS.map((label, value) => ({ value, label }));
+
+const offsetFmt = new Intl.DateTimeFormat('en-US', {
+  timeZone: SCHEDULE_TZ,
+  hour12: false,
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+  hour: '2-digit',
+  minute: '2-digit',
+  second: '2-digit',
+});
+
+/** Halifax's offset from UTC (ms) at a given instant — handles AST/ADT. */
+function tzOffsetMs(utcMs: number): number {
+  const parts = offsetFmt.formatToParts(new Date(utcMs));
+  const get = (type: string) => Number(parts.find((p) => p.type === type)?.value ?? 0);
+  // hour12:false yields "24" for midnight in some engines.
+  const asIfUtc = Date.UTC(get('year'), get('month') - 1, get('day'), get('hour') % 24, get('minute'), get('second'));
+  return asIfUtc - utcMs;
+}
+
+// Anchor week: Mon 2024-01-01 … Sun 2024-01-07. Every session is pinned to it so
+// "Sunday 7:00 PM" keeps meaning exactly that, no matter when it was saved.
+const ANCHOR_YEAR = 2024;
+const ANCHOR_MONTH = 0; // January
+const ANCHOR_MONDAY = 1;
+
+/** The instant whose Halifax wall clock is the given weekday (0 = Mon) at h:m. */
+export function weeklyInstant(weekday: number, hour: number, minute: number): Date {
+  const day = ANCHOR_MONDAY + Math.min(Math.max(weekday, 0), 6);
+  const wall = Date.UTC(ANCHOR_YEAR, ANCHOR_MONTH, day, hour, minute);
+  // Two passes: the first offset is sampled at the wrong instant, the second
+  // lands on the correct side of any DST boundary.
+  const first = wall - tzOffsetMs(wall);
+  return new Date(wall - tzOffsetMs(first));
+}
+
+/** Inverse of weeklyInstant: weekday index (0 = Mon) + "HH:mm", in Halifax time. */
+export function weeklyParts(d: Date): { weekday: number; time: string } {
+  const idx = WEEKDAYS.indexOf(weekdayOf(d));
+  return { weekday: idx < 0 ? 0 : idx, time: hmFmt.format(d) };
+}
+
 /** Sort key: minutes since Monday 00:00 (weekday * 1440 + minutes of day). */
 export function weeklySortKey(d: Date): number {
   const idx = WEEKDAYS.indexOf(weekdayOf(d));

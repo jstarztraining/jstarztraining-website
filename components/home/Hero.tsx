@@ -18,6 +18,10 @@ const FALLBACK = {
   ctaUrl: '/programs',
 };
 
+// Built-in hero backdrop, used until an owner uploads one (dashboard →
+// Hero & Banner → Hero background photo).
+const DEFAULT_BACKGROUND = '/images/hero-bg.jpg';
+
 // Split a headline so the final word renders as the gold accent (with underline).
 function splitAccent(headline: string) {
   const trimmed = headline.trim();
@@ -32,6 +36,7 @@ export function Hero({ hero }: { hero: HomeHero | null }) {
   const ctaLabel = hero?.ctaLabel?.trim() || FALLBACK.ctaLabel;
   const ctaUrl = hero?.ctaUrl?.trim() || FALLBACK.ctaUrl;
   const { lead, accent } = splitAccent(headline);
+  const background = hero?.imageUrl?.trim() || DEFAULT_BACKGROUND;
 
   // Photo-bubble collage: owner-editable per slot, each falling back to a
   // built-in default so the hero is never missing an image. Mobile reuses the
@@ -48,9 +53,10 @@ export function Hero({ hero }: { hero: HomeHero | null }) {
       {/* The promo banner lives in the fixed header stack (Navbar), above the
           nav row — see components/layout/Navbar.tsx. */}
 
-      {/* Full-bleed background — real JStarz session, heavily darkened to navy */}
+      {/* Full-bleed background — real JStarz session, heavily darkened to navy.
+          Owner-editable (Hero & Banner → Hero background photo). */}
       <Image
-        src="/images/hero-bg.jpg"
+        src={background}
         alt=""
         aria-hidden
         fill

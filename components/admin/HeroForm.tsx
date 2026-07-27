@@ -64,8 +64,13 @@ export function HeroForm({ hero }: { hero: HomeHero | null }) {
 
         <div>
           <span className={labelCls}>
-            Hero image <span className="font-normal text-ink/50">(optional)</span>
+            Hero background photo <span className="font-normal text-ink/50">(optional)</span>
           </span>
+          <p className="mt-1 text-xs text-ink/55">
+            The full-width photo <span className="font-medium text-ink/70">behind</span> the headline and the floating
+            bubbles. It’s heavily darkened to navy, so pick a wide, high-contrast action shot. Leave blank for the
+            built-in default.
+          </p>
           <div className="mt-2">
             <ImageUploader name="imageUrl" defaultValue={hero?.imageUrl ?? ''} folder="hero" />
           </div>

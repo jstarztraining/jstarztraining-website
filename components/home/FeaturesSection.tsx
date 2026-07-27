@@ -2,11 +2,15 @@ import Image from 'next/image';
 import { Container } from '@/components/ui/Container';
 import { Reveal } from '@/components/motion/Reveal';
 import { FEATURES } from '@/lib/content';
+import { getPageContent } from '@/lib/queries';
 
 // Jordan's real action photography — player mid-strike, indoor turf (§13).
-const ACTION_PHOTO = '/images/home-features.jpg';
+// Owner-editable via the dashboard (Site Content → Home).
+export async function FeaturesSection() {
+  const get = await getPageContent('home');
+  const photo = get('features_photo');
+  const photoAlt = get('features_photo_alt');
 
-export function FeaturesSection() {
   return (
     <section className="bg-white py-24 lg:py-32">
       <Container>
@@ -26,8 +30,8 @@ export function FeaturesSection() {
         <Reveal direction="scale" className="relative mt-12">
           <div className="relative aspect-[16/10] overflow-hidden rounded-[1.75rem] shadow-card sm:aspect-[16/7] lg:aspect-[16/6]">
             <Image
-              src={ACTION_PHOTO}
-              alt="JStarz player striking the ball during an indoor training session in Halifax."
+              src={photo}
+              alt={photoAlt}
               fill
               sizes="(max-width: 1024px) 100vw, 80rem"
               className="object-cover"

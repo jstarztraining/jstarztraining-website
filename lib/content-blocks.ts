@@ -4,7 +4,7 @@
 // Add a page here (and read it via getPageContent on that page) to make it
 // editable.
 
-export type BlockType = 'text' | 'textarea' | 'list';
+export type BlockType = 'text' | 'textarea' | 'list' | 'image';
 
 export interface BlockDef {
   key: string;
@@ -21,6 +21,41 @@ export interface ContentPageDef {
 }
 
 export const CONTENT_PAGES: ContentPageDef[] = [
+  {
+    slug: 'home',
+    title: 'Home',
+    blocks: [
+      {
+        key: 'story_photo',
+        label: '“A soccer community” photo',
+        type: 'image',
+        help: 'The photo beside the “A soccer community, not just training.” story block. Landscape works best.',
+        default: '/images/home-story.jpg',
+      },
+      {
+        key: 'story_photo_alt',
+        label: '“A soccer community” photo description',
+        type: 'text',
+        help: 'Describes the photo for screen readers and Google. Written for search — keep it specific.',
+        default:
+          'The full JStarz training community — players in the gold-star kit and coaches together at an indoor session in Halifax.',
+      },
+      {
+        key: 'features_photo',
+        label: '“Why families choose JStarz” photo',
+        type: 'image',
+        help: 'The wide action band under the “Why families choose JStarz.” heading. Use a wide landscape shot.',
+        default: '/images/home-features.jpg',
+      },
+      {
+        key: 'features_photo_alt',
+        label: '“Why families choose JStarz” photo description',
+        type: 'text',
+        help: 'Describes the photo for screen readers and Google.',
+        default: 'JStarz player striking the ball during an indoor training session in Halifax.',
+      },
+    ],
+  },
   {
     slug: 'about',
     title: 'About',

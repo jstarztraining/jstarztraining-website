@@ -2,8 +2,14 @@ import Image from 'next/image';
 import { Container } from '@/components/ui/Container';
 import { Button } from '@/components/ui/Button';
 import { Reveal } from '@/components/motion/Reveal';
+import { getPageContent } from '@/lib/queries';
 
-export function StorySection() {
+export async function StorySection() {
+  // Owner-editable via the dashboard (Site Content → Home).
+  const get = await getPageContent('home');
+  const photo = get('story_photo');
+  const photoAlt = get('story_photo_alt');
+
   return (
     <section className="relative overflow-hidden bg-white py-24 lg:py-32">
       <Container className="grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
@@ -11,8 +17,8 @@ export function StorySection() {
         <Reveal direction="left" className="relative">
           <div className="relative aspect-[3/2] overflow-hidden rounded-[1.75rem] shadow-card">
             <Image
-              src="/images/home-story.jpg"
-              alt="The full JStarz training community — players in the gold-star kit and coaches together at an indoor session in Halifax."
+              src={photo}
+              alt={photoAlt}
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover"

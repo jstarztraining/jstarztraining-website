@@ -7,7 +7,7 @@ export default function AdminContentPage() {
     <div>
       <AdminPageHeader
         title="Site Content"
-        description="Edit the written copy on your public pages. Other pages’ content lives in their own modules (Programs, Coaches, etc.)."
+        description="Edit the wording and photos on your public pages. Other pages’ content lives in their own modules (Programs, Coaches, etc.)."
         backHref="/admin"
         backLabel="Dashboard"
       />
