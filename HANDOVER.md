@@ -28,8 +28,8 @@ saving — there's no separate "publish" step.
 | **Testimonials** | Quotes from players and parents. |
 | **FAQ** | Questions and answers. |
 | **Gallery** | Photos shown on the Gallery page (upload, delete, drag to reorder). |
-| **Site Content** | Editable text on the About page and a few other spots. |
-| **Hero & Banner** | The big homepage headline/button, and the optional promo banner across the top of the site (toggle on/off). |
+| **Site Content** | Editable wording **and photos** on the Home and About pages. |
+| **Hero & Banner** | Everything in the big blue homepage banner — headline, button, the background photo, the four floating photo bubbles — plus the optional promo bar across the top of the site (toggle on/off). |
 | **Site Settings** | Contact email, phone, address, map, hours, social links, footer text. |
 | **Users** (Admin only) | Create the two editor logins and reset passwords. |
 
@@ -43,12 +43,35 @@ match Shopify. If you change a price in Shopify, **also update it here**, or the
 The same goes for the program's **link**: paste the correct Shopify product (or cart) URL into the link
 box for each program.
 
+## Where each homepage photo lives
+
+The homepage pulls photos from two different tiles. If you're looking at a photo and can't find it:
+
+| Photo on the homepage | Where to change it |
+|---|---|
+| The big photo **behind** the headline and the floating bubbles | **Hero & Banner** → *Hero background photo* |
+| The four tilted, floating **photo bubbles** in the banner | **Hero & Banner** → *Photo bubbles* (phones show the two "right" ones) |
+| The wide action photo under **"Why families choose JStarz."** | **Site Content** → *Home* |
+| The photo beside **"A soccer community, not just training."** | **Site Content** → *Home* |
+| Photos on the program cards | **Programs** (each program has its own) |
+| The coach photo | **Coaches** |
+
+Removing a photo from **Hero & Banner** doesn't leave a hole — the built-in default comes back.
+
+## How the Schedule works
+
+The Schedule page is a **repeating weekly board**, not a calendar of specific dates. You pick a **day of
+the week** and a **start/end time**, so a session set to *Sunday, 7:00 PM – 9:00 PM* shows on **every**
+Sunday until you change or delete it. There's no need to re-enter it each week.
+
+Times are Halifax time and appear on the public board exactly as you type them.
+
 ## Photos
 
-- Upload from the program/coach/gallery/hero editors — drag a file in, or paste an image URL.
+- Upload from the program/coach/gallery/hero/site-content editors — drag a file in, or paste an image URL.
 - Use clear, well-lit photos. The site automatically shrinks and optimizes large photos on upload, so
-  you don't need to resize them first — but very large files (over ~8MB) will be rejected, so a normal
-  phone photo is fine.
+  you don't need to resize them first — a normal phone photo is fine. If one is ever refused as too
+  large, screenshot it or export it at a smaller size and try again.
 - Add a short description ("alt text") when asked — it helps Google and accessibility.
 
 ## Passwords
