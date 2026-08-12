@@ -94,7 +94,10 @@ export const PROGRAMS: Program[] = [
   {
     id: 'athletic-conditioning',
     title: 'Athletic Conditioning & Performance',
-    priceDisplay: 'From $49.99 + HST',
+    // Verified 2026-08-12 against the live store: the cheapest variant on
+    // /products/1-on-1-plyometrics-training is $54.99 (Drop In: 1 on 1).
+    // Was $49.99 — under-advertised the entry price by $5.
+    priceDisplay: 'From $54.99 + HST',
     category: 'Development',
     blurb:
       'Speed, agility, strength, explosiveness, injury prevention, and athletic development training designed to help athletes perform at their highest level.',
