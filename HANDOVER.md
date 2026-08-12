@@ -11,9 +11,14 @@ admin dashboard in a web browser.
 
 There are two kinds of login:
 
-- **Admin (you):** can edit everything **and** manage the two editor logins (create them, reset their
-  passwords).
-- **Editor (×2):** can edit all site content, but can't manage logins.
+- **Admin (you):** can edit everything **and** manage other logins — create them, reset their
+  passwords, and delete them.
+- **Editor:** can edit all site content, but can't manage logins.
+
+**Your editor logins haven't been created yet** — that was waiting on names and email addresses from
+you. You don't need a developer for it: go to **Users → Create account**, enter their name, email, a
+starting password, and choose **Editor**. Tell them the password; they can't reset it themselves, but
+you can reset it for them any time.
 
 ## What you can edit
 
@@ -80,6 +85,31 @@ Times are Halifax time and appear on the public board exactly as you type them.
   them the new password.
 - **Forgot your own Admin password?** There's no self-serve reset by design — contact your developer to
   reset it.
+
+## Who owns and can access what
+
+**You own all of it** — the website, the code, the database, and every account behind them. Nothing
+about the site depends on your developer continuing to be involved.
+
+| Service | What it does | Who controls it |
+|---|---|---|
+| **Vercel** | Runs the live website | **You, sole owner.** Your developer has no access. |
+| **Supabase** | Your database + uploaded photos | **You, owner.** No standing developer access. |
+| **SendGrid** | Sends the contact-form emails | **You, owner.** No standing developer access. |
+| **Shopify** | Your store and checkout | **You.** Developer's staff access was removed at handover. |
+| **GitHub** | Where the website's code is stored | **You own it.** Your developer stays on as a collaborator so he can make fixes if you ask for them. |
+
+That GitHub collaborator access is the **only** standing access your developer keeps. It lets him push
+code fixes when you ask — it does **not** give him your database, your store, your customer
+information, or your payment data. You can remove it yourself at any time in GitHub under
+**Settings → Collaborators**.
+
+### One developer login on your dashboard
+
+There is an Admin account on your site dashboard under **jeremycrooks20@gmail.com** (your developer's).
+It was kept so he can help troubleshoot quickly if something breaks. **You can delete it yourself
+whenever you want** — go to **Users**, find that account, and remove it. Nothing on the site depends on
+it.
 
 ## Don't touch (important)
 

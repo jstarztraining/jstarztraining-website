@@ -36,7 +36,32 @@ The **website build** accounts are under the dedicated Google account **jstarztr
 
 **Separately, Jordan already owns his email:** the `jstarz@jstarztraining.com` mailbox runs on **Google Workspace under Jordan's own account** (the Google MX records on the domain). It is *not* part of the `jstarztraining.web@gmail.com` build account and does not transfer — it was already his. The build must simply avoid breaking it (see §6).
 
-On final payment, all **build** credentials (GitHub/Vercel/Supabase/Resend) transfer to Jordan; he owns site, code, and every account.
+### Access architecture after handover (2026-08-13)
+
+Jordan is **master owner of everything**. The developer keeps exactly **one** standing key.
+
+| Service | Owner | Developer access after handover |
+|---|---|---|
+| **GitHub** | Jordan | **Collaborator (Write)** — added on the developer's *personal* GitHub account, not the shared `jstarztraining.web@gmail.com` identity. This is the only standing access. |
+| **Vercel** | Jordan, sole owner | **None.** Not needed — pushes to `main` auto-deploy. |
+| **Supabase** | Jordan | **None.** Schema changes are request-based. |
+| **SendGrid** | Jordan | **None.** |
+| **Shopify** | Jordan | **Removed at handover** — the store holds customer and payment data. |
+| **Site dashboard** | Jordan (Admin) | One Admin account, `jeremycrooks20@gmail.com`, retained for troubleshooting. Disclosed in [HANDOVER.md](HANDOVER.md); Jordan can delete it himself at any time. |
+
+> ⚠️ **Order of operations on handover day.** Add the developer's personal GitHub account as a
+> collaborator **and confirm a successful push** *before* handing over the
+> `jstarztraining.web@gmail.com` Google password. All four build services authenticate through that
+> Google account — if developer access still runs through it at the moment of transfer, handover
+> either severs that access or hands Jordan the developer's own identity.
+
+> ⚠️ **Do not move the GitHub repo unless you have to.** The repo already lives under the
+> `jstarztraining` GitHub account, which *is* the shared Google identity — so transferring that Google
+> account to Jordan makes him the repo owner with no repo migration at all. Transferring the
+> repository to a different GitHub account can break the Vercel↔GitHub integration and require
+> reconnecting it (Vercel → Settings → Git) before pushes deploy again.
+
+On final payment (received), all **build** credentials transfer to Jordan; he owns site, code, and every account.
 
 ## 4. Deploys — GitHub is connected to Vercel
 
@@ -103,12 +128,24 @@ Per-page title/meta/OG set in code. Structured data (LocalBusiness, FAQPage, Bre
 
 ## 12. Outstanding at handover
 
-- [ ] Create Jordan's **Admin** login + up to **2 Editor** logins (names/emails needed)
-- [ ] Jordan changes the temporary admin password on first login
-- [ ] Transfer all account credentials to Jordan (on final payment)
-- [ ] Confirm remaining content (e.g. cancellation/rescheduling policy) + any final gallery photos
-- [ ] Connect Google Search Console + submit sitemap
-- [ ] Confirm the keep-warm cron is firing in Vercel
+Done: Jordan's Admin login is live and his password was changed on first login; final payment received.
+
+- [ ] Add developer's **personal** GitHub as Collaborator (Write) + confirm a push — **before** the
+      Google password transfer (§3)
+- [ ] Transfer the `jstarztraining.web@gmail.com` Google account (single credential — GitHub, Vercel,
+      Supabase and SendGrid all authenticate through it)
+- [ ] Remove developer's **Shopify** staff access
+- [ ] Confirm **Vercel plan** (Hobby vs Pro) — Hobby fair use is non-commercial only; see
+      [REMAINING-FIXES.md](REMAINING-FIXES.md)
+- [ ] Confirm **Google Search Console** property + sitemap submission
+- [ ] Confirm the **keep-warm cron** has recent successful runs in Vercel
+- [ ] Jordan creates his 2 **Editor** logins himself (dashboard → **Users**; names/emails never supplied)
+- [ ] Jordan supplies the FAQ **cancellation/rescheduling policy**
+
+**Note — the database has drifted from the seed file.** Jordan has edited program cards through the
+dashboard (e.g. a card now titled "Outdoor Soccer & Goalkeeping Sessions" that does not exist in
+`lib/content.ts`). The DB is the source of truth for the live site. **Running `npm run db:seed` would
+overwrite his edits** — see §8.
 
 ---
 
