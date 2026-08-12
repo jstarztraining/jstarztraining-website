@@ -88,13 +88,15 @@ Practical consequences:
 >    back in with the same passwords.
 > 3. **Leave it as-is, disclosed** — also fine, provided it is a stated choice.
 
-> ⚠️ **Do not move the GitHub repo unless you have to.** The repo already lives under the
-> `jstarztraining` GitHub account, which *is* the shared Google identity — so transferring that Google
-> account to Jordan makes him the repo owner with no repo migration at all. Transferring the
-> repository to a different GitHub account can break the Vercel↔GitHub integration and require
-> reconnecting it (Vercel → Settings → Git) before pushes deploy again.
+> ⚠️ **Do not move the GitHub repo.** The repo lives under the `jstarztraining` GitHub account — a
+> GitHub account that merely *uses* `jstarztraining.web@gmail.com` as its email address, not a Google
+> identity. Handing over that GitHub account's own credentials makes Jordan the owner with no repo
+> migration at all, and he can re-point its email afterwards. Creating a new GitHub account and
+> transferring the repository to it would drop the developer's collaborator seat and can break the
+> Vercel↔GitHub integration, requiring a reconnect (Vercel → Settings → Git) before pushes deploy.
 
-On final payment (received), all **build** credentials transfer to Jordan; he owns site, code, and every account.
+All **build** credentials transfer to Jordan (final payment received 2026-07-15); he owns site, code,
+and every account.
 
 ## 4. Deploys — GitHub is connected to Vercel
 
