@@ -110,6 +110,37 @@ The local `.env` (never committed, never deployed) holds the same values for loc
 - **Never switch nameservers to Vercel** (its dashboard suggests it). That drops the Google Workspace MX records and breaks email. Keep nameservers on Wix; manage A/CNAME there.
 - **Revert website:** set `A` `@` back to `34.111.179.208` (old host).
 
+### Recorded DNS state — for disaster recovery
+
+Captured 2026-07-14 before the cutover and re-checked 2026-08-12. If DNS is ever wiped or has to be
+rebuilt at another provider, this is what must exist. **The MX and SPF rows are the email** — recreate
+them exactly or `jstarz@jstarztraining.com` stops working.
+
+| Type | Name | Value | Priority |
+|---|---|---|---|
+| A | `@` | `76.76.21.21` (Vercel) | — |
+| A | `www` | `76.76.21.21` (Vercel) | — |
+| MX | `@` | `aspmx.l.google.com` | 10 |
+| MX | `@` | `alt1.aspmx.l.google.com` | 20 |
+| MX | `@` | `alt2.aspmx.l.google.com` | 30 |
+| MX | `@` | `alt3.aspmx.l.google.com` | 40 |
+| MX | `@` | `alt4.aspmx.l.google.com` | 50 |
+| TXT | `@` | `v=spf1 include:_spf.google.com ~all` | — |
+| TXT | `@` | `google-site-verification=xfoVMp4fomy4xvBDmtOzrZnTj2Jg3xQG56Id4SUawBE` | — |
+| TXT | `_dmarc` | `v=DMARC1; p=none;` | — |
+| CNAME | `em6492` | `u110946341.wl092.sendgrid.net` | — |
+| CNAME | `sgz._domainkey` | `sgz.domainkey.u110946341.wl092.sendgrid.net` | — |
+| CNAME | `sgz2._domainkey` | `sgz2.domainkey.u110946341.wl092.sendgrid.net` | — |
+
+The three `sendgrid`/`sgz` CNAMEs authenticate the contact-form sender (§2). A stale
+`replit-verify=…` TXT from the pre-Vercel host is still present and can be deleted safely.
+
+> **Nameservers stay at Wix** (`ns4.wixdns.net` / `ns5.wixdns.net`). A migration to Cloudflare was
+> investigated in July and abandoned: Wix marks nameservers non-editable on its own registered domains
+> and offers no self-service DNSSEC toggle, so delegating away would have required a support ticket or
+> a full registrar transfer. The contact-form problem that prompted it was solved instead by moving to
+> a provider that verifies with CNAMEs only (SendGrid), which needed no DNS delegation at all.
+
 ## 7. User logins
 
 ```bash

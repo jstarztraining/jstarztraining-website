@@ -35,8 +35,10 @@ yarn-error.log*
 .impeccable
 
 # full-res photo originals + staging dropboxes — kept locally, not committed
-# or deployed (only the optimized /public/images/*.jpg + thumbs ship)
+# or deployed. Only the optimized /public/images/*.jpg ship; the contact-sheet
+# thumbs are a picking aid and are referenced by no page and no DB row.
 /public/images/originals/
+/public/images/thumbs/
 
 # typescript
 *.tsbuildinfo

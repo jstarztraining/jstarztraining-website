@@ -27,11 +27,6 @@ export interface Program {
   imageAlt: string;
 }
 
-// Verified Unsplash CDN id helper — still used for the head-coach placeholder
-// until Jordan's photo lands (§13). Program imagery now uses real /images/ files.
-const img = (id: string, w = 1200) =>
-  `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=80`;
-
 export const PROGRAMS: Program[] = [
   {
     id: 'private-soccer-training',

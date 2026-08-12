@@ -1,9 +1,5 @@
 # Product
 
-## Register
-
-brand
-
 ## Users
 Halifax & Nova Scotia families, youth players (ages 6 → U18) and adult private clients, and parents researching private/small-group soccer and goalkeeper training. They arrive on phones, often mid-decision, comparing JStarz against templated Wix/Shopify-theme competitors. Their job-to-be-done: quickly trust that this is a serious, welcoming, high-touch program and get to the right Shopify product to book.
 

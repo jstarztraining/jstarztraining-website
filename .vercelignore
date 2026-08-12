@@ -8,3 +8,10 @@
 .env.development.local
 .env.production.local
 .env*.local
+
+# Photo working folders. Production deploys come from GitHub, which already
+# honours .gitignore — but `vercel deploy` from the CLI uploads the working
+# directory and does not, so without these it would push ~240 MB of raw
+# camera originals. Nothing in the site references either folder.
+/public/images/originals/
+/public/images/thumbs/
