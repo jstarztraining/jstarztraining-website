@@ -55,6 +55,22 @@ Jordan is **master owner of everything**. The developer keeps exactly **one** st
 > Google account — if developer access still runs through it at the moment of transfer, handover
 > either severs that access or hands Jordan the developer's own identity.
 
+> ⚠️ **The developer's local `.env` still holds production secrets.** `DATABASE_URL`, `DIRECT_URL`,
+> `SUPABASE_SERVICE_ROLE_KEY`, `SENDGRID_API_KEY`, `AUTH_SECRET` and `CRON_SECRET` are all real
+> production values on the developer's machine. That is broader than the access split above intends —
+> the service-role key bypasses RLS for full database access, and `AUTH_SECRET` could be used to mint
+> a valid admin session. It is a normal consequence of having built the site, but it should be a
+> decision rather than an oversight. Three options:
+>
+> 1. **Delete the local `.env` after handover** (simplest). GitHub Write is retained; if a local run is
+>    ever needed for a fix, Jordan supplies the variables at that point.
+> 2. **Rotate the six values** — the clean break. Roughly 15 minutes, and Jordan can do it at any time,
+>    not necessarily on handover day. Rotate in Vercel (Production + Preview), then redeploy: new
+>    Supabase database password + service-role key, new SendGrid API key, and freshly generated
+>    `AUTH_SECRET` and `CRON_SECRET`. Note that changing `AUTH_SECRET` signs everyone out — they log
+>    back in with the same passwords.
+> 3. **Leave it as-is, disclosed** — also fine, provided it is a stated choice.
+
 > ⚠️ **Do not move the GitHub repo unless you have to.** The repo already lives under the
 > `jstarztraining` GitHub account, which *is* the shared Google identity — so transferring that Google
 > account to Jordan makes him the repo owner with no repo migration at all. Transferring the
@@ -135,6 +151,8 @@ Done: Jordan's Admin login is live and his password was changed on first login; 
 - [ ] Transfer the `jstarztraining.web@gmail.com` Google account (single credential — GitHub, Vercel,
       Supabase and SendGrid all authenticate through it)
 - [ ] Remove developer's **Shopify** staff access
+- [ ] Decide what happens to the developer's local `.env` production secrets (§3) — delete, rotate,
+      or leave disclosed
 - [ ] Confirm **Vercel plan** (Hobby vs Pro) — Hobby fair use is non-commercial only; see
       [REMAINING-FIXES.md](REMAINING-FIXES.md)
 - [ ] Confirm **Google Search Console** property + sitemap submission
