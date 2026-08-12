@@ -96,13 +96,27 @@ about the site depends on your developer continuing to be involved.
 | **Vercel** | Runs the live website | **You, sole owner.** Your developer has no access. |
 | **Supabase** | Your database + uploaded photos | **You, owner.** No standing developer access. |
 | **SendGrid** | Sends the contact-form emails | **You, owner.** No standing developer access. |
-| **Shopify** | Your store and checkout | **You.** Developer's staff access was removed at handover. |
+| **Shopify** | Your store and checkout | **You, and only you.** Your developer never had his own staff account — he used the login you gave him, and you've since changed that password. |
 | **GitHub** | Where the website's code is stored | **You own it.** Your developer stays on as a collaborator so he can make fixes if you ask for them. |
 
-That GitHub collaborator access is the **only** standing access your developer keeps. It lets him push
-code fixes when you ask — it does **not** give him your database, your store, your customer
-information, or your payment data. You can remove it yourself at any time in GitHub under
-**Settings → Collaborators**.
+### What your developer still has — all of it, in one place
+
+Three things, listed together so you can see the whole picture at a glance. Every one of them is
+yours to end whenever you want.
+
+1. **Access to the code (GitHub).** He remains a collaborator so he can push a fix when you ask for
+   one. This does **not** give him your database, your store, your customers, or your payment data.
+   Remove it yourself any time in GitHub under **Settings → Collaborators**.
+
+2. **A login on your dashboard.** There is an Admin account under **jeremycrooks20@gmail.com**, kept
+   so he can troubleshoot quickly if something breaks. Delete it yourself whenever you like — go to
+   **Users**, find that account, remove it. Nothing on the site depends on it.
+
+3. **A copy of the site's configuration file.** This holds the database and email keys. It is what
+   lets him actually repair something rather than only look at it. If you'd prefer he didn't have it,
+   say so and these keys can be changed over to you.
+
+Nothing else. He has no access to your Vercel, Supabase, SendGrid or Shopify accounts.
 
 ### Your hosting plan — one thing to know
 
@@ -117,12 +131,16 @@ urgent:
   than sending you a bill. So an unexplained outage is worth checking your Vercel account for — it
   won't arrive as a surprise charge.
 
-### One developer login on your dashboard
+### Moving the accounts to your own email address
 
-There is an Admin account on your site dashboard under **jeremycrooks20@gmail.com** (your developer's).
-It was kept so he can help troubleshoot quickly if something breaks. **You can delete it yourself
-whenever you want** — go to **Users**, find that account, and remove it. Nothing on the site depends on
-it.
+Vercel, Supabase, SendGrid and GitHub are **four separate accounts**. They simply each use
+`jstarztraining.web@gmail.com` as their email address — there is no single master account tying them
+together. That means you can move each one onto `jstarz@jstarztraining.com` yourself, one at a time,
+at your own pace, without needing your developer. Each service has its own account-email setting.
+
+Changing an account's email address is harmless — it won't disturb the site or your developer's
+collaborator access. The one thing **not** to do is create a brand-new GitHub account and transfer
+the code to it; that would drop his access and break the automatic publishing.
 
 ## Don't touch (important)
 

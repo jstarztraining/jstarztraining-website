@@ -15,6 +15,8 @@ Jordan** as an ongoing content/maintenance item rather than a build defect.
 | **Shopify program links** | All 13 program cards click through to a live product, collection, or page. Re-verified 2026-08-12 — no dead links. |
 | **Admin login** | Jordan's Admin account is live (`jstarz@jstarztraining.com`) and his password was changed on first login. |
 | **Domain cutover** | `jstarztraining.com` points at Vercel (Wix A-record `76.76.21.21`, `www` → apex 308). MX/SPF untouched — email unaffected. |
+| **Copy sign-off** | Jordan signed off on the hero, About and footer copy (2026-08-12). Closed. |
+| **Shopify access** | Closed. No developer staff seat ever existed — the developer used the admin login Jordan shared (temporary password, July 2026), and Jordan has since changed it. |
 | **Athletic Conditioning price** | Card read `From $49.99 + HST` while the cheapest variant on the linked product is `$54.99`. Corrected to `From $54.99 + HST` (commit `2898879`). See the pricing note below. |
 
 ## ✅ Closed — no defect found
@@ -99,8 +101,8 @@ in Shopify and paste the link in, or clear the price text.
 
 ### 5. FAQ cancellation / rescheduling policy
 
-Still outstanding **from Jordan** — it was never supplied during the build. The FAQ module is ready
-for it: paste the wording into **FAQ**, save, and it's live in about a minute. No developer needed.
+**The only item still owed by Jordan.** Never supplied during the build. The FAQ module is ready for
+it: paste the wording into **FAQ**, save, and it's live in about a minute. No developer needed.
 
 ---
 

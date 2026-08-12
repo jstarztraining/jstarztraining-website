@@ -46,14 +46,31 @@ Jordan is **master owner of everything**. The developer keeps exactly **one** st
 | **Vercel** | Jordan, sole owner | **None.** Not needed — pushes to `main` auto-deploy. |
 | **Supabase** | Jordan | **None.** Schema changes are request-based. |
 | **SendGrid** | Jordan | **None.** |
-| **Shopify** | Jordan | **Removed at handover** — the store holds customer and payment data. |
+| **Shopify** | Jordan | **None.** No developer staff seat ever existed — the developer used Jordan's own admin login (temporary password, July 2026), which Jordan has since changed. Closed. |
 | **Site dashboard** | Jordan (Admin) | One Admin account, `jeremycrooks20@gmail.com`, retained for troubleshooting. Disclosed in [HANDOVER.md](HANDOVER.md); Jordan can delete it himself at any time. |
+| **Local `.env`** | — | Developer retains his copy of the production configuration (see the disclosure below). Disclosed in [HANDOVER.md](HANDOVER.md). |
 
-> ⚠️ **Order of operations on handover day.** Add the developer's personal GitHub account as a
-> collaborator **and confirm a successful push** *before* handing over the
-> `jstarztraining.web@gmail.com` Google password. All four build services authenticate through that
-> Google account — if developer access still runs through it at the moment of transfer, handover
-> either severs that access or hands Jordan the developer's own identity.
+### There is no single master account
+
+`jstarztraining.web@gmail.com` is **not** a master key. GitHub personal accounts have no Google SSO,
+and Vercel and Supabase were almost certainly created *through GitHub*. What exists is **four
+independent accounts that each happen to use that address in their email field** — four separate
+email settings, not one login.
+
+Practical consequences:
+
+- **Jordan can move each service onto `jstarz@jstarztraining.com` himself**, one at a time, at his own
+  pace, with no developer involvement. His address is Google-hosted (Workspace), so it functions as a
+  real login. This was offered as optional in the handover email; the developer is not doing it.
+- **Changing an account's email address is harmless.** It does not disturb the site and does not
+  affect the developer's GitHub collaborator seat.
+- **Creating a brand-new GitHub account and transferring the repository WOULD drop that access** — and
+  can break the Vercel↔GitHub integration. Don't.
+
+> ⚠️ **Confirm the collaborator seat works before relying on it.** The developer's personal GitHub
+> account must be able to push *on its own credential*, independently of the build-account identity.
+> Verified 2026-08-12: `gh api user` returns `CrooksJeremy`, the repo collaborator list shows
+> `CrooksJeremy role=write push=true`, and a push from a clean clone was attributed to that account.
 
 > ⚠️ **The developer's local `.env` still holds production secrets.** `DATABASE_URL`, `DIRECT_URL`,
 > `SUPABASE_SERVICE_ROLE_KEY`, `SENDGRID_API_KEY`, `AUTH_SECRET` and `CRON_SECRET` are all real
@@ -175,17 +192,17 @@ Per-page title/meta/OG set in code. Structured data (LocalBusiness, FAQPage, Bre
 
 ## 12. Outstanding at handover
 
-Done: Jordan's Admin login is live and his password was changed on first login; final payment received.
+Done: Jordan's Admin login is live and his password was changed on first login; final payment
+received; hero, About and footer copy signed off by Jordan; Shopify closed out (no staff seat ever
+existed — Jordan changed the admin password he had shared); Vercel plan confirmed Hobby; developer's
+personal GitHub collaborator seat verified working on its own credential (§3); the retained local
+`.env` is a made decision, disclosed to Jordan in writing in [HANDOVER.md](HANDOVER.md).
 
-- [ ] Add developer's **personal** GitHub as Collaborator (Write) + confirm a push — **before** the
-      Google password transfer (§3)
-- [ ] Transfer the `jstarztraining.web@gmail.com` Google account (single credential — GitHub, Vercel,
-      Supabase and SendGrid all authenticate through it)
-- [ ] Remove developer's **Shopify** staff access
-- [ ] Decide what happens to the developer's local `.env` production secrets (§3) — delete, rotate,
-      or leave disclosed
-- [ ] Confirm **Vercel plan** (Hobby vs Pro) — Hobby fair use is non-commercial only; see
-      [REMAINING-FIXES.md](REMAINING-FIXES.md)
+- [ ] Send the handover email (drafted outside the repo:
+      `C:\JStarz\Contract & Admin\Jordan_Handover_Email_DRAFT.md`)
+- [ ] Transfer the account credentials. Note these are **four independent accounts** sharing one
+      email address, not one master login (§3) — Jordan can re-point each to
+      `jstarz@jstarztraining.com` himself afterwards, at his own pace.
 - [ ] Confirm **Google Search Console** property + sitemap submission
 - [ ] Confirm the **keep-warm cron** has recent successful runs in Vercel
 - [ ] Jordan creates his 2 **Editor** logins himself (dashboard → **Users**; names/emails never supplied)
