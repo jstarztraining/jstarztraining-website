@@ -104,28 +104,49 @@ for it: paste the wording into **FAQ**, save, and it's live in about a minute. N
 
 ---
 
-## 🔍 Still unverified at handover — needs dashboard access
+## ✅ Keep-warm cron — verified healthy 2026-08-12
 
-Neither of these could be confirmed from the codebase or the public site, and **neither has been
-checked**. Do not assume either way.
+Checked against the Vercel API, not just the config file:
 
-- [ ] **Keep-warm cron — check this first.** `vercel.json` declares `0 6 * * *` →
-  `/api/cron/keep-warm`, but **declared is not the same as firing**. Confirm in **Vercel → the
-  project → Cron Jobs** that it is enabled with recent successful runs.
+- **Registered and enabled** on the project — `enabledAt` 2026-07-06, `disabledAt` `null`, one
+  definition: `/api/cron/keep-warm` on `0 6 * * *`. Within Hobby's cron limits (2 jobs, once daily).
+- **The endpoint works end to end.** Live test against production returned **200**
+  `{"ok":true,"pingedAt":"..."}` with the secret, and **401** without it — so `CRON_SECRET` is set in
+  Production and the route's Bearer check matches the token Vercel sends automatically on scheduled
+  invocations. The `SELECT 1` reached Supabase and came back, so the ping genuinely exercises the
+  database rather than short-circuiting.
 
-  **Why it matters more now:** the cron exists to stop the Supabase free tier from sleeping. If it
-  isn't firing, the database sleeps and the first visitor to the site gets a cold, slow load — or an
-  error. After handover the developer has **no Supabase access**, so there is nobody else to wake it.
-  This is the single highest-consequence unknown at handover.
+**Schedule note:** `0 6 * * *` is **06:00 UTC = 03:00 Halifax**. On Hobby, cron timing is approximate
+within the hour — fine for a keep-warm.
+
+> **One thing still not proven from the API: the last-run timestamp.** Hobby retains runtime logs for
+> about an hour and the job runs at 3am local, so the invocation history isn't retrievable after the
+> fact. To confirm it has actually been firing, look at **Vercel → the project → Cron Jobs**, which
+> shows a **Last Run** column. Everything that *can* fail independently of the scheduler has been
+> verified working.
+
+## 🔍 Still unverified — needs Google account access
 
 - [ ] **Google Search Console** — is the property verified and `sitemap.xml` actually submitted? A
   `google-site-verification` TXT record exists on the domain, but that is equally consistent with the
   Google Workspace email setup and does **not** prove a Search Console property exists.
   `robots.txt` does correctly advertise `https://jstarztraining.com/sitemap.xml`.
 
+## ✅ Production environment — verified 2026-08-12
+
+All ten environment variables are present in **both** Production and Preview: `AUTH_SECRET`,
+`CONTACT_FROM_EMAIL`, `CONTACT_TO_EMAIL`, `CRON_SECRET`, `DATABASE_URL`, `DIRECT_URL`,
+`NEXT_PUBLIC_SUPABASE_ANON_KEY`, `NEXT_PUBLIC_SUPABASE_URL`, `SENDGRID_API_KEY`,
+`SUPABASE_SERVICE_ROLE_KEY`.
+
+**`AUTH_URL` is confirmed absent** — the §5 warning in
+[TECHNICAL-HANDOVER.md](TECHNICAL-HANDOVER.md) still holds and has not regressed.
+
 ---
 
-## 💳 Vercel plan — confirmed **Hobby** (free), 2026-08-12
+## 💳 Vercel plan — confirmed **Hobby** (free) via API, 2026-08-12
+
+Scope `jstarz` (`team_3Ivzu9RRPAX4qWxh82W7MGIs`), project `jstarz-website`, `billing.plan: hobby`.
 
 Three consequences worth recording:
 
