@@ -125,12 +125,35 @@ within the hour — fine for a keep-warm.
 > shows a **Last Run** column. Everything that *can* fail independently of the scheduler has been
 > verified working.
 
-## 🔍 Still unverified — needs Google account access
+## 🔍 Google Search Console — set up on **Jordan's own** Google account
 
-- [ ] **Google Search Console** — is the property verified and `sitemap.xml` actually submitted? A
-  `google-site-verification` TXT record exists on the domain, but that is equally consistent with the
-  Google Workspace email setup and does **not** prove a Search Console property exists.
-  `robots.txt` does correctly advertise `https://jstarztraining.com/sitemap.xml`.
+Almost certainly never created: there is no verification meta tag in the app and no Google HTML file
+in `public/`. The `google-site-verification` TXT on the domain predates the build (it appears in the
+2026-07-14 pre-cutover DNS capture beside the stale `replit-verify` record from the old host) and is
+Jordan's **Google Workspace** email verification, not Search Console.
+
+**It belongs on Jordan's own Google account — the one his `jstarz@jstarztraining.com` Workspace runs
+on — not the `jstarztraining.web@gmail.com` build account.** Search Console holds *business data*
+(what people search to find him, impressions, clicks, rankings), which puts it in the same category as
+Shopify rather than the same category as hosting. The build account exists only as a handover vehicle;
+new long-lived business assets shouldn't be created on it.
+
+**Likely zero DNS work.** His Workspace account is already a verified owner of the domain through that
+existing TXT record. Adding a **Domain property** in Search Console under that same account will often
+auto-verify off the existing verification, with no new DNS record and nothing touched at Wix. Try it
+first — if it does ask for a TXT, that record is purely additive and safe (it does not touch MX or
+SPF), but check before assuming DNS work is needed.
+
+**Steps (Jordan, ~5 minutes):**
+
+1. Sign in to [search.google.com/search-console](https://search.google.com/search-console) with the
+   Google account that runs `jstarz@jstarztraining.com`.
+2. Add a property → **Domain** → enter `jstarztraining.com`.
+3. If it verifies automatically, done. If it asks for a TXT record, add it at Wix → Domains → Manage
+   DNS Records — **add only, change nothing else**.
+4. Open **Sitemaps** in the left nav and submit `sitemap.xml`.
+
+The sitemap is already live and correctly advertised in `robots.txt`.
 
 ## ✅ Production environment — verified 2026-08-12
 
