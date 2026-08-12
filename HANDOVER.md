@@ -104,6 +104,19 @@ code fixes when you ask — it does **not** give him your database, your store, 
 information, or your payment data. You can remove it yourself at any time in GitHub under
 **Settings → Collaborators**.
 
+### Your hosting plan — one thing to know
+
+Your site runs on Vercel's **free plan**, and it works fine there. Two things to be aware of, neither
+urgent:
+
+- The free plan is officially intended for **personal, non-commercial** sites, and you sell training
+  through yours. It's rarely enforced and nothing is wrong today — but it's a real term of the plan,
+  so you're hearing it from us rather than from Vercel. Their paid plan is **$20/month** and settles
+  it if you ever want it settled.
+- If the site ever gets busy enough to pass the free plan's limits, Vercel **pauses the site** rather
+  than sending you a bill. So an unexplained outage is worth checking your Vercel account for — it
+  won't arrive as a surprise charge.
+
 ### One developer login on your dashboard
 
 There is an Admin account on your site dashboard under **jeremycrooks20@gmail.com** (your developer's).

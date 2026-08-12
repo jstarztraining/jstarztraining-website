@@ -45,7 +45,9 @@ in the internal `PRICE-TRUTH-TABLE.md`.
 > - **Athletic Conditioning:** the table lists `$62.99` as the cheapest bookable variant. There is no
 >   `$62.99` variant on that product. All six variants are **in stock**, and the cheapest is
 >   **`$54.99` (Drop In: 1 on 1)**. `$62.99` appears only in Jordan's hand-written product
->   *description*, where he quotes it as a tax-included figure ($54.99 × 1.15 ≈ $63.24).
+>   *description*, as a tax-included figure — and it doesn't reconcile: at Nova Scotia's **14%** HST,
+>   $54.99 × 1.14 = **$62.69**. Jordan's typed numbers are approximate, which is exactly why the
+>   descriptions can't be used as a pricing source.
 > - **"All Shopify prices are HST included"** does not hold for the checkout. The Shopify line item is
 >   `$54.99` and HST is applied on top; the "HST included" wording sits above the bundle tables Jordan
 >   typed into his descriptions. The `+ HST` convention on the site cards is therefore **correct** and
@@ -53,6 +55,20 @@ in the internal `PRICE-TRUTH-TABLE.md`.
 
 **Structural option (Phase 2):** replace the typed numbers with `See pricing` on every card and let
 Shopify be the single source of truth. That ends this whole class of drift permanently.
+
+**How to check prices correctly.** Query the structured product feed, which carries real variant
+prices *and* `available` flags — never scrape the rendered product page, whose visible numbers are
+Jordan's hand-typed description text:
+
+```bash
+curl -s "https://jstarztraining.myshopify.com/products.json?limit=250"        # all products
+curl -s "https://jstarztraining.myshopify.com/collections/<handle>/products.json"
+```
+
+(The old `9bejay-2u.myshopify.com` host 301-redirects to the same store.) Nova Scotia HST is **14%**
+as of April 1 2025 — useful for spotting which of Jordan's typed figures are tax-inclusive: his
+Birthday description quotes `$341.99`, which is exactly $299.99 × 1.14, and `$518` against a $454.99
+variant (× 1.14 = $518.69).
 
 ### 2. Sold-out Shopify variants behind live cards
 
@@ -88,20 +104,40 @@ for it: paste the wording into **FAQ**, save, and it's live in about a minute. N
 
 ---
 
-## 🔍 Unverified at handover — needs account access to confirm
+## 🔍 Still unverified at handover — needs dashboard access
 
-These could not be confirmed from the codebase or the public site. Check them from the owner accounts:
+Neither of these could be confirmed from the codebase or the public site, and **neither has been
+checked**. Do not assume either way.
 
-- [ ] **Google Search Console** — is the property verified and the sitemap actually submitted? A
-  `google-site-verification` TXT record exists on the domain, but that alone doesn't prove a Search
-  Console property is set up with `sitemap.xml` submitted. `robots.txt` does correctly advertise
-  `https://jstarztraining.com/sitemap.xml`.
-- [ ] **Keep-warm cron** — `vercel.json` declares `0 6 * * *` → `/api/cron/keep-warm`. Confirm in
-  **Vercel → the project → Cron Jobs** that it is enabled and has recent successful runs.
-- [ ] **Vercel plan** — confirm whether the project is on **Hobby** or **Pro**. Vercel's fair-use terms
-  restrict Hobby to non-commercial personal use, and this site sells training. Rarely enforced, but
-  Jordan should hear it from his developer rather than from Vercel. Hobby also runs cron jobs only
-  once per day at an approximate time (fine for keep-warm) and does not support adding team members.
+- [ ] **Keep-warm cron — check this first.** `vercel.json` declares `0 6 * * *` →
+  `/api/cron/keep-warm`, but **declared is not the same as firing**. Confirm in **Vercel → the
+  project → Cron Jobs** that it is enabled with recent successful runs.
+
+  **Why it matters more now:** the cron exists to stop the Supabase free tier from sleeping. If it
+  isn't firing, the database sleeps and the first visitor to the site gets a cold, slow load — or an
+  error. After handover the developer has **no Supabase access**, so there is nobody else to wake it.
+  This is the single highest-consequence unknown at handover.
+
+- [ ] **Google Search Console** — is the property verified and `sitemap.xml` actually submitted? A
+  `google-site-verification` TXT record exists on the domain, but that is equally consistent with the
+  Google Workspace email setup and does **not** prove a Search Console property exists.
+  `robots.txt` does correctly advertise `https://jstarztraining.com/sitemap.xml`.
+
+---
+
+## 💳 Vercel plan — confirmed **Hobby** (free), 2026-08-12
+
+Three consequences worth recording:
+
+1. **Fair use.** Vercel's Hobby tier is for **non-commercial, personal use**. This site sells training,
+   which is commercial use. Rarely enforced, but it is a real term of the plan — Jordan should hear it
+   from his developer rather than from Vercel. **Pro is $20/month** and resolves it cleanly.
+2. **No team members.** Hobby cannot add team members at all — which independently confirms the access
+   split: Jordan is sole owner on Vercel, the developer takes nothing, and deploys run automatically
+   from GitHub `main`.
+3. **Limits pause, they don't bill.** If usage ever exceeds Hobby limits, Vercel **pauses the
+   deployment** rather than charging overage. That would look like an unexplained outage rather than
+   an invoice — worth knowing so it isn't a mystery later.
 
 ---
 
